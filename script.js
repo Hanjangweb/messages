@@ -75,7 +75,27 @@ document.addEventListener('DOMContentLoaded', () => {
             successMsg: 'Soulmates in friendship! So happy! ✨',
             actionTitle: "BFF Bucket List!",
             actionSubtitle: 'Our first adventure starts here...',
-            sectionId: 'friends-content' // Sharing the same section for now
+            sectionId: 'friends-content'
+        },
+        brother: {
+            icon: 'fa-fist-raised',
+            color: 'text-primary',
+            question: 'Will you be my best brother?',
+            successTitle: 'Brothers 4 Life! 👊',
+            successMsg: 'Always there to protect and support! ✨',
+            actionTitle: "Bro-venture Time!",
+            actionSubtitle: "What's our first mission?",
+            sectionId: 'friends-content'
+        },
+        sister: {
+            icon: 'fa-heart-circle-check',
+            color: 'text-danger',
+            question: 'Will you be my best sister?',
+            successTitle: 'Sisters Forever! 💖👯‍♀️',
+            successMsg: 'My partner in crime and best friend! ✨',
+            actionTitle: "Sister Goals!",
+            actionSubtitle: 'What should we do first?',
+            sectionId: 'friends-content'
         }
     };
 
