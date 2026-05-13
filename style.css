@@ -369,7 +369,31 @@ body {
     }
 }
 
+/* WhatsApp Button Styling */
+#whatsapp-btn {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+}
+
+#whatsapp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+    filter: brightness(1.1);
+}
+
 /* Day Buttons */
+.day-btn {
+    transition: all 0.3s ease;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.day-btn.active {
+    background: var(--primary-gradient);
+    border-color: transparent;
+    box-shadow: 0 5px 15px rgba(255, 0, 128, 0.3);
+}
 
 /* Custom Toast */
 .custom-toast {

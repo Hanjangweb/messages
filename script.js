@@ -310,6 +310,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 4.5 WhatsApp Integration
+    const whatsappBtn = document.getElementById('whatsapp-btn');
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', () => {
+            const phoneNumber = "917357969038";
+            const typeEmoji = {
+                date: '🌹',
+                marry: '💍',
+                friends: '🤝',
+                besties: '✨',
+                brother: '👊',
+                sister: '💖'
+            };
+
+            const emoji = typeEmoji[currentType] || '❤️';
+            const message = `Hey! I've decided... ${emoji}\n\nI want to go for *${selectedType}* on *${selectedDay}*! ${emoji}\n\n(Sent from the Proposal App)`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        });
+    }
+
     // 5. Confetti Effect
     const triggerConfetti = () => {
         const duration = 15 * 1000;
