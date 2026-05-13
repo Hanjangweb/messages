@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question for You | Proposal App</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-dark text-white">
+    
+    <div id="spark-container"></div>
+
+    <!-- Envelope Start Screen -->
+    <div id="envelope-screen" class="d-flex align-items-center justify-content-center min-vh-100">
+        <div class="envelope-wrapper" id="envelope-wrapper">
+            <div class="envelope">
+                <div class="flap"></div>
+                <div class="body"></div>
+                <div class="letter">
+                    <div class="text">You have a message! ❤️</div>
+                </div>
+            </div>
+            <div class="heart"></div>
+        </div>
+        <p class="envelope-hint">Click the heart to open</p>
+    </div>
+
+    <main class="container d-flex align-items-center justify-content-center min-vh-100 d-none" id="main-content">
+        <div class="proposal-card text-center p-5 shadow-lg" id="question-card">
+            <div class="icon-container mb-4">
+                <i class="fas fa-heart floating-heart text-danger"></i>
+            </div>
+            <h1 class="display-4 fw-bold mb-3 title-gradient">Hey! Can I ask you something?</h1>
+            <p class="lead mb-5 opacity-75">I've been thinking about this for a while...</p>
+            
+            <div class="question-content">
+                <h2 class="mb-5 playfair italic text-pink">Will you go out with me?</h2>
+                
+                <div class="d-flex justify-content-center gap-4 position-relative btn-container">
+                    <button id="yes-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover">
+                        YES! <i class="fas fa-smile-beam ms-2"></i>
+                    </button>
+                    <button id="no-btn" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold position-absolute no-btn-style">
+                        No <i class="fas fa-sad-tear ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Screen -->
+        <div class="proposal-card text-center p-5 shadow-lg d-none" id="success-card">
+            <div class="icon-container mb-4">
+                <i class="fas fa-heart fa-5x text-danger beat-animation"></i>
+            </div>
+            <h1 class="display-3 fw-bold mb-3 title-gradient">YAYYYYY! ❤️</h1>
+            <h2 class="mb-4 playfair">I knew you'd say yes!</h2>
+            <p class="lead mb-4 opacity-75">You just made my entire year. ✨</p>
+            <button id="plan-date-btn" class="btn btn-outline-pink rounded-pill px-4">Plan our date? <i class="fas fa-calendar-heart ms-2"></i></button>
+        </div>
+
+        <!-- Date Planning Screen (Hidden initially) -->
+        <div class="proposal-card text-center p-5 shadow-lg d-none" id="plan-card">
+            <h2 class="display-5 fw-bold mb-4 title-gradient">Let's Plan!</h2>
+            <p class="mb-4 opacity-75">Where should we go first?</p>
+            
+            <div class="row g-3 mb-5">
+                <div class="col-6 col-md-4">
+                    <div class="date-option p-3 rounded-4" data-type="Coffee">
+                        <i class="fas fa-coffee fa-2x mb-2"></i>
+                        <div>Coffee</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="date-option p-3 rounded-4" data-type="Dinner">
+                        <i class="fas fa-utensils fa-2x mb-2"></i>
+                        <div>Dinner</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="date-option p-3 rounded-4" data-type="Movie">
+                        <i class="fas fa-film fa-2x mb-2"></i>
+                        <div>Movie</div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="mb-3">Pick a Day</h4>
+            <div class="d-flex justify-content-center gap-2 mb-5 flex-wrap">
+                <button class="btn btn-sm btn-outline-light day-btn">Friday</button>
+                <button class="btn btn-sm btn-outline-light day-btn">Saturday</button>
+                <button class="btn btn-sm btn-outline-light day-btn">Sunday</button>
+            </div>
+
+            <button id="final-confirm-btn" class="btn btn-primary btn-lg px-5 rounded-pill w-100">Confirm Date! 🚀</button>
+        </div>
+    </main>
+
+    <!-- Canvas for Confetti -->
+    <canvas id="confetti-canvas" class="d-none"></canvas>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
