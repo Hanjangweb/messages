@@ -29,9 +29,90 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 1.5 Type Selection Adaptation
+    const typeBoxes = document.querySelectorAll('.type-box');
+    const typeSelectionCard = document.getElementById('type-selection-card');
+    const questionCard = document.getElementById('question-card');
+    const mainIcon = document.getElementById('main-icon');
+    const mainQuestionText = document.getElementById('main-question-text');
+
+    const config = {
+        date: {
+            icon: 'fa-calendar-heart',
+            color: 'text-pink',
+            question: 'Will you go out with me?',
+            successTitle: 'YAYYYYY! ❤️',
+            successMsg: 'You just made my entire year. ✨',
+            actionTitle: "Let's Plan!",
+            actionSubtitle: 'Where should we go first?',
+            sectionId: 'date-content'
+        },
+        marry: {
+            icon: 'fa-ring',
+            color: 'text-warning',
+            question: 'Will you marry me?',
+            successTitle: 'YES! ❤️💍',
+            successMsg: 'To a lifetime of love and happiness together! ✨',
+            actionTitle: "The Big Day!",
+            actionSubtitle: 'What should we dream of first?',
+            sectionId: 'marry-content'
+        },
+        friends: {
+            icon: 'fa-user-friends',
+            color: 'text-info',
+            question: 'Will you be my friend?',
+            successTitle: 'Awesome! 🤝',
+            successMsg: 'Life is better with friends like you! ✨',
+            actionTitle: "Hangout Time!",
+            actionSubtitle: 'What should we do first?',
+            sectionId: 'friends-content'
+        },
+        besties: {
+            icon: 'fa-sparkles',
+            color: 'text-purple',
+            question: 'Will you be my best friend?',
+            successTitle: 'BFFs Forever! ✨👯‍♀️',
+            successMsg: 'Soulmates in friendship! So happy! ✨',
+            actionTitle: "BFF Bucket List!",
+            actionSubtitle: 'Our first adventure starts here...',
+            sectionId: 'friends-content' // Sharing the same section for now
+        }
+    };
+
+    let currentType = 'date';
+
+    typeBoxes.forEach(box => {
+        box.addEventListener('click', () => {
+            currentType = box.dataset.type;
+            const data = config[currentType];
+
+            // Adapt the question card
+            mainIcon.className = `fas ${data.icon} floating-heart ${data.color}`;
+            mainQuestionText.innerText = data.question;
+            mainQuestionText.className = `mb-5 playfair italic ${data.color}`;
+
+            // Adapt the success card (prepare it)
+            document.getElementById('success-title').innerText = data.successTitle;
+            document.getElementById('success-msg').innerText = data.successMsg;
+            document.getElementById('success-icon').className = `fas ${data.icon} fa-5x ${data.color} beat-animation`;
+
+            // Transition
+            typeSelectionCard.classList.add('animate__animated', 'animate__fadeOutLeft');
+            setTimeout(() => {
+                typeSelectionCard.classList.add('d-none');
+                typeSelectionCard.classList.remove('animate__animated', 'animate__fadeOutLeft'); // Cleanup
+                questionCard.classList.remove('d-none');
+                questionCard.classList.add('animate__animated', 'animate__fadeInRight');
+                
+                setTimeout(() => {
+                    questionCard.classList.remove('animate__animated', 'animate__fadeInRight');
+                }, 500);
+            }, 500);
+        });
+    });
+
     const noBtn = document.getElementById('no-btn');
     const yesBtn = document.getElementById('yes-btn');
-    const questionCard = document.getElementById('question-card');
     const successCard = document.getElementById('success-card');
     const sparkContainer = document.getElementById('spark-container');
 
@@ -98,6 +179,15 @@ document.addEventListener('DOMContentLoaded', () => {
             questionCard.classList.add('d-none');
             successCard.classList.remove('d-none');
             triggerConfetti();
+
+            // Prepare the action card for later
+            const data = config[currentType];
+            document.getElementById('action-title').innerText = data.actionTitle;
+            document.getElementById('action-subtitle').innerText = data.actionSubtitle;
+            
+            // Show only relevant section
+            document.querySelectorAll('.action-section').forEach(s => s.classList.add('d-none'));
+            document.getElementById(data.sectionId).classList.remove('d-none');
         });
     }
 
@@ -109,6 +199,46 @@ document.addEventListener('DOMContentLoaded', () => {
         planDateBtn.addEventListener('click', () => {
             successCard.classList.add('d-none');
             planCard.classList.remove('d-none');
+        });
+    }
+
+    // 3.5 Back Buttons Logic
+    const backToType = document.getElementById('back-to-type');
+    const backToSuccess = document.getElementById('back-to-success');
+    const backToQuestion = document.getElementById('back-to-question');
+
+    if (backToType) {
+        backToType.addEventListener('click', () => {
+            // Clean up question card
+            questionCard.classList.add('animate__animated', 'animate__fadeOutRight');
+            
+            setTimeout(() => {
+                questionCard.classList.add('d-none');
+                questionCard.classList.remove('animate__animated', 'animate__fadeOutRight');
+                
+                // Prepare and show type selection card
+                typeSelectionCard.classList.remove('d-none', 'animate__fadeOutLeft'); // Remove previous fade out
+                typeSelectionCard.classList.add('animate__animated', 'animate__fadeInLeft');
+                
+                // Cleanup fadeIn class after it's done
+                setTimeout(() => {
+                    typeSelectionCard.classList.remove('animate__animated', 'animate__fadeInLeft');
+                }, 500);
+            }, 500);
+        });
+    }
+
+    if (backToSuccess) {
+        backToSuccess.addEventListener('click', () => {
+            planCard.classList.add('d-none');
+            successCard.classList.remove('d-none');
+        });
+    }
+
+    if (backToQuestion) {
+        backToQuestion.addEventListener('click', () => {
+            successCard.classList.add('d-none');
+            questionCard.classList.remove('d-none');
         });
     }
 
@@ -135,6 +265,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const finalBtn = document.getElementById('final-confirm-btn');
+    const finalCard = document.getElementById('final-card');
+    const finalSummaryText = document.getElementById('final-summary-text');
+
     if (finalBtn) {
         finalBtn.addEventListener('click', () => {
             if(!selectedType || !selectedDay) {
@@ -142,10 +275,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            finalBtn.innerHTML = "It's a Date! ❤️";
-            finalBtn.disabled = true;
-            showToast(`Can't wait for our ${selectedType} date on ${selectedDay}!`);
-            triggerConfetti();
+            // Set summary text
+            finalSummaryText.innerText = `${selectedType} on ${selectedDay}`;
+
+            // Transition to final card
+            planCard.classList.add('animate__animated', 'animate__zoomOut');
+            setTimeout(() => {
+                planCard.classList.add('d-none');
+                finalCard.classList.remove('d-none');
+                finalCard.classList.add('animate__animated', 'animate__zoomIn');
+                triggerConfetti();
+                showToast("Locked in! ❤️");
+            }, 500);
         });
     }
 

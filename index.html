@@ -35,15 +35,50 @@
     </div>
 
     <main class="container d-flex align-items-center justify-content-center min-vh-100 d-none" id="main-content">
-        <div class="proposal-card text-center p-5 shadow-lg" id="question-card">
-            <div class="icon-container mb-4">
-                <i class="fas fa-heart floating-heart text-danger"></i>
+        <!-- Step 1: Type Selection -->
+        <div class="proposal-card text-center p-5 shadow-lg" id="type-selection-card">
+            <h2 class="display-6 fw-bold mb-4 title-gradient">What's on your mind?</h2>
+            <p class="mb-5 opacity-75">Select the path you want to take...</p>
+            
+            <div class="row g-4">
+                <div class="col-6">
+                    <div class="type-box p-4 rounded-4" data-type="date">
+                        <i class="fas fa-calendar-heart fa-2x mb-2 text-pink"></i>
+                        <div class="fw-bold">A Date</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="type-box p-4 rounded-4" data-type="marry">
+                        <i class="fas fa-ring fa-2x mb-2 text-warning"></i>
+                        <div class="fw-bold">Marriage</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="type-box p-4 rounded-4" data-type="friends">
+                        <i class="fas fa-user-friends fa-2x mb-2 text-info"></i>
+                        <div class="fw-bold">Friends</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="type-box p-4 rounded-4" data-type="besties">
+                        <i class="fas fa-sparkles fa-2x mb-2 text-purple"></i>
+                        <div class="fw-bold">Besties</div>
+                    </div>
+                </div>
             </div>
-            <h1 class="display-4 fw-bold mb-3 title-gradient">Hey! Can I ask you something?</h1>
-            <p class="lead mb-5 opacity-75">I've been thinking about this for a while...</p>
+        </div>
+
+        <!-- Step 2: The Main Question (Initially Hidden) -->
+        <div class="proposal-card text-center p-5 shadow-lg d-none" id="question-card">
+            <button class="back-btn" id="back-to-type"><i class="fas fa-chevron-left me-2"></i> Back</button>
+            <div class="icon-container mb-4">
+                <i class="fas fa-heart floating-heart text-danger" id="main-icon"></i>
+            </div>
+            <h1 class="display-4 fw-bold mb-3 title-gradient" id="greeting-text">Hey! Can I ask you something?</h1>
+            <p class="lead mb-5 opacity-75" id="sub-greeting">I've been thinking about this for a while...</p>
             
             <div class="question-content">
-                <h2 class="mb-5 playfair italic text-pink">Will you go out with me?</h2>
+                <h2 class="mb-5 playfair italic text-pink" id="main-question-text">Will you go out with me?</h2>
                 
                 <div class="d-flex justify-content-center gap-4 position-relative btn-container">
                     <button id="yes-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover">
@@ -58,49 +93,118 @@
 
         <!-- Success Screen -->
         <div class="proposal-card text-center p-5 shadow-lg d-none" id="success-card">
+            <button class="back-btn" id="back-to-question"><i class="fas fa-chevron-left me-2"></i> Back</button>
             <div class="icon-container mb-4">
-                <i class="fas fa-heart fa-5x text-danger beat-animation"></i>
+                <i class="fas fa-heart fa-5x text-danger beat-animation" id="success-icon"></i>
             </div>
-            <h1 class="display-3 fw-bold mb-3 title-gradient">YAYYYYY! ❤️</h1>
-            <h2 class="mb-4 playfair">I knew you'd say yes!</h2>
-            <p class="lead mb-4 opacity-75">You just made my entire year. ✨</p>
-            <button id="plan-date-btn" class="btn btn-outline-pink rounded-pill px-4">Plan our date? <i class="fas fa-calendar-heart ms-2"></i></button>
+            <h1 class="display-3 fw-bold mb-3 title-gradient" id="success-title">YAYYYYY! ❤️</h1>
+            <h2 class="mb-4 playfair" id="success-subtitle">I knew you'd say yes!</h2>
+            <p class="lead mb-4 opacity-75" id="success-msg">You just made my entire year. ✨</p>
+            <button id="plan-date-btn" class="btn btn-outline-pink rounded-pill px-4">What's Next? <i class="fas fa-magic ms-2"></i></button>
         </div>
 
-        <!-- Date Planning Screen (Hidden initially) -->
+        <!-- Dynamic Action Screen (Renamed from plan-card) -->
         <div class="proposal-card text-center p-5 shadow-lg d-none" id="plan-card">
-            <h2 class="display-5 fw-bold mb-4 title-gradient">Let's Plan!</h2>
-            <p class="mb-4 opacity-75">Where should we go first?</p>
+            <button class="back-btn" id="back-to-success"><i class="fas fa-chevron-left me-2"></i> Back</button>
+            <h2 class="display-5 fw-bold mb-4 title-gradient" id="action-title">Let's Plan!</h2>
+            <p class="mb-4 opacity-75" id="action-subtitle">Where should we go first?</p>
             
-            <div class="row g-3 mb-5">
-                <div class="col-6 col-md-4">
-                    <div class="date-option p-3 rounded-4" data-type="Coffee">
-                        <i class="fas fa-coffee fa-2x mb-2"></i>
-                        <div>Coffee</div>
+            <div id="category-specific-content">
+                <!-- Date Content (Default) -->
+                <div id="date-content" class="action-section">
+                    <div class="row g-3 mb-5">
+                        <div class="col-6 col-md-4">
+                            <div class="date-option p-3 rounded-4" data-type="Coffee">
+                                <i class="fas fa-coffee fa-2x mb-2"></i>
+                                <div>Coffee</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="date-option p-3 rounded-4" data-type="Dinner">
+                                <i class="fas fa-utensils fa-2x mb-2"></i>
+                                <div>Dinner</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="date-option p-3 rounded-4" data-type="Movie">
+                                <i class="fas fa-film fa-2x mb-2"></i>
+                                <div>Movie</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
-                    <div class="date-option p-3 rounded-4" data-type="Dinner">
-                        <i class="fas fa-utensils fa-2x mb-2"></i>
-                        <div>Dinner</div>
+
+                <!-- Marry Content -->
+                <div id="marry-content" class="action-section d-none">
+                    <div class="row g-3 mb-5">
+                        <div class="col-6">
+                            <div class="date-option p-3 rounded-4" data-type="Dream Wedding">
+                                <i class="fas fa-church fa-2x mb-2"></i>
+                                <div>Wedding</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="date-option p-3 rounded-4" data-type="Honeymoon">
+                                <i class="fas fa-plane-departure fa-2x mb-2"></i>
+                                <div>Honeymoon</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
-                    <div class="date-option p-3 rounded-4" data-type="Movie">
-                        <i class="fas fa-film fa-2x mb-2"></i>
-                        <div>Movie</div>
+
+                <!-- Friends/Besties Content -->
+                <div id="friends-content" class="action-section d-none">
+                    <div class="row g-3 mb-5">
+                        <div class="col-6 col-md-4">
+                            <div class="date-option p-3 rounded-4" data-type="Gaming">
+                                <i class="fas fa-gamepad fa-2x mb-2"></i>
+                                <div>Gaming</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="date-option p-3 rounded-4" data-type="Road Trip">
+                                <i class="fas fa-car fa-2x mb-2"></i>
+                                <div>Trip</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="date-option p-3 rounded-4" data-type="Pizza Night">
+                                <i class="fas fa-pizza-slice fa-2x mb-2"></i>
+                                <div>Pizza</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <h4 class="mb-3">Pick a Day</h4>
+            <h4 class="mb-3" id="day-title">Pick a Day</h4>
             <div class="d-flex justify-content-center gap-2 mb-5 flex-wrap">
                 <button class="btn btn-sm btn-outline-light day-btn">Friday</button>
                 <button class="btn btn-sm btn-outline-light day-btn">Saturday</button>
                 <button class="btn btn-sm btn-outline-light day-btn">Sunday</button>
             </div>
 
-            <button id="final-confirm-btn" class="btn btn-primary btn-lg px-5 rounded-pill w-100">Confirm Date! 🚀</button>
+            <button id="final-confirm-btn" class="btn btn-primary btn-lg px-5 rounded-pill w-100">Lock it in! 🚀</button>
+        </div>
+
+        <!-- Final "It's a Date" Screen (Hidden initially) -->
+        <div class="proposal-card text-center p-5 shadow-lg d-none" id="final-card">
+            <div class="icon-container mb-4">
+                <div class="final-heart-burst">
+                    <i class="fas fa-heart text-danger fa-4x"></i>
+                    <i class="fas fa-heart text-danger fa-2x heart-mini m1"></i>
+                    <i class="fas fa-heart text-danger fa-2x heart-mini m2"></i>
+                    <i class="fas fa-heart text-danger fa-2x heart-mini m3"></i>
+                </div>
+            </div>
+            <h1 class="display-3 fw-bold mb-3 title-gradient">It's Official!</h1>
+            <div class="summary-box p-4 rounded-4 mb-4 bg-glass-dark">
+                <h3 class="playfair italic" id="final-summary-text">A Dream Wedding on Saturday</h3>
+            </div>
+            <p class="lead opacity-75 mb-0">Can't wait to see you! ✨</p>
+            <div class="mt-5">
+                <button class="btn btn-sm btn-outline-light rounded-pill opacity-50" onclick="location.reload()">Restart Experience</button>
+            </div>
         </div>
     </main>
 
