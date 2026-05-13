@@ -310,27 +310,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4.5 WhatsApp Integration
-    const whatsappBtn = document.getElementById('whatsapp-btn');
-    if (whatsappBtn) {
-        whatsappBtn.addEventListener('click', () => {
-            const phoneNumber = "917357969038";
-            const typeEmoji = {
-                date: '🌹',
-                marry: '💍',
-                friends: '🤝',
-                besties: '✨',
-                brother: '👊',
-                sister: '💖'
+    // 4.5 Email Integration (via Formspree)
+    const emailBtn = document.getElementById('email-btn');
+    if (emailBtn) {
+        emailBtn.addEventListener('click', async () => {
+            const email = "omitterang@gmail.com";
+            const originalText = emailBtn.innerHTML;
+            
+            // Show loading state
+            emailBtn.disabled = true;
+            emailBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Sending...';
+
+            const responseData = {
+                category: currentType,
+                choice: selectedType,
+                day: selectedDay,
+                message: `I've decided to go for ${selectedType} on ${selectedDay}! ❤️`
             };
 
-            const emoji = typeEmoji[currentType] || '❤️';
-            const message = `Hey! I've decided... ${emoji}\n\nI want to go for *${selectedType}* on *${selectedDay}*! ${emoji}\n\n(Sent from the Proposal App)`;
-            
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-            
-            window.open(whatsappUrl, '_blank');
+            try {
+                const response = await fetch(`https://formspree.io/f/xjkkvqlg`, { // Using a generic placeholder or the email
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: "visitor@proposalapp.com",
+                        message: `NEW RESPONSE! \nCategory: ${currentType}\nChoice: ${selectedType}\nDay: ${selectedDay}`,
+                        _subject: `New Proposal Response: ${selectedType} on ${selectedDay}!`
+                    })
+                });
+
+                if (response.ok) {
+                    showToast("Response sent successfully! ❤️");
+                    emailBtn.innerHTML = '<i class="fas fa-check me-2"></i> Sent!';
+                    emailBtn.classList.remove('btn-primary');
+                    emailBtn.classList.add('btn-success');
+                } else {
+                    throw new Error('Failed to send');
+                }
+            } catch (error) {
+                // Fallback to mailto if Formspree fails or isn't set up yet
+                showToast("Opening your email app... ✉️");
+                const subject = encodeURIComponent(`I Said Yes! - ${selectedType}`);
+                const body = encodeURIComponent(`Hey! I've decided...\n\nI want to go for ${selectedType} on ${selectedDay}! ❤️`);
+                window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+                
+                // Reset button
+                emailBtn.disabled = false;
+                emailBtn.innerHTML = originalText;
+            }
         });
     }
 

@@ -369,17 +369,17 @@ body {
     }
 }
 
-/* WhatsApp Button Styling */
-#whatsapp-btn {
-    background: linear-gradient(135deg, #25d366, #128c7e);
+/* Email Button Styling */
+#email-btn {
+    background: var(--primary-gradient);
     border: none;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+    box-shadow: 0 10px 20px rgba(121, 40, 202, 0.2);
 }
 
-#whatsapp-btn:hover {
+#email-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+    box-shadow: 0 15px 30px rgba(121, 40, 202, 0.4);
     filter: brightness(1.1);
 }
 
