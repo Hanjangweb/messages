@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const config = {
         date: {
-            icon: 'fa-calendar-heart',
+            icon: 'fa-calendar-day',
             color: 'text-pink',
             question: 'Will you go out with me?',
             successTitle: 'YAYYYYY! ❤️',
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sectionId: 'friends-content'
         },
         besties: {
-            icon: 'fa-sparkles',
+            icon: 'fa-wand-magic-sparkles',
             color: 'text-purple',
             question: 'Will you be my best friend?',
             successTitle: 'BFFs Forever! ✨👯‍♀️',
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sectionId: 'friends-content'
         },
         brother: {
-            icon: 'fa-fist-raised',
+            icon: 'fa-hand-fist',
             color: 'text-primary',
             question: 'Will you be my best brother?',
             successTitle: 'Brothers 4 Life! 👊',
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sectionId: 'friends-content'
         },
         sister: {
-            icon: 'fa-heart-circle-check',
+            icon: 'fa-face-smile-wink',
             color: 'text-danger',
             question: 'Will you be my best sister?',
             successTitle: 'Sisters Forever! 💖👯‍♀️',
