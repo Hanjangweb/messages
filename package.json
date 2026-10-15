@@ -1,0 +1,28 @@
+{
+  "name": "proposal_app",
+  "version": "1.0.0",
+  "description": "Private Birthday & Proposal Experience dedicated to Sengve Rongpharpi",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hanjangweb/messages.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Hanjangweb/messages/issues"
+  },
+  "homepage": "https://github.com/Hanjangweb/messages#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "mongoose": "^9.11.2"
+  }
+}

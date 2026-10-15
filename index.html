@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday & A Special Question ❤️ | Chandigarh ✈️ Diphu</title>
+    <title>For Sengve Rongpharpi ❤️ | Birthday & Proposal</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Dancing+Script:wght@700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Animate.css -->
@@ -18,9 +18,9 @@
 </head>
 <body class="bg-dark text-white">
 
-    <!-- Background Stars & Sparkles -->
+    <!-- Cinematic Canvas & Sparkles -->
     <div id="spark-container"></div>
-    <div id="floating-hearts-container"></div>
+    <div id="glow-ambient"></div>
 
     <!-- Floating Audio BGM Player -->
     <div class="audio-controller-btn" id="music-toggle" title="Play / Pause Romantic Music">
@@ -30,6 +30,11 @@
         </span>
     </div>
 
+    <!-- Top Admin Quick Access Trigger -->
+    <button id="admin-modal-trigger" class="admin-quick-btn" title="Admin Dashboard">
+        <i class="fas fa-shield-halved"></i>
+    </button>
+
     <!-- Long Distance Top Live Indicator -->
     <header class="distance-header" id="distance-header">
         <div class="distance-pill">
@@ -38,15 +43,55 @@
                 <i class="fas fa-plane flight-icon"></i>
                 <span class="dotted-line"></span>
             </span>
-            <span class="city-badge"><i class="fas fa-heart text-pink"></i> Diphu, Assam</span>
-            <span class="km-tag">~2,248 km with Love</span>
+            <span class="city-badge"><i class="fas fa-crown text-gold"></i> Diphu, Assam</span>
+            <span class="km-tag">~2,248 km to Sengve</span>
         </div>
     </header>
 
-    <!-- ================= STAGE 0: Sealed Birthday & Proposal Envelope ================= -->
-    <section id="envelope-screen" class="d-flex flex-column align-items-center justify-content-center min-vh-100">
+    <!-- ================= STAGE 0: PRIVATE VIP GATEKEEPER SCREEN ================= -->
+    <section id="auth-screen" class="d-flex align-items-center justify-content-center min-vh-100 px-3">
+        <div class="proposal-card auth-card text-center p-4 p-md-5 shadow-2xl animate__animated animate__fadeIn">
+            <div class="security-crest mb-3">
+                <div class="crest-ring">
+                    <i class="fas fa-lock text-gold"></i>
+                </div>
+            </div>
+
+            <div class="vip-exclusive-badge mb-3">
+                <i class="fas fa-gem text-pink me-1"></i> Strictly Private Access
+            </div>
+
+            <h1 class="display-6 fw-bold mb-2 title-gold cinzel">Dedicated Exclusively to</h1>
+            <h2 class="display-5 fw-bold mb-3 title-gradient playfair italic">Sengve Rongpharpi</h2>
+            
+            <p class="opacity-75 small mb-4">
+                This experience is private and protected. Only Sengve Rongpharpi or the verified Admin may enter.
+            </p>
+
+            <form id="auth-form" class="auth-input-wrapper mb-3">
+                <div class="input-glass-group mb-3">
+                    <i class="fas fa-key group-icon"></i>
+                    <input type="password" id="passkey-input" class="form-control glass-input" placeholder="Enter VIP passcode or your name..." autocomplete="off">
+                </div>
+                <button type="submit" id="unlock-btn" class="btn btn-primary btn-lg w-100 py-3 rounded-pill fw-bold glow-on-hover">
+                    Unlock Experience <i class="fas fa-sparkles ms-2"></i>
+                </button>
+            </form>
+
+            <div id="auth-error" class="auth-error-msg d-none animate__animated animate__shakeX">
+                <i class="fas fa-triangle-exclamation me-1"></i> Access Denied. Reserved strictly for Sengve.
+            </div>
+
+            <div class="hint-tag opacity-40 small mt-3">
+                <i class="fas fa-circle-info me-1"></i> Hint: Sengve can enter her name or birthday code (1910)
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= STAGE 1: Sealed Birthday Envelope ================= -->
+    <section id="envelope-screen" class="d-flex flex-column align-items-center justify-content-center min-vh-100 d-none">
         <div class="envelope-badge mb-4 animate__animated animate__fadeInDown">
-            <i class="fas fa-gift text-pink me-2"></i> Special Birthday Delivery to Diphu, Assam
+            <i class="fas fa-heart text-pink me-2"></i> Priority Delivery to Diphu for Sengve Rongpharpi
         </div>
 
         <div class="envelope-wrapper" id="envelope-wrapper">
@@ -55,8 +100,8 @@
                 <div class="body"></div>
                 <div class="letter">
                     <div class="text">
-                        <span class="special-tag">Oct 19 Birthday Edition 🎂</span>
-                        <div class="fw-bold mt-1">A Birthday Wish & A Secret Question Inside...</div>
+                        <span class="special-tag">Oct 19 • For Sengve 🎂</span>
+                        <div class="fw-bold mt-1">A Birthday Surprise & A Question Inside...</div>
                     </div>
                 </div>
             </div>
@@ -66,7 +111,7 @@
         </div>
         
         <p class="envelope-hint animate__animated animate__pulse animate__infinite">
-            <i class="fas fa-hand-pointer me-1"></i> Tap the heart seal to open your surprise
+            <i class="fas fa-hand-pointer me-1"></i> Tap the heart seal to begin, Sengve
         </p>
     </section>
 
@@ -79,8 +124,8 @@
                 <i class="fas fa-calendar-check me-2 text-warning"></i> Special Day: 19th October
             </div>
             
-            <h1 class="display-5 fw-bold mb-2 title-gradient">Happy Birthday, Gorgeous! 🎂</h1>
-            <p class="lead opacity-75 mb-4">Counting down to the most special day for the most special girl in my world.</p>
+            <h1 class="display-5 fw-bold mb-2 title-gradient">Happy Birthday, Sengve! 🎂</h1>
+            <p class="lead opacity-75 mb-4">Counting down to the most special day for the most wonderful girl in my life.</p>
 
             <!-- Countdown Timer Box -->
             <div class="countdown-grid mb-4">
@@ -104,7 +149,7 @@
 
             <div class="special-distance-quote p-3 rounded-4 mb-4 bg-glass-dark">
                 <i class="fas fa-quote-left text-pink opacity-50 me-2"></i>
-                <span class="playfair italic">"I'm here in Chandigarh, and you're in Diphu, Assam... but being 2,248 km away made me realize you're the only one I ever want."</span>
+                <span class="playfair italic">"I'm here in Chandigarh, and you're in Diphu, Assam... but Sengve, being 2,248 km away only made me realize you're the one I want forever."</span>
                 <i class="fas fa-quote-right text-pink opacity-50 ms-2"></i>
             </div>
 
@@ -116,10 +161,10 @@
         <!-- CARD 2: Interactive Birthday Cake & Candle Blow -->
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="cake-card">
             <div class="icon-container mb-2">
-                <span class="badge bg-pink-glass px-3 py-2 rounded-pill mb-2">First, Let's Celebrate You 🕯️</span>
+                <span class="badge bg-pink-glass px-3 py-2 rounded-pill mb-2">For Sengve Rongpharpi 🕯️</span>
             </div>
-            <h2 class="display-6 fw-bold mb-2 title-gradient">Blow Out Your Candles! 🎂</h2>
-            <p class="opacity-75 mb-4" id="cake-instruction">Make a secret wish and tap each candle to blow it out!</p>
+            <h2 class="display-6 fw-bold mb-2 title-gradient">Blow Out Your Candles, Sengve! 🎂</h2>
+            <p class="opacity-75 mb-4" id="cake-instruction">Make a secret wish and tap each candle flame to extinguish it!</p>
 
             <!-- Virtual 3D Cake -->
             <div class="cake-stage mb-4">
@@ -142,7 +187,7 @@
                         <div class="icing-drips">
                             <span></span><span></span><span></span><span></span><span></span>
                         </div>
-                        <span class="cake-text">Happy Birthday!</span>
+                        <span class="cake-text">Happy Birthday Sengve!</span>
                     </div>
                     <div class="cake-layer layer-bottom"></div>
                     <div class="cake-plate"></div>
@@ -173,7 +218,7 @@
                             <i class="fas fa-laptop-code"></i>
                         </div>
                         <div class="fw-bold mt-2">Chandigarh</div>
-                        <small class="opacity-50">Missing you with every breath</small>
+                        <small class="opacity-50">Missing Sengve every second</small>
                     </div>
 
                     <div class="journey-track flex-grow-1 mx-3 position-relative">
@@ -186,16 +231,16 @@
 
                     <div class="city-node text-end">
                         <div class="city-circle bg-pink-glow">
-                            <i class="fas fa-crown"></i>
+                            <i class="fas fa-crown text-gold"></i>
                         </div>
                         <div class="fw-bold mt-2">Diphu, Assam</div>
-                        <small class="opacity-50">The Girl Who Has My Heart</small>
+                        <small class="opacity-50">Sengve Rongpharpi</small>
                     </div>
                 </div>
 
                 <div class="distance-quote-box p-3 rounded-3 mt-3">
                     <p class="m-0 small italic playfair">
-                        "They say distance makes the heart grow fonder, but with you, every single mile between Chandigarh and Diphu made me realize I don't ever want to live a day without you."
+                        "They say distance separates bodies, not hearts. Sengve, every mile between Chandigarh and Diphu made it crystal clear that my heart belongs completely to you."
                     </p>
                 </div>
             </div>
@@ -205,7 +250,7 @@
             </button>
         </div>
 
-        <!-- CARD 4: What Made Me Fall For You (Polaroid Gallery) -->
+        <!-- CARD 4: What Made Me Fall For Sengve (Polaroid Gallery) -->
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="memories-card">
             <button class="back-btn" data-target="map-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
@@ -221,7 +266,7 @@
                             </div>
                         </div>
                         <div class="polaroid-caption" id="polaroid-caption-text">
-                            "The effortless way your smile instantly lights up my entire mood."
+                            "The effortless way your smile instantly lights up my entire mood, Sengve."
                         </div>
                     </div>
                 </div>
@@ -242,7 +287,7 @@
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="letters-card">
             <button class="back-btn" data-target="memories-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
-            <h2 class="display-6 fw-bold mb-2 title-gradient">Words From My Heart 💌</h2>
+            <h2 class="display-6 fw-bold mb-2 title-gradient">Letters Just For Sengve 💌</h2>
             <p class="opacity-75 mb-4">Tap any envelope to read what I've been waiting to tell you</p>
 
             <div class="row g-3 mb-4">
@@ -289,23 +334,23 @@
             </div>
 
             <button id="to-vouchers-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
-                Your Girlfriend Privileges 🎟️ <i class="fas fa-chevron-right ms-2"></i>
+                Sengve's Girlfriend Privileges 🎟️ <i class="fas fa-chevron-right ms-2"></i>
             </button>
         </div>
 
-        <!-- CARD 6: Girlfriend Privileges & Vouchers -->
+        <!-- CARD 6: Girlfriend Privileges & Vouchers (Direct DB Insert) -->
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="vouchers-card">
             <button class="back-btn" data-target="letters-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
-            <h2 class="display-6 fw-bold mb-2 title-gradient">Exclusive Privileges 🎟️</h2>
-            <p class="opacity-75 mb-4">Perks reserved only for the girl who says YES to me</p>
+            <h2 class="display-6 fw-bold mb-2 title-gradient">Sengve's Privileges 🎟️</h2>
+            <p class="opacity-75 mb-4">Tap to claim any voucher — each one is recorded directly into our database!</p>
 
             <div class="vouchers-list mb-4">
                 <!-- Voucher 1 -->
                 <div class="voucher-card p-3 rounded-4 mb-3 d-flex justify-content-between align-items-center">
                     <div class="text-start">
                         <div class="fw-bold"><i class="fas fa-utensils text-warning me-2"></i> Our Very First Official Date</div>
-                        <small class="opacity-60">The sweetest restaurant, flowers, and me treating you like a queen.</small>
+                        <small class="opacity-60">The sweetest restaurant, flowers, and me treating you like a queen in Diphu.</small>
                     </div>
                     <button class="btn btn-sm btn-outline-pink claim-btn" data-voucher="Our Very First Official Date">Claim</button>
                 </div>
@@ -314,7 +359,7 @@
                 <div class="voucher-card p-3 rounded-4 mb-3 d-flex justify-content-between align-items-center">
                     <div class="text-start">
                         <div class="fw-bold"><i class="fas fa-pizza-slice text-pink me-2"></i> Midnight Cravings Sent to Diphu</div>
-                        <small class="opacity-60">Whatever food or dessert you crave, ordered straight to your door!</small>
+                        <small class="opacity-60">Any food or dessert you crave, ordered straight to your door!</small>
                     </div>
                     <button class="btn btn-sm btn-outline-pink claim-btn" data-voucher="Midnight Food Delivery in Diphu">Claim</button>
                 </div>
@@ -323,7 +368,7 @@
                 <div class="voucher-card p-3 rounded-4 mb-3 d-flex justify-content-between align-items-center">
                     <div class="text-start">
                         <div class="fw-bold"><i class="fas fa-video text-info me-2"></i> Unlimited Late-Night Video Calls</div>
-                        <small class="opacity-60">Whenever you miss me or can't sleep, I'm just a ring away.</small>
+                        <small class="opacity-60">Zero sleep, 100% undivided attention whenever you need me.</small>
                     </div>
                     <button class="btn btn-sm btn-outline-pink claim-btn" data-voucher="Unlimited Late-Night Calls">Claim</button>
                 </div>
@@ -331,10 +376,10 @@
                 <!-- Voucher 4 -->
                 <div class="voucher-card p-3 rounded-4 mb-3 d-flex justify-content-between align-items-center">
                     <div class="text-start">
-                        <div class="fw-bold"><i class="fas fa-crown text-warning me-2"></i> "You Win Every Argument" Pass</div>
+                        <div class="fw-bold"><i class="fas fa-crown text-warning me-2"></i> "Sengve Wins Every Argument" Pass</div>
                         <small class="opacity-60">Golden card — valid anytime with zero objections from me!</small>
                     </div>
-                    <button class="btn btn-sm btn-outline-pink claim-btn" data-voucher="You Win Every Argument Pass">Claim</button>
+                    <button class="btn btn-sm btn-outline-pink claim-btn" data-voucher="Sengve Wins Every Argument Pass">Claim</button>
                 </div>
             </div>
 
@@ -343,7 +388,7 @@
             </button>
         </div>
 
-        <!-- CARD 7: THE OFFICIAL PROPOSAL (Will you be my girlfriend?) -->
+        <!-- CARD 7: THE OFFICIAL PROPOSAL (Will you be my girlfriend, Sengve?) -->
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="question-card">
             <button class="back-btn" data-target="vouchers-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
@@ -353,12 +398,12 @@
             
             <h2 class="display-6 fw-bold mb-2 title-gradient">The Biggest Birthday Wish 💍✨</h2>
             <p class="lead opacity-75 mb-4">
-                I've kept this feeling inside my heart for so long... On your birthday, I have one question that means everything to me:
+                Sengve Rongpharpi, I've kept this feeling inside my heart for so long... On your birthday, I have one question that means everything to me:
             </p>
 
             <div class="question-content">
                 <h2 class="mb-5 playfair italic text-pink fw-bold" id="main-question-text">
-                    Will you be my girlfriend? ❤️
+                    Sengve, will you be my girlfriend? ❤️
                 </h2>
                 <p class="opacity-75 small mb-4">
                     Will you let me love you, care for you, and stand by you across any distance?
@@ -375,7 +420,7 @@
             </div>
         </div>
 
-        <!-- CARD 8: The Grand Celebration & Lock It In -->
+        <!-- CARD 8: The Grand Celebration (Direct MongoDB Lock-in) -->
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="final-card">
             <div class="icon-container mb-3">
                 <div class="final-heart-burst">
@@ -386,24 +431,25 @@
                 </div>
             </div>
 
-            <h1 class="display-4 fw-bold mb-2 title-gradient">SHE SAID YES! ❤️🎉</h1>
+            <h1 class="display-4 fw-bold mb-2 title-gradient">SENGVE SAID YES! ❤️🎉</h1>
             
             <div class="summary-box p-4 rounded-4 mb-4 bg-glass-dark">
                 <h4 class="playfair italic text-pink mb-2">You just made me the happiest person alive!</h4>
                 <p class="opacity-80 small mb-0">
-                    2,248 km between Chandigarh and Diphu, Assam just became 0 km between our hearts. Happy Birthday, my beautiful girlfriend!
+                    2,248 km between Chandigarh and Diphu, Assam is now 0 km between our hearts. Happy Birthday, my beautiful girlfriend, Sengve!
                 </p>
             </div>
 
-            <!-- Response via WhatsApp -->
-            <a id="whatsapp-reply-btn" href="#" target="_blank" class="btn btn-success btn-lg px-4 py-3 rounded-pill w-100 mb-3 fw-bold shadow-sm d-flex align-items-center justify-content-center">
-                <i class="fab fa-whatsapp fa-lg me-2"></i> Tell Him YES on WhatsApp! 💬
-            </a>
-
-            <!-- Response via Email -->
-            <button id="email-reply-btn" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill w-100 mb-3 fw-bold">
-                <i class="fas fa-envelope me-2"></i> Seal It via Email ✉️
-            </button>
+            <!-- Direct DB Confirmation Banner -->
+            <div class="db-sync-card p-3 rounded-4 mb-4 text-start">
+                <div class="d-flex align-items-center mb-2">
+                    <span class="status-dot-pulse me-2"></span>
+                    <strong class="text-success small"><i class="fas fa-database me-1"></i> Recorded in Private Database</strong>
+                </div>
+                <div class="small opacity-75">
+                    Your YES and all your claimed privileges have been permanently locked into the database for our future together. No messages needed — I've already received it! ❤️
+                </div>
+            </div>
 
             <div class="mt-4">
                 <button class="btn btn-sm btn-outline-pink rounded-pill px-4 opacity-75" onclick="location.reload()">
@@ -413,6 +459,59 @@
         </div>
 
     </main>
+
+    <!-- ================= ADMIN LIVE DASHBOARD MODAL ================= -->
+    <div id="admin-modal" class="admin-modal-overlay d-none">
+        <div class="admin-modal-content p-4 rounded-4 bg-dark-glass shadow-2xl">
+            <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2 border-secondary">
+                <h4 class="m-0 fw-bold title-gold"><i class="fas fa-shield-cat me-2"></i> Admin Live Monitor</h4>
+                <button id="close-admin-btn" class="btn btn-sm btn-outline-light rounded-circle">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-6">
+                    <div class="stat-box p-3 rounded-3 bg-glass-dark">
+                        <small class="opacity-50">Target User</small>
+                        <div class="fw-bold text-pink">Sengve Rongpharpi</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="stat-box p-3 rounded-3 bg-glass-dark">
+                        <small class="opacity-50">Proposal Status</small>
+                        <div class="fw-bold" id="admin-proposal-status">Loading...</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="stat-box p-3 rounded-3 bg-glass-dark">
+                        <small class="opacity-50">DB Connection</small>
+                        <div class="fw-bold" id="admin-db-status">Checking...</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="stat-box p-3 rounded-3 bg-glass-dark">
+                        <small class="opacity-50">Claimed Vouchers</small>
+                        <div class="fw-bold text-warning" id="admin-voucher-count">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <h6 class="fw-bold text-pink mb-2"><i class="fas fa-ticket me-1"></i> Vouchers Claimed by Sengve:</h6>
+            <div id="admin-vouchers-list" class="admin-log-box mb-3 p-2 rounded-3 bg-glass-dark">
+                <span class="opacity-50 small">No vouchers claimed yet.</span>
+            </div>
+
+            <h6 class="fw-bold text-info mb-2"><i class="fas fa-clock-rotate-left me-1"></i> Recent Live Activity Stream:</h6>
+            <div id="admin-events-list" class="admin-log-box p-2 rounded-3 bg-glass-dark">
+                <span class="opacity-50 small">Waiting for activity...</span>
+            </div>
+
+            <button id="refresh-admin-btn" class="btn btn-sm btn-outline-light w-100 mt-3 rounded-pill">
+                <i class="fas fa-rotate me-1"></i> Refresh Live Data
+            </button>
+        </div>
+    </div>
 
     <!-- Canvas for Confetti -->
     <canvas id="confetti-canvas" class="d-none"></canvas>
