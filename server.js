@@ -7,7 +7,7 @@ const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/proposal_app';
+const MONGODB_URI = process.env.MONGO_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/proposal_app';
 const ADMIN_PASS = (process.env.ADMIN_PASS || 'admin777').toLowerCase().trim();
 const VIP_PASS = (process.env.VIP_PASS || '1910').toLowerCase().trim();
 const TARGET_NAME = "Sengve Rongpharpi";
