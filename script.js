@@ -215,6 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 authScreen.classList.add('d-none');
                 envelopeScreen.classList.remove('d-none');
                 envelopeScreen.classList.add('animate__animated', 'animate__fadeIn');
+                window.scrollTo({ top: 0, behavior: 'instant' });
             }, 500);
 
             logDbEvent('VIP_GATE_OPENED_BY_SENGVE', { passkeyUsed: passkey });
@@ -600,6 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     envelopeScreen.classList.add('d-none');
                     mainContent.classList.remove('d-none');
                     mainContent.classList.add('animate__animated', 'animate__fadeIn');
+                    window.scrollTo({ top: 0, behavior: 'instant' });
                     triggerMiniConfetti();
                 }, 500);
             }, 1200);
@@ -658,7 +660,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         currentCard.classList.add('d-none');
         targetCard.classList.remove('d-none');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        targetCard.scrollTop = 0;
+        window.scrollTo({ top: 0, behavior: 'instant' });
 
         if (targetId === 'cake-card') {
             setTimeout(init3DCake, 60);
@@ -675,7 +678,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentCard && targetCard) {
                 currentCard.classList.add('d-none');
                 targetCard.classList.remove('d-none');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                targetCard.scrollTop = 0;
+                window.scrollTo({ top: 0, behavior: 'instant' });
 
                 if (targetId === 'cake-card') {
                     setTimeout(init3DCake, 60);

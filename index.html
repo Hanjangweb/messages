@@ -72,8 +72,8 @@
     </header>
 
     <!-- ================= STAGE 0: PRIVATE VIP GATEKEEPER SCREEN ================= -->
-    <section id="auth-screen" class="d-flex align-items-center justify-content-center min-vh-100 px-3">
-        <div class="proposal-card auth-card text-center p-4 p-md-5 shadow-2xl animate__animated animate__fadeIn">
+    <section id="auth-screen" class="full-screen-section px-3">
+        <div class="proposal-card auth-card text-center shadow-2xl animate__animated animate__fadeIn">
             <div class="security-crest mb-3">
                 <div class="crest-ring">
                     <i class="fas fa-lock text-gold"></i>
@@ -126,7 +126,7 @@
     </section>
 
     <!-- ================= STAGE 1: Sealed Birthday Envelope ================= -->
-    <section id="envelope-screen" class="d-flex flex-column align-items-center justify-content-center min-vh-100 d-none">
+    <section id="envelope-screen" class="full-screen-section d-none">
         <div class="envelope-badge mb-4 animate__animated animate__fadeInDown">
             <i class="fas fa-heart text-pink me-2"></i> Priority Delivery to Diphu for Sengve Rongpharpi
         </div>
@@ -153,10 +153,10 @@
     </section>
 
     <!-- ================= MAIN SURPRISE EXPERIENCE ================= -->
-    <main class="container d-flex align-items-center justify-content-center min-vh-100 d-none py-5" id="main-content">
+    <main class="full-screen-section container d-none" id="main-content">
         
         <!-- CARD 1: Birthday Countdown & Welcome Gate -->
-        <div class="proposal-card text-center p-4 p-md-5 shadow-lg" id="countdown-card">
+        <div class="proposal-card text-center shadow-lg" id="countdown-card">
             <div class="stamp-badge mb-3">
                 <i class="fas fa-calendar-check me-2 text-warning"></i> Special Day: 19th October
             </div>
@@ -196,7 +196,7 @@
         </div>
 
         <!-- CARD 2: Interactive 3D Birthday Cake & Candle Blow -->
-        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="cake-card">
+        <div class="proposal-card text-center shadow-lg d-none" id="cake-card">
             <div class="icon-container mb-2">
                 <span class="badge bg-pink-glass px-3 py-2 rounded-pill mb-2">✨ Sengve Rongpharpi • 26th Birthday 🎂</span>
             </div>
@@ -234,7 +234,7 @@
         </div>
 
         <!-- CARD 2.4: BIRTHDAY GIFT: A WARM TEDDY BEAR HUG (SHOW ONLY ONE) -->
-        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="teddy-card">
+        <div class="proposal-card text-center shadow-lg d-none" id="teddy-card">
             <button class="back-btn" data-target="cake-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
 
             <div class="stamp-badge mb-3">
@@ -274,7 +274,7 @@
         </div>
 
         <!-- CARD 2.5: BIRTHDAY GIFT: LUXURY HEART-SHAPED ROSE BOUQUET (SHOW ONLY ONE) -->
-        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="gift-card">
+        <div class="proposal-card text-center shadow-lg d-none" id="gift-card">
             <button class="back-btn" data-target="teddy-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
 
             <div class="stamp-badge mb-3">
@@ -323,7 +323,7 @@
         </div>
 
         <!-- CARD 3: Chandigarh to Diphu Distance & Realization -->
-        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="map-card">
+        <div class="proposal-card text-center shadow-lg d-none" id="map-card">
             <button class="back-btn" data-target="gift-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
             <h2 class="display-6 fw-bold mb-2 title-gradient">Across 2,248 Kilometers 🗺️</h2>
@@ -369,7 +369,7 @@
         </div>
 
         <!-- CARD 4: PERSONAL VIDEO MESSAGE (NEW!) -->
-        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="video-card">
+        <div class="proposal-card text-center shadow-lg d-none" id="video-card">
             <button class="back-btn" data-target="map-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
             <div class="stamp-badge mb-3">
@@ -414,7 +414,7 @@
         </div>
 
         <!-- CARD 5: PHOTO GALLERY / PHONE MEMORIES -->
-        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="memories-card">
+        <div class="proposal-card text-center shadow-lg d-none" id="memories-card">
             <button class="back-btn" data-target="video-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
             <div class="stamp-badge mb-2">
@@ -432,7 +432,7 @@
             </div>
 
             <!-- Gallery Grid with Clean Placeholders -->
-            <div class="row g-3 mb-4" id="photo-gallery-grid">
+            <div class="row g-2 mb-2" id="photo-gallery-grid">
                 <!-- Photo 1 -->
                 <div class="col-6">
                     <div class="gallery-photo-card p-2 rounded-3" data-photo="1" data-caption="The smile that captured my heart instantly, Sengve.">
@@ -488,7 +488,7 @@
         </div>
 
         <!-- CARD 6: "Open When..." Secret Letters -->
-        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="letters-card">
+        <div class="proposal-card text-center shadow-lg d-none" id="letters-card">
             <button class="back-btn" data-target="memories-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
             <h2 class="display-6 fw-bold mb-2 title-gradient">Letters Just For Sengve 💌</h2>
@@ -543,7 +543,7 @@
         </div>
 
         <!-- CARD 7: Girlfriend Privileges & Vouchers (Direct DB Insert) -->
-        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="vouchers-card">
+        <div class="proposal-card text-center shadow-lg d-none" id="vouchers-card">
             <button class="back-btn" data-target="letters-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
             <h2 class="display-6 fw-bold mb-2 title-gradient">Sengve's Privileges 🎟️</h2>
@@ -551,7 +551,7 @@
 
             <div class="vouchers-list mb-4">
                 <!-- Voucher 1 -->
-                <div class="voucher-card p-3 rounded-4 mb-3 d-flex justify-content-between align-items-center">
+                <div class="voucher-card p-2 rounded-3 mb-2 d-flex justify-content-between align-items-center">
                     <div class="text-start">
                         <div class="fw-bold"><i class="fas fa-utensils text-warning me-2"></i> Our Very First Official Date</div>
                         <small class="opacity-60">The sweetest restaurant, flowers, and me treating you like a queen in Diphu.</small>
@@ -560,7 +560,7 @@
                 </div>
 
                 <!-- Voucher 2 -->
-                <div class="voucher-card p-3 rounded-4 mb-3 d-flex justify-content-between align-items-center">
+                <div class="voucher-card p-2 rounded-3 mb-2 d-flex justify-content-between align-items-center">
                     <div class="text-start">
                         <div class="fw-bold"><i class="fas fa-pizza-slice text-pink me-2"></i> Midnight Cravings Sent to Diphu</div>
                         <small class="opacity-60">Any food or dessert you crave, ordered straight to your door!</small>
@@ -569,7 +569,7 @@
                 </div>
 
                 <!-- Voucher 3 -->
-                <div class="voucher-card p-3 rounded-4 mb-3 d-flex justify-content-between align-items-center">
+                <div class="voucher-card p-2 rounded-3 mb-2 d-flex justify-content-between align-items-center">
                     <div class="text-start">
                         <div class="fw-bold"><i class="fas fa-video text-info me-2"></i> Unlimited Late-Night Video Calls</div>
                         <small class="opacity-60">Zero sleep, 100% undivided attention whenever you need me.</small>
@@ -578,7 +578,7 @@
                 </div>
 
                 <!-- Voucher 4 -->
-                <div class="voucher-card p-3 rounded-4 mb-3 d-flex justify-content-between align-items-center">
+                <div class="voucher-card p-2 rounded-3 mb-2 d-flex justify-content-between align-items-center">
                     <div class="text-start">
                         <div class="fw-bold"><i class="fas fa-crown text-warning me-2"></i> "Sengve Wins Every Argument" Pass</div>
                         <small class="opacity-60">Golden card — valid anytime with zero objections from me!</small>
@@ -593,7 +593,7 @@
         </div>
 
         <!-- CARD 8: THE OFFICIAL PROPOSAL (Will you be my girlfriend, Sengve?) -->
-        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="question-card">
+        <div class="proposal-card text-center shadow-lg d-none" id="question-card">
             <button class="back-btn" data-target="vouchers-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
             <div class="icon-container mb-3">
@@ -625,7 +625,7 @@
         </div>
 
         <!-- CARD 9: The Grand Celebration (Direct MongoDB Lock-in) -->
-        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="final-card">
+        <div class="proposal-card text-center shadow-lg d-none" id="final-card">
             <div class="icon-container mb-3">
                 <div class="final-heart-burst">
                     <i class="fas fa-heart text-danger fa-4x beat-animation"></i>
