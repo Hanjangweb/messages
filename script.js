@@ -140,6 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function logDbEvent(eventType, details = {}) {
+        try {
+            const list = JSON.parse(localStorage.getItem('sengve_events') || '[]');
+            list.push({ eventType, details, time: new Date().toISOString() });
+            localStorage.setItem('sengve_events', JSON.stringify(list));
+        } catch(e) {}
         await apiRequest('/api/event', 'POST', {
             eventType,
             userName: TARGET_NAME,
@@ -148,10 +153,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function claimVoucherInDb(voucherName) {
+        try {
+            const list = JSON.parse(localStorage.getItem('sengve_vouchers') || '[]');
+            if (!list.includes(voucherName)) list.push(voucherName);
+            localStorage.setItem('sengve_vouchers', JSON.stringify(list));
+        } catch(e) {}
         return await apiRequest('/api/vouchers/claim', 'POST', { voucherName });
     }
 
     async function respondProposalInDb(answer = 'YES') {
+        try {
+            localStorage.setItem('sengve_proposal_answer', answer);
+            localStorage.setItem('sengve_proposal_time', new Date().toISOString());
+        } catch(e) {}
         return await apiRequest('/api/proposal/respond', 'POST', { answer });
     }
 

@@ -19,8 +19,12 @@ app.use(express.static(path.join(__dirname)));
 
 // Local data fallback directory in case MongoDB connection is pending
 const DATA_DIR = path.join(__dirname, 'data');
-if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+try {
+    if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+} catch (e) {
+    // Read-only environment safe fallback
 }
 const LOCAL_DB_FILE = path.join(DATA_DIR, 'db_backup.json');
 
