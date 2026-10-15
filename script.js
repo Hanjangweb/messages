@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         261.63, 261.63, 293.66, 261.63, 392.00, 349.23, // Happy Birthday to you
         261.63, 261.63, 523.25, 440.00, 349.23, 329.63, 293.66, // Happy Birthday dear love
         466.16, 466.16, 440.00, 349.23, 392.00, 349.23,  // Happy Birthday to you
-        // Romantic arpeggio transition
+        // Romantic chords arpeggio
         329.63, 392.00, 523.25, 659.25, 523.25, 392.00,
         349.23, 440.00, 523.25, 698.46, 523.25, 440.00
     ];
@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
             osc.type = 'sine';
             osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
 
-            // Gentle bell/music-box envelope
             gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
             gain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.04);
             gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
@@ -123,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         envelopeWrapper.addEventListener('click', () => {
             envelopeWrapper.classList.add('open');
             
-            // Try starting background music on user gesture
             if (!isPlaying) {
                 startRomanticMusic();
             }
@@ -151,9 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCountdown() {
         const now = new Date();
         const currentYear = now.getFullYear();
-        let targetDate = new Date(currentYear, 9, 19, 0, 0, 0); // Month is 0-indexed (9 = Oct)
+        let targetDate = new Date(currentYear, 9, 19, 0, 0, 0); // Month 9 is October
 
-        // If today is past Oct 19 this year, point to next year
         if (now.getMonth() === 9 && now.getDate() > 19) {
             targetDate = new Date(currentYear + 1, 9, 19, 0, 0, 0);
         }
@@ -161,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const diff = targetDate - now;
 
         if (diff <= 0) {
-            // It's Birthday Time!
             if (daysEl) daysEl.innerText = "00";
             if (hoursEl) hoursEl.innerText = "00";
             if (minutesEl) minutesEl.innerText = "00";
@@ -253,7 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
             candle.classList.add('blown');
             blownCount++;
 
-            // Play candle chime note
             playNote(659.25, 0.4);
 
             if (blownCount < candles.length) {
@@ -267,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 candleStatus.style.color = '#75fbb3';
 
                 triggerGrandConfetti();
-                showToast("Wish Made! Happy Birthday, Love! 🎂✨");
+                showToast("Wish Made! Now let me show you what's in my heart 💖");
 
                 if (afterCakeBtn) {
                     afterCakeBtn.classList.remove('d-none');
@@ -298,28 +293,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 7. Memory Lane Polaroid Carousel
+    // 7. Things I Love About You (Polaroid Carousel)
     // ==========================================
     const memories = [
         {
-            icon: 'fa-heart-pulse',
+            icon: 'fa-face-smile-beam',
             color: '#ff65a6',
-            caption: '"The day your smile made 2,248 km feel like zero distance."'
+            caption: '"The effortless way your smile instantly lights up my whole world."'
         },
         {
             icon: 'fa-phone-volume',
             color: '#00d2ff',
-            caption: '"Our 2 AM video calls when neither of us wanted to say goodnight."'
+            caption: '"Our endless late-night chats that make 2,248 km feel like you are right beside me."'
         },
         {
-            icon: 'fa-plane-departure',
+            icon: 'fa-heart-circle-check',
             color: '#f9cb28',
-            caption: '"Every ticket booked and every day counted until I can hug you."'
+            caption: '"How you naturally became the first and last person on my mind every single day."'
         },
         {
-            icon: 'fa-cake-candles',
+            icon: 'fa-sparkles',
             color: '#ff2a85',
-            caption: '"To the most beautiful girl celebrating her special day today. Happy Birthday! 💖"'
+            caption: '"The kindness and warmth in your soul that made me fall completely for you."'
         }
     ];
 
@@ -374,28 +369,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 8. "Open When..." Secret Letters
+    // 8. "Open When..." Letters (Heartfelt Confession)
     // ==========================================
     const lettersData = {
         birthday: {
             tag: "Oct 19 Birthday Special 🎂",
-            title: "Happy Birthday to My Favorite Human ❤️",
-            body: "Today is the day the world was blessed with you. Even though work keeps me here in Chandigarh while you celebrate in Diphu, Assam, please know that you are the first thought in my morning and the last wish on my mind tonight. You make every day brighter simply by existing. May all your dreams and wishes come true this year! I love you so much."
+            title: "Happy Birthday, Beautiful ❤️",
+            body: "Today is the day the world was blessed with you, and I thank the universe every day that our paths crossed. Even though I have to be here in Chandigarh working while you celebrate in Diphu, Assam, you are the most special person in my life. May this birthday bring you infinite joy, laughter, and all the dreams you hold dear."
         },
-        miss: {
-            tag: "Across 2,248 Kilometers 🫂",
-            title: "When Diphu Feels Too Far Away",
-            body: "Whenever you miss me, look out at the sky. The very same stars shining over Diphu, Assam are shining over me in Chandigarh. Put your hand on your heart and take a deep breath — that's me reminding you that distance is only physical. My love is right beside you."
+        confession: {
+            tag: "From the Deepest Corner of My Heart 💖",
+            title: "The Truth I've Been Keeping Inside",
+            body: "I don't know the exact second it happened, but somewhere between our random jokes, our late-night talks, and the way you listen to me, I fell completely in love with you. You're not just someone I like talking to — you're the person I want to share my life with."
         },
-        smile: {
-            tag: "Instant Cheer 😊",
-            title: "A Reason to Smile Right Now",
-            body: "Did you know you have the most beautiful smile in the entire world? Every single time you laugh, my whole day gets 100 times better. No matter what happens, you are strong, you are deeply loved, and you are my greatest blessing."
+        distance: {
+            tag: "Chandigarh to Diphu ✈️",
+            title: "Why 2,248 Kilometers Means Nothing",
+            body: "Being in Chandigarh while you are in Diphu taught me that physical distance is just geography. When two people are connected by heart, miles can never weaken the bond. If anything, the distance has only proven to me how much I want you in my life."
         },
-        meet: {
-            tag: "A Promise for Our Reunion ✈️",
-            title: "When We Finally Reunite",
-            body: "The moment my work finishes and I step into Diphu, you are getting the biggest, longest hug in history! We'll go to your favorite spots, eat whatever you crave, and make up for every second we spent apart. I can't wait!"
+        promise: {
+            tag: "My Solemn Promise ✨",
+            title: "What I Promise You",
+            body: "If you give me the honor of being your partner, I promise to always respect you, support your dreams, make you laugh when you're down, and give you the biggest, warmest hugs every time we meet. I want to celebrate every birthday by your side."
         }
     };
 
@@ -436,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 9. Redeemable Long Distance Vouchers
+    // 9. Girlfriend Privileges & Vouchers
     // ==========================================
     const claimBtns = document.querySelectorAll('.claim-btn');
     const claimedVouchers = [];
@@ -461,11 +456,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             triggerMiniConfetti();
-            showToast(`Claimed "${voucherName}"! ❤️`);
+            showToast(`Privilege unlocked: "${voucherName}"! ❤️`);
         });
     });
 
-    // Step 6 -> Step 7 (Vouchers -> Question)
+    // Step 6 -> Step 7 (Vouchers -> The Proposal Question)
     const toQuestionBtn = document.getElementById('to-question-btn');
     if (toQuestionBtn) {
         toQuestionBtn.addEventListener('click', () => {
@@ -474,7 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 10. Playful Runaway "No" Button
+    // 10. Playful Runaway "No" Button (Proposal Edition)
     // ==========================================
     const noBtn = document.getElementById('no-btn');
     const yesBtn = document.getElementById('yes-btn');
@@ -482,12 +477,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const finalCard = document.getElementById('final-card');
 
     const funnyMessages = [
-        "Nice try! 😉",
+        "Nice try, but 'No' is not an option! 😉",
         "Error 404: 'No' does not exist between Chandigarh & Diphu!",
         "Diphu server strictly rejected this button!",
-        "Even the button refuses to leave my love for you!",
-        "Are you sure? You know you want to click YES!",
-        "You can't say No on your birthday! 😜"
+        "You can't say No to love on your birthday! 😜",
+        "Even the button knows you want to say YES!",
+        "Try clicking the big glowing YES button instead!"
     ];
 
     let yesScale = 1;
@@ -524,7 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 11. "YES, ALWAYS!" Button & WhatsApp Integration
+    // 11. "YES, I WILL!" Official Proposal Accept
     // ==========================================
     if (yesBtn) {
         yesBtn.addEventListener('click', () => {
@@ -533,18 +528,18 @@ document.addEventListener('DOMContentLoaded', () => {
             finalCard.classList.add('animate__animated', 'animate__zoomIn');
 
             triggerGrandConfetti();
-            showToast("Happy Birthday, My Love! ❤️🎂");
+            showToast("SHE SAID YES! I'm the happiest person alive! ❤️💍");
 
-            // Setup WhatsApp link
+            // Setup WhatsApp link with proposal acceptance
             const whatsappBtn = document.getElementById('whatsapp-reply-btn');
             if (whatsappBtn) {
                 let vouchersText = "";
                 if (claimedVouchers.length > 0) {
-                    vouchersText = `\nI also claimed these vouchers:\n- ${claimedVouchers.join('\n- ')}`;
+                    vouchersText = `\nI also claimed these privileges:\n- ${claimedVouchers.join('\n- ')}`;
                 }
 
                 const waMessage = encodeURIComponent(
-                    `Hey love! ❤️ I just experienced your surprise birthday app from Chandigarh to Diphu, Assam! 🎂✨\n\nI loved every bit of it, especially the candle blowing and the letters! Thank you for making my birthday so special even from 2,248 km away.${vouchersText}\n\nI can't wait to see you soon! 💕`
+                    `YES! A thousand times YES! ❤️💍 I'm officially your girlfriend!\n\nEven with 2,248 km between Chandigarh and Diphu, Assam, my heart is completely yours! Thank you for the most magical and unforgettable birthday surprise ever! 🥰🎂✨${vouchersText}\n\nCan't wait to see you soon! 💕`
                 );
                 whatsappBtn.href = `https://api.whatsapp.com/send?text=${waMessage}`;
             }
@@ -561,7 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const originalContent = emailReplyBtn.innerHTML;
 
             emailReplyBtn.disabled = true;
-            emailReplyBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Sending Birthday Kiss...';
+            emailReplyBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Sending Acceptance...';
 
             let claimedList = claimedVouchers.length > 0 ? claimedVouchers.join(', ') : 'None yet';
 
@@ -573,25 +568,25 @@ document.addEventListener('DOMContentLoaded', () => {
                         'Accept': 'application/json'
                     },
                     body: JSON.stringify({
-                        email: "birthdaygirl@diphu.assam",
-                        message: `SHE SAID YES! Happy Birthday Response from Diphu, Assam to Chandigarh!\nClaimed Vouchers: ${claimedList}`,
-                        _subject: `Birthday Surprise Response from Diphu, Assam! ❤️🎂`
+                        email: "girlfriend@diphu.assam",
+                        message: `SHE SAID YES TO BE YOUR GIRLFRIEND! ❤️💍\nFrom: Diphu, Assam to Chandigarh\nClaimed Privileges: ${claimedList}`,
+                        _subject: `SHE SAID YES! (Will you be my girlfriend? Accepted from Diphu! ❤️)`
                     })
                 });
 
                 if (response.ok) {
-                    showToast("Birthday response sent to Chandigarh! ❤️");
-                    emailReplyBtn.innerHTML = '<i class="fas fa-check me-2"></i> Sent with Love!';
+                    showToast("Proposal acceptance sent to Chandigarh! ❤️");
+                    emailReplyBtn.innerHTML = '<i class="fas fa-check me-2"></i> Sealed with Love!';
                     emailReplyBtn.classList.remove('btn-outline-light');
                     emailReplyBtn.classList.add('btn-success');
                 } else {
                     throw new Error('Formspree fallback');
                 }
             } catch (err) {
-                showToast("Opening email app to send wish... ✉️");
-                const subject = encodeURIComponent("Happy Birthday Response from Diphu! ❤️");
+                showToast("Opening email app to confirm... ✉️");
+                const subject = encodeURIComponent("YES! I will be your girlfriend! ❤️💍");
                 const body = encodeURIComponent(
-                    `Hey love!\n\nI loved my birthday surprise from Chandigarh to Diphu! 🎂✨\n\nClaimed Vouchers: ${claimedList}\n\nThank you for making my day so special. Can't wait to see you soon! 💕`
+                    `YES! A thousand times YES! ❤️💍 I'm officially your girlfriend!\n\nThank you for the most incredible birthday surprise from Chandigarh to Diphu! 🎂✨\n\nClaimed Privileges: ${claimedList}\n\nI can't wait until we meet! 💕`
                 );
                 window.location.href = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
 
@@ -615,9 +610,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function triggerGrandConfetti() {
         if (typeof confetti !== 'function') return;
-        const duration = 10 * 1000;
+        const duration = 12 * 1000;
         const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 2000 };
+        const defaults = { startVelocity: 35, spread: 360, ticks: 70, zIndex: 2000 };
 
         function randomInRange(min, max) {
             return Math.random() * (max - min) + min;
@@ -630,7 +625,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return clearInterval(interval);
             }
 
-            const particleCount = 50 * (timeLeft / duration);
+            const particleCount = 55 * (timeLeft / duration);
             confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
             confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
         }, 250);
