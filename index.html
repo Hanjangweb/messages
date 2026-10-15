@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Question for You | Proposal App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday My Love! ❤️ | Chandigarh ✈️ Diphu</title>
+    
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Animate.css -->
@@ -16,213 +17,396 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-dark text-white">
-    
-    <div id="spark-container"></div>
 
-    <!-- Envelope Start Screen -->
-    <div id="envelope-screen" class="d-flex align-items-center justify-content-center min-vh-100">
+    <!-- Background Stars & Sparkles -->
+    <div id="spark-container"></div>
+    <div id="floating-hearts-container"></div>
+
+    <!-- Floating Audio BGM Player -->
+    <div class="audio-controller-btn" id="music-toggle" title="Play / Pause Romantic Music">
+        <i class="fas fa-music" id="music-icon"></i>
+        <span class="music-wave">
+            <span></span><span></span><span></span><span></span>
+        </span>
+    </div>
+
+    <!-- Long Distance Top Live Indicator -->
+    <header class="distance-header" id="distance-header">
+        <div class="distance-pill">
+            <span class="city-badge"><i class="fas fa-location-dot text-danger"></i> Chandigarh</span>
+            <span class="flight-path">
+                <i class="fas fa-plane flight-icon"></i>
+                <span class="dotted-line"></span>
+            </span>
+            <span class="city-badge"><i class="fas fa-heart text-pink"></i> Diphu, Assam</span>
+            <span class="km-tag">~2,248 km with Love</span>
+        </div>
+    </header>
+
+    <!-- ================= STAGE 0: Sealed Birthday Envelope ================= -->
+    <section id="envelope-screen" class="d-flex flex-column align-items-center justify-content-center min-vh-100">
+        <div class="envelope-badge mb-4 animate__animated animate__fadeInDown">
+            <i class="fas fa-gift text-pink me-2"></i> High Priority Delivery to Diphu
+        </div>
+
         <div class="envelope-wrapper" id="envelope-wrapper">
             <div class="envelope">
                 <div class="flap"></div>
                 <div class="body"></div>
                 <div class="letter">
-                    <div class="text">You have a message! ❤️</div>
+                    <div class="text">
+                        <span class="special-tag">Oct 19 Edition 🎂</span>
+                        <div class="fw-bold mt-1">Tap To Open Your Birthday Surprise!</div>
+                    </div>
                 </div>
             </div>
-            <div class="heart"></div>
+            <div class="heart" title="Click to break the seal!">
+                <i class="fas fa-birthday-cake seal-icon"></i>
+            </div>
         </div>
-        <p class="envelope-hint">Click the heart to open</p>
-    </div>
+        
+        <p class="envelope-hint animate__animated animate__pulse animate__infinite">
+            <i class="fas fa-hand-pointer me-1"></i> Tap the seal to unlock your surprise
+        </p>
+    </section>
 
-    <main class="container d-flex align-items-center justify-content-center min-vh-100 d-none" id="main-content">
-        <!-- Step 1: Type Selection -->
-        <div class="proposal-card text-center p-5 shadow-lg" id="type-selection-card">
-            <h2 class="display-6 fw-bold mb-4 title-gradient">What's on your mind?</h2>
-            <p class="mb-5 opacity-75">Select the path you want to take...</p>
+    <!-- ================= MAIN SURPRISE EXPERIENCE ================= -->
+    <main class="container d-flex align-items-center justify-content-center min-vh-100 d-none py-5" id="main-content">
+        
+        <!-- CARD 1: Birthday Countdown & Welcome Gate -->
+        <div class="proposal-card text-center p-4 p-md-5 shadow-lg" id="countdown-card">
+            <div class="stamp-badge mb-3">
+                <i class="fas fa-calendar-check me-2 text-warning"></i> Special Day: 19th October
+            </div>
             
-            <div class="row g-3">
-                <div class="col-6 col-md-4">
-                    <div class="type-box p-3 rounded-4" data-type="date">
-                        <i class="fas fa-calendar-day fa-2x mb-2 text-pink"></i>
-                        <div class="fw-bold small">A Date</div>
+            <h1 class="display-5 fw-bold mb-2 title-gradient">The Countdown to Your Day! 🎂</h1>
+            <p class="lead opacity-75 mb-4">Every second closer to celebrating the most wonderful soul in the world.</p>
+
+            <!-- Countdown Timer Box -->
+            <div class="countdown-grid mb-4">
+                <div class="time-block">
+                    <span class="time-number" id="cd-days">00</span>
+                    <span class="time-label">Days</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-number" id="cd-hours">00</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-number" id="cd-minutes">00</span>
+                    <span class="time-label">Mins</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-number" id="cd-seconds">00</span>
+                    <span class="time-label">Secs</span>
+                </div>
+            </div>
+
+            <div class="special-distance-quote p-3 rounded-4 mb-4 bg-glass-dark">
+                <i class="fas fa-quote-left text-pink opacity-50 me-2"></i>
+                <span class="playfair italic">"I'm here in Chandigarh, and you're in Diphu, Assam... but my entire world is right wherever you are."</span>
+                <i class="fas fa-quote-right text-pink opacity-50 ms-2"></i>
+            </div>
+
+            <button id="start-celebration-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
+                Begin Birthday Celebration! ✨ <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+        </div>
+
+        <!-- CARD 2: Interactive Birthday Cake & Candle Blow -->
+        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="cake-card">
+            <div class="icon-container mb-2">
+                <span class="badge bg-pink-glass px-3 py-2 rounded-pill mb-2">Make A Wish 🕯️</span>
+            </div>
+            <h2 class="display-6 fw-bold mb-2 title-gradient">Blow Out Your Candles! 🎂</h2>
+            <p class="opacity-75 mb-4" id="cake-instruction">Tap on the candles to blow them out & make a silent wish!</p>
+
+            <!-- Virtual 3D Cake -->
+            <div class="cake-stage mb-4">
+                <div class="cake-container">
+                    <div class="cake-topper">
+                        <div class="candle candle-1" data-candle="1">
+                            <div class="flame"></div>
+                            <div class="smoke"></div>
+                        </div>
+                        <div class="candle candle-2" data-candle="2">
+                            <div class="flame"></div>
+                            <div class="smoke"></div>
+                        </div>
+                        <div class="candle candle-3" data-candle="3">
+                            <div class="flame"></div>
+                            <div class="smoke"></div>
+                        </div>
+                    </div>
+                    <div class="cake-layer layer-top">
+                        <div class="icing-drips">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <span class="cake-text">Happy Birthday!</span>
+                    </div>
+                    <div class="cake-layer layer-bottom"></div>
+                    <div class="cake-plate"></div>
+                </div>
+            </div>
+
+            <!-- Candle status message -->
+            <div id="candle-status" class="alert-msg mb-4">
+                <i class="fas fa-sparkles text-warning me-1"></i> Tap each flame to extinguish it!
+            </div>
+
+            <button id="after-cake-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover d-none">
+                See Our Distance Story ✈️ <i class="fas fa-chevron-right ms-2"></i>
+            </button>
+        </div>
+
+        <!-- CARD 3: Chandigarh to Diphu Love Story Visualizer -->
+        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="map-card">
+            <button class="back-btn" data-target="cake-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+            
+            <h2 class="display-6 fw-bold mb-2 title-gradient">Across 2,248 Kilometers 🗺️</h2>
+            <p class="opacity-75 mb-4">Chandigarh to Diphu, Karbi Anglong, Assam</p>
+
+            <div class="map-illustration-box p-4 rounded-4 mb-4 bg-glass-dark position-relative">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="city-node text-start">
+                        <div class="city-circle bg-primary-glow">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="fw-bold mt-2">Chandigarh</div>
+                        <small class="opacity-50">Stuck at work, missing you</small>
+                    </div>
+
+                    <div class="journey-track flex-grow-1 mx-3 position-relative">
+                        <div class="traveling-heart">
+                            <i class="fas fa-heart text-danger beat-animation"></i>
+                        </div>
+                        <div class="journey-line"></div>
+                        <div class="journey-km">2,248 km</div>
+                    </div>
+
+                    <div class="city-node text-end">
+                        <div class="city-circle bg-pink-glow">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="fw-bold mt-2">Diphu, Assam</div>
+                        <small class="opacity-50">The Birthday Queen</small>
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
-                    <div class="type-box p-3 rounded-4" data-type="marry">
-                        <i class="fas fa-ring fa-2x mb-2 text-warning"></i>
-                        <div class="fw-bold small">Marriage</div>
+
+                <div class="distance-quote-box p-3 rounded-3 mt-3">
+                    <p class="m-0 small italic playfair">
+                        "I may not be able to be there in Diphu to hold your hand today because of work, but every heartbeat here in Chandigarh belongs to you."
+                    </p>
+                </div>
+            </div>
+
+            <button id="to-memories-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
+                Walk Down Memory Lane 📸 <i class="fas fa-chevron-right ms-2"></i>
+            </button>
+        </div>
+
+        <!-- CARD 4: Memory Lane / Polaroid Gallery -->
+        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="memories-card">
+            <button class="back-btn" data-target="map-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+            
+            <h2 class="display-6 fw-bold mb-2 title-gradient">Little Things I Adore 💖</h2>
+            <p class="opacity-75 mb-4">Swipe or click through our favorite memories</p>
+
+            <div class="polaroid-carousel-container mb-4">
+                <div class="polaroid-card" id="polaroid-display">
+                    <div class="polaroid-inner">
+                        <div class="polaroid-photo" id="polaroid-img-box">
+                            <div class="photo-art" id="photo-art-icon">
+                                <i class="fas fa-heart-pulse"></i>
+                            </div>
+                        </div>
+                        <div class="polaroid-caption" id="polaroid-caption-text">
+                            "The day your smile made everything feel right."
+                        </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
-                    <div class="type-box p-3 rounded-4" data-type="friends">
-                        <i class="fas fa-user-friends fa-2x mb-2 text-info"></i>
-                        <div class="fw-bold small">Friends</div>
+
+                <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
+                    <button class="carousel-nav-btn" id="prev-memory"><i class="fas fa-arrow-left"></i></button>
+                    <span class="memory-counter opacity-75 small" id="memory-counter">1 / 4</span>
+                    <button class="carousel-nav-btn" id="next-memory"><i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <button id="to-letters-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
+                Open Your Secret Letters 💌 <i class="fas fa-chevron-right ms-2"></i>
+            </button>
+        </div>
+
+        <!-- CARD 5: "Open When..." Secret Letters -->
+        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="letters-card">
+            <button class="back-btn" data-target="memories-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+            
+            <h2 class="display-6 fw-bold mb-2 title-gradient">"Open When..." Letters 💌</h2>
+            <p class="opacity-75 mb-4">Tap any envelope to read a special note just for you</p>
+
+            <div class="row g-3 mb-4">
+                <div class="col-6">
+                    <div class="letter-box p-3 rounded-4" data-letter="birthday">
+                        <i class="fas fa-cake-candles fa-2x mb-2 text-warning"></i>
+                        <div class="fw-bold small">Open On Oct 19</div>
+                        <small class="opacity-50">Birthday Special</small>
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
-                    <div class="type-box p-3 rounded-4" data-type="besties">
-                        <i class="fas fa-wand-magic-sparkles fa-2x mb-2 text-purple"></i>
-                        <div class="fw-bold small">Besties</div>
+                <div class="col-6">
+                    <div class="letter-box p-3 rounded-4" data-letter="miss">
+                        <i class="fas fa-compass fa-2x mb-2 text-info"></i>
+                        <div class="fw-bold small">When You Miss Me</div>
+                        <small class="opacity-50">Diphu to Chd</small>
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
-                    <div class="type-box p-3 rounded-4" data-type="brother">
-                        <i class="fas fa-hand-fist fa-2x mb-2 text-primary"></i>
-                        <div class="fw-bold small">Brother</div>
+                <div class="col-6">
+                    <div class="letter-box p-3 rounded-4" data-letter="smile">
+                        <i class="fas fa-sun fa-2x mb-2 text-pink"></i>
+                        <div class="fw-bold small">When You Need a Smile</div>
+                        <small class="opacity-50">Instant Cheer</small>
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
-                    <div class="type-box p-3 rounded-4" data-type="sister">
-                        <i class="fas fa-face-smile-wink fa-2x mb-2 text-danger"></i>
-                        <div class="fw-bold small">Sister</div>
+                <div class="col-6">
+                    <div class="letter-box p-3 rounded-4" data-letter="meet">
+                        <i class="fas fa-hand-holding-heart fa-2x mb-2 text-danger"></i>
+                        <div class="fw-bold small">When We Reunite</div>
+                        <small class="opacity-50">A Promise</small>
                     </div>
                 </div>
             </div>
+
+            <!-- Letter Content Modal / Display Area -->
+            <div id="letter-modal" class="letter-modal-box p-4 rounded-4 mb-4 bg-glass-dark d-none animate__animated animate__fadeIn">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge bg-primary" id="modal-letter-tag">Letter</span>
+                    <button class="btn btn-sm btn-link text-white text-decoration-none" id="close-letter-btn">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+                <h5 class="fw-bold playfair italic text-pink mb-2" id="modal-letter-title">Letter Title</h5>
+                <p class="opacity-90 small mb-0" id="modal-letter-body">Letter content goes here...</p>
+            </div>
+
+            <button id="to-vouchers-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
+                Claim Birthday Coupons 🎟️ <i class="fas fa-chevron-right ms-2"></i>
+            </button>
         </div>
 
-        <!-- Step 2: The Main Question (Initially Hidden) -->
-        <div class="proposal-card text-center p-5 shadow-lg d-none" id="question-card">
-            <button class="back-btn" id="back-to-type"><i class="fas fa-chevron-left me-2"></i> Back</button>
-            <div class="icon-container mb-4">
+        <!-- CARD 6: Redeemable Long Distance Birthday Vouchers -->
+        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="vouchers-card">
+            <button class="back-btn" data-target="letters-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+            
+            <h2 class="display-6 fw-bold mb-2 title-gradient">Long Distance Vouchers 🎟️</h2>
+            <p class="opacity-75 mb-4">Tap to claim any voucher anytime you want!</p>
+
+            <div class="vouchers-list mb-4">
+                <!-- Voucher 1 -->
+                <div class="voucher-card p-3 rounded-4 mb-3 d-flex justify-content-between align-items-center">
+                    <div class="text-start">
+                        <div class="fw-bold"><i class="fas fa-pizza-slice text-warning me-2"></i> Midnight Feast to Diphu</div>
+                        <small class="opacity-60">Any food or dessert delivered to your door on demand!</small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-pink claim-btn" data-voucher="Midnight Food Delivery in Diphu">Claim</button>
+                </div>
+
+                <!-- Voucher 2 -->
+                <div class="voucher-card p-3 rounded-4 mb-3 d-flex justify-content-between align-items-center">
+                    <div class="text-start">
+                        <div class="fw-bold"><i class="fas fa-video text-info me-2"></i> Unlimited Late-Night Video Call</div>
+                        <small class="opacity-60">Zero sleep, 100% attention whenever you need me.</small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-pink claim-btn" data-voucher="Unlimited Late-Night Video Call">Claim</button>
+                </div>
+
+                <!-- Voucher 3 -->
+                <div class="voucher-card p-3 rounded-4 mb-3 d-flex justify-content-between align-items-center">
+                    <div class="text-start">
+                        <div class="fw-bold"><i class="fas fa-bag-shopping text-pink me-2"></i> Shopping Spree When We Meet</div>
+                        <small class="opacity-60">Pick whatever you like, my card is yours!</small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-pink claim-btn" data-voucher="Shopping Spree When We Meet">Claim</button>
+                </div>
+
+                <!-- Voucher 4 -->
+                <div class="voucher-card p-3 rounded-4 mb-3 d-flex justify-content-between align-items-center">
+                    <div class="text-start">
+                        <div class="fw-bold"><i class="fas fa-crown text-warning me-2"></i> "You Win Every Argument" Pass</div>
+                        <small class="opacity-60">Golden card — valid with zero objections!</small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-pink claim-btn" data-voucher="You Win Every Argument Pass">Claim</button>
+                </div>
+            </div>
+
+            <button id="to-question-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
+                One Final Question... 💖 <i class="fas fa-chevron-right ms-2"></i>
+            </button>
+        </div>
+
+        <!-- CARD 7: The Playful Runaway "No" Question -->
+        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="question-card">
+            <button class="back-btn" data-target="vouchers-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+            
+            <div class="icon-container mb-3">
                 <i class="fas fa-heart floating-heart text-danger" id="main-icon"></i>
             </div>
-            <h1 class="display-4 fw-bold mb-3 title-gradient" id="greeting-text">Hey! Can I ask you something?</h1>
-            <p class="lead mb-5 opacity-75" id="sub-greeting">I've been thinking about this for a while...</p>
             
+            <h2 class="display-6 fw-bold mb-2 title-gradient">A Birthday Promise 💍✨</h2>
+            <p class="lead opacity-75 mb-4">No matter how many kilometers lie between Chandigarh and Diphu...</p>
+
             <div class="question-content">
-                <h2 class="mb-5 playfair italic text-pink" id="main-question-text">Will you go out with me?</h2>
+                <h3 class="mb-5 playfair italic text-pink" id="main-question-text">
+                    Will you promise to stay this adorable and let me celebrate every birthday with you forever?
+                </h3>
                 
                 <div class="d-flex justify-content-center gap-4 position-relative btn-container">
                     <button id="yes-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover">
-                        YES! <i class="fas fa-smile-beam ms-2"></i>
+                        YES, ALWAYS! <i class="fas fa-heart ms-2"></i>
                     </button>
                     <button id="no-btn" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold position-absolute no-btn-style">
-                        No <i class="fas fa-sad-tear ms-2"></i>
+                        No <i class="fas fa-face-frown ms-2"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Success Screen -->
-        <div class="proposal-card text-center p-5 shadow-lg d-none" id="success-card">
-            <button class="back-btn" id="back-to-question"><i class="fas fa-chevron-left me-2"></i> Back</button>
-            <div class="icon-container mb-4">
-                <i class="fas fa-heart fa-5x text-danger beat-animation" id="success-icon"></i>
-            </div>
-            <h1 class="display-3 fw-bold mb-3 title-gradient" id="success-title">YAYYYYY! ❤️</h1>
-            <h2 class="mb-4 playfair" id="success-subtitle">I knew you'd say yes!</h2>
-            <p class="lead mb-4 opacity-75" id="success-msg">You just made my entire year. ✨</p>
-            <button id="plan-date-btn" class="btn btn-outline-pink rounded-pill px-4">What's Next? <i class="fas fa-magic ms-2"></i></button>
-        </div>
-
-        <!-- Dynamic Action Screen (Renamed from plan-card) -->
-        <div class="proposal-card text-center p-5 shadow-lg d-none" id="plan-card">
-            <button class="back-btn" id="back-to-success"><i class="fas fa-chevron-left me-2"></i> Back</button>
-            <h2 class="display-5 fw-bold mb-4 title-gradient" id="action-title">Let's Plan!</h2>
-            <p class="mb-4 opacity-75" id="action-subtitle">Where should we go first?</p>
-            
-            <div id="category-specific-content">
-                <!-- Date Content (Default) -->
-                <div id="date-content" class="action-section">
-                    <div class="row g-3 mb-5">
-                        <div class="col-6 col-md-4">
-                            <div class="date-option p-3 rounded-4" data-type="Coffee">
-                                <i class="fas fa-coffee fa-2x mb-2"></i>
-                                <div>Coffee</div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="date-option p-3 rounded-4" data-type="Dinner">
-                                <i class="fas fa-utensils fa-2x mb-2"></i>
-                                <div>Dinner</div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="date-option p-3 rounded-4" data-type="Movie">
-                                <i class="fas fa-film fa-2x mb-2"></i>
-                                <div>Movie</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Marry Content -->
-                <div id="marry-content" class="action-section d-none">
-                    <div class="row g-3 mb-5">
-                        <div class="col-6">
-                            <div class="date-option p-3 rounded-4" data-type="Dream Wedding">
-                                <i class="fas fa-church fa-2x mb-2"></i>
-                                <div>Wedding</div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="date-option p-3 rounded-4" data-type="Honeymoon">
-                                <i class="fas fa-plane-departure fa-2x mb-2"></i>
-                                <div>Honeymoon</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Friends/Besties Content -->
-                <div id="friends-content" class="action-section d-none">
-                    <div class="row g-3 mb-5">
-                        <div class="col-6 col-md-4">
-                            <div class="date-option p-3 rounded-4" data-type="Gaming">
-                                <i class="fas fa-gamepad fa-2x mb-2"></i>
-                                <div>Gaming</div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="date-option p-3 rounded-4" data-type="Road Trip">
-                                <i class="fas fa-car fa-2x mb-2"></i>
-                                <div>Trip</div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="date-option p-3 rounded-4" data-type="Pizza Night">
-                                <i class="fas fa-pizza-slice fa-2x mb-2"></i>
-                                <div>Pizza</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h4 class="mb-3" id="day-title">Pick a Day</h4>
-            <div class="d-flex justify-content-center gap-2 mb-5 flex-wrap">
-                <button class="btn btn-sm btn-outline-light day-btn">Friday</button>
-                <button class="btn btn-sm btn-outline-light day-btn">Saturday</button>
-                <button class="btn btn-sm btn-outline-light day-btn">Sunday</button>
-            </div>
-
-            <button id="final-confirm-btn" class="btn btn-primary btn-lg px-5 rounded-pill w-100">Lock it in! 🚀</button>
-        </div>
-
-        <!-- Final "It's a Date" Screen (Hidden initially) -->
-        <div class="proposal-card text-center p-5 shadow-lg d-none" id="final-card">
-            <div class="icon-container mb-4">
+        <!-- CARD 8: The Grand Celebration & Reply Card -->
+        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="final-card">
+            <div class="icon-container mb-3">
                 <div class="final-heart-burst">
-                    <i class="fas fa-heart text-danger fa-4x"></i>
+                    <i class="fas fa-heart text-danger fa-4x beat-animation"></i>
                     <i class="fas fa-heart text-danger fa-2x heart-mini m1"></i>
                     <i class="fas fa-heart text-danger fa-2x heart-mini m2"></i>
                     <i class="fas fa-heart text-danger fa-2x heart-mini m3"></i>
                 </div>
             </div>
-            <h1 class="display-3 fw-bold mb-3 title-gradient">It's Official!</h1>
-            <div class="summary-box p-4 rounded-4 mb-4 bg-glass-dark">
-                <h3 class="playfair italic" id="final-summary-text">A Dream Wedding on Saturday</h3>
-            </div>
-            <p class="lead opacity-75 mb-4">Can't wait to see you! ✨</p>
+
+            <h1 class="display-4 fw-bold mb-2 title-gradient">Happy Birthday, My Love! 🎉❤️</h1>
             
-            <button id="email-btn" class="btn btn-primary btn-lg px-5 rounded-pill w-100 mb-3 fw-bold shadow-sm">
-                Send Response via Email <i class="fas fa-envelope ms-2"></i>
+            <div class="summary-box p-4 rounded-4 mb-4 bg-glass-dark">
+                <h4 class="playfair italic text-pink mb-2">Distance is temporary. Our love is permanent.</h4>
+                <p class="opacity-80 small mb-0">
+                    Even though I'm working in Chandigarh right now, you are in my thoughts every single hour. Have the most magical birthday in Diphu, Assam!
+                </p>
+            </div>
+
+            <!-- Response via WhatsApp -->
+            <a id="whatsapp-reply-btn" href="#" target="_blank" class="btn btn-success btn-lg px-4 py-3 rounded-pill w-100 mb-3 fw-bold shadow-sm d-flex align-items-center justify-content-center">
+                <i class="fab fa-whatsapp fa-lg me-2"></i> Send Reply on WhatsApp 💬
+            </a>
+
+            <!-- Response via Email -->
+            <button id="email-reply-btn" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill w-100 mb-3 fw-bold">
+                <i class="fas fa-envelope me-2"></i> Send Birthday Kiss via Email ✉️
             </button>
 
             <div class="mt-4">
-                <button class="btn btn-sm btn-outline-light rounded-pill opacity-50" onclick="location.reload()">Restart Experience</button>
+                <button class="btn btn-sm btn-outline-pink rounded-pill px-4 opacity-75" onclick="location.reload()">
+                    <i class="fas fa-redo me-1"></i> Replay Experience
+                </button>
             </div>
         </div>
+
     </main>
 
     <!-- Canvas for Confetti -->

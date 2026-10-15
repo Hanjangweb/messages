@@ -1,168 +1,509 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elements
     const mainContent = document.getElementById('main-content');
     const envelopeWrapper = document.getElementById('envelope-wrapper');
     const envelopeScreen = document.getElementById('envelope-screen');
+    const sparkContainer = document.getElementById('spark-container');
 
-    // 0. Heart Trail Logic
-    document.addEventListener('mousemove', (e) => {
-        if (Math.random() > 0.1) return; // Limit frequency
+    // ==========================================
+    // 1. Audio Controller (Synthesized Romantic Music Box)
+    // ==========================================
+    const musicToggle = document.getElementById('music-toggle');
+    let audioCtx = null;
+    let isPlaying = false;
+    let musicInterval = null;
+
+    const romanticNotes = [
+        // Happy Birthday & Romantic melody frequencies (Hz)
+        261.63, 261.63, 293.66, 261.63, 349.23, 329.63, // Happy Birthday to you
+        261.63, 261.63, 293.66, 261.63, 392.00, 349.23, // Happy Birthday to you
+        261.63, 261.63, 523.25, 440.00, 349.23, 329.63, 293.66, // Happy Birthday dear love
+        466.16, 466.16, 440.00, 349.23, 392.00, 349.23,  // Happy Birthday to you
+        // Romantic arpeggio transition
+        329.63, 392.00, 523.25, 659.25, 523.25, 392.00,
+        349.23, 440.00, 523.25, 698.46, 523.25, 440.00
+    ];
+
+    let noteIndex = 0;
+
+    function playNote(freq, duration = 0.5) {
+        if (!audioCtx) return;
+        try {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+            // Gentle bell/music-box envelope
+            gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function startRomanticMusic() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        isPlaying = true;
+        musicToggle.classList.add('playing');
+
+        if (musicInterval) clearInterval(musicInterval);
+
+        musicInterval = setInterval(() => {
+            const freq = romanticNotes[noteIndex % romanticNotes.length];
+            playNote(freq, 0.65);
+            noteIndex++;
+        }, 360);
+    }
+
+    function stopRomanticMusic() {
+        isPlaying = false;
+        musicToggle.classList.remove('playing');
+        if (musicInterval) {
+            clearInterval(musicInterval);
+            musicInterval = null;
+        }
+    }
+
+    if (musicToggle) {
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                stopRomanticMusic();
+                showToast("Music paused 🎵");
+            } else {
+                startRomanticMusic();
+                showToast("Playing romantic birthday chimes 🎶✨");
+            }
+        });
+    }
+
+    // ==========================================
+    // 2. Heart Trail Effect on Mouse & Touch
+    // ==========================================
+    const createCursorHeart = (x, y) => {
         const heart = document.createElement('i');
         heart.className = 'fas fa-heart cursor-heart';
-        heart.style.left = e.pageX + 'px';
-        heart.style.top = e.pageY + 'px';
+        heart.style.left = `${x}px`;
+        heart.style.top = `${y}px`;
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 1000);
+    };
+
+    document.addEventListener('mousemove', (e) => {
+        if (Math.random() > 0.15) return;
+        createCursorHeart(e.pageX, e.pageY);
     });
 
-    // 1. Envelope Opening Logic
+    document.addEventListener('touchmove', (e) => {
+        if (Math.random() > 0.3) return;
+        const touch = e.touches[0];
+        if (touch) {
+            createCursorHeart(touch.pageX, touch.pageY);
+        }
+    }, { passive: true });
+
+    // ==========================================
+    // 3. Envelope Opening Logic
+    // ==========================================
     if (envelopeWrapper) {
         envelopeWrapper.addEventListener('click', () => {
             envelopeWrapper.classList.add('open');
+            
+            // Try starting background music on user gesture
+            if (!isPlaying) {
+                startRomanticMusic();
+            }
+
             setTimeout(() => {
                 envelopeScreen.classList.add('animate__animated', 'animate__fadeOut');
                 setTimeout(() => {
                     envelopeScreen.classList.add('d-none');
                     mainContent.classList.remove('d-none');
                     mainContent.classList.add('animate__animated', 'animate__fadeIn');
+                    triggerMiniConfetti();
                 }, 500);
             }, 1200);
         });
     }
 
-    // 1.5 Type Selection Adaptation
-    const typeBoxes = document.querySelectorAll('.type-box');
-    const typeSelectionCard = document.getElementById('type-selection-card');
-    const questionCard = document.getElementById('question-card');
-    const mainIcon = document.getElementById('main-icon');
-    const mainQuestionText = document.getElementById('main-question-text');
+    // ==========================================
+    // 4. Live Countdown to October 19
+    // ==========================================
+    const daysEl = document.getElementById('cd-days');
+    const hoursEl = document.getElementById('cd-hours');
+    const minutesEl = document.getElementById('cd-minutes');
+    const secondsEl = document.getElementById('cd-seconds');
 
-    const config = {
-        date: {
-            icon: 'fa-calendar-day',
-            color: 'text-pink',
-            question: 'Will you go out with me?',
-            successTitle: 'YAYYYYY! ❤️',
-            successMsg: 'You just made my entire year. ✨',
-            actionTitle: "Let's Plan!",
-            actionSubtitle: 'Where should we go first?',
-            sectionId: 'date-content'
-        },
-        marry: {
-            icon: 'fa-ring',
-            color: 'text-warning',
-            question: 'Will you marry me?',
-            successTitle: 'YES! ❤️💍',
-            successMsg: 'To a lifetime of love and happiness together! ✨',
-            actionTitle: "The Big Day!",
-            actionSubtitle: 'What should we dream of first?',
-            sectionId: 'marry-content'
-        },
-        friends: {
-            icon: 'fa-user-friends',
-            color: 'text-info',
-            question: 'Will you be my friend?',
-            successTitle: 'Awesome! 🤝',
-            successMsg: 'Life is better with friends like you! ✨',
-            actionTitle: "Hangout Time!",
-            actionSubtitle: 'What should we do first?',
-            sectionId: 'friends-content'
-        },
-        besties: {
-            icon: 'fa-wand-magic-sparkles',
-            color: 'text-purple',
-            question: 'Will you be my best friend?',
-            successTitle: 'BFFs Forever! ✨👯‍♀️',
-            successMsg: 'Soulmates in friendship! So happy! ✨',
-            actionTitle: "BFF Bucket List!",
-            actionSubtitle: 'Our first adventure starts here...',
-            sectionId: 'friends-content'
-        },
-        brother: {
-            icon: 'fa-hand-fist',
-            color: 'text-primary',
-            question: 'Will you be my best brother?',
-            successTitle: 'Brothers 4 Life! 👊',
-            successMsg: 'Always there to protect and support! ✨',
-            actionTitle: "Bro-venture Time!",
-            actionSubtitle: "What's our first mission?",
-            sectionId: 'friends-content'
-        },
-        sister: {
-            icon: 'fa-face-smile-wink',
-            color: 'text-danger',
-            question: 'Will you be my best sister?',
-            successTitle: 'Sisters Forever! 💖👯‍♀️',
-            successMsg: 'My partner in crime and best friend! ✨',
-            actionTitle: "Sister Goals!",
-            actionSubtitle: 'What should we do first?',
-            sectionId: 'friends-content'
+    function updateCountdown() {
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        let targetDate = new Date(currentYear, 9, 19, 0, 0, 0); // Month is 0-indexed (9 = Oct)
+
+        // If today is past Oct 19 this year, point to next year
+        if (now.getMonth() === 9 && now.getDate() > 19) {
+            targetDate = new Date(currentYear + 1, 9, 19, 0, 0, 0);
         }
-    };
 
-    let currentType = 'date';
+        const diff = targetDate - now;
 
-    typeBoxes.forEach(box => {
-        box.addEventListener('click', () => {
-            currentType = box.dataset.type;
-            const data = config[currentType];
+        if (diff <= 0) {
+            // It's Birthday Time!
+            if (daysEl) daysEl.innerText = "00";
+            if (hoursEl) hoursEl.innerText = "00";
+            if (minutesEl) minutesEl.innerText = "00";
+            if (secondsEl) secondsEl.innerText = "00";
+            return;
+        }
 
-            // Adapt the question card
-            mainIcon.className = `fas ${data.icon} floating-heart ${data.color}`;
-            mainQuestionText.innerText = data.question;
-            mainQuestionText.className = `mb-5 playfair italic ${data.color}`;
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-            // Adapt the success card (prepare it)
-            document.getElementById('success-title').innerText = data.successTitle;
-            document.getElementById('success-msg').innerText = data.successMsg;
-            document.getElementById('success-icon').className = `fas ${data.icon} fa-5x ${data.color} beat-animation`;
+        if (daysEl) daysEl.innerText = String(d).padStart(2, '0');
+        if (hoursEl) hoursEl.innerText = String(h).padStart(2, '0');
+        if (minutesEl) minutesEl.innerText = String(m).padStart(2, '0');
+        if (secondsEl) secondsEl.innerText = String(s).padStart(2, '0');
+    }
 
-            // Transition
-            typeSelectionCard.classList.add('animate__animated', 'animate__fadeOutLeft');
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ==========================================
+    // 5. Card Navigation Flow
+    // ==========================================
+    function switchCards(currentId, targetId) {
+        const currentCard = document.getElementById(currentId);
+        const targetCard = document.getElementById(targetId);
+
+        if (!currentCard || !targetCard) return;
+
+        currentCard.classList.add('animate__animated', 'animate__fadeOutLeft');
+        setTimeout(() => {
+            currentCard.classList.add('d-none');
+            currentCard.classList.remove('animate__animated', 'animate__fadeOutLeft');
+
+            targetCard.classList.remove('d-none');
+            targetCard.classList.add('animate__animated', 'animate__fadeInRight');
+
             setTimeout(() => {
-                typeSelectionCard.classList.add('d-none');
-                typeSelectionCard.classList.remove('animate__animated', 'animate__fadeOutLeft'); // Cleanup
-                questionCard.classList.remove('d-none');
-                questionCard.classList.add('animate__animated', 'animate__fadeInRight');
-                
-                setTimeout(() => {
-                    questionCard.classList.remove('animate__animated', 'animate__fadeInRight');
-                }, 500);
+                targetCard.classList.remove('animate__animated', 'animate__fadeInRight');
             }, 500);
+        }, 400);
+    }
+
+    // Back Buttons
+    document.querySelectorAll('.back-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const currentCard = btn.closest('.proposal-card');
+            const targetId = btn.dataset.target;
+            const targetCard = document.getElementById(targetId);
+
+            if (currentCard && targetCard) {
+                currentCard.classList.add('animate__animated', 'animate__fadeOutRight');
+                setTimeout(() => {
+                    currentCard.classList.add('d-none');
+                    currentCard.classList.remove('animate__animated', 'animate__fadeOutRight');
+
+                    targetCard.classList.remove('d-none');
+                    targetCard.classList.add('animate__animated', 'animate__fadeInLeft');
+
+                    setTimeout(() => {
+                        targetCard.classList.remove('animate__animated', 'animate__fadeInLeft');
+                    }, 500);
+                }, 400);
+            }
         });
     });
 
+    // Step 1 -> Step 2 (Countdown -> Cake)
+    const startCelebrationBtn = document.getElementById('start-celebration-btn');
+    if (startCelebrationBtn) {
+        startCelebrationBtn.addEventListener('click', () => {
+            switchCards('countdown-card', 'cake-card');
+        });
+    }
+
+    // ==========================================
+    // 6. Interactive Cake & Candle Blowing
+    // ==========================================
+    const candles = document.querySelectorAll('.candle');
+    const candleStatus = document.getElementById('candle-status');
+    const afterCakeBtn = document.getElementById('after-cake-btn');
+    let blownCount = 0;
+
+    candles.forEach(candle => {
+        const blowCandle = () => {
+            if (candle.classList.contains('blown')) return;
+
+            candle.classList.add('blown');
+            blownCount++;
+
+            // Play candle chime note
+            playNote(659.25, 0.4);
+
+            if (blownCount < candles.length) {
+                const remaining = candles.length - blownCount;
+                candleStatus.innerHTML = `<i class="fas fa-fire me-1"></i> ${remaining} candle${remaining > 1 ? 's' : ''} left to blow!`;
+            } else {
+                candleStatus.innerHTML = `🎉 <strong>All candles blown! Your wish is sent to the stars! ✨</strong>`;
+                candleStatus.classList.remove('text-warning');
+                candleStatus.style.background = 'rgba(40, 167, 69, 0.2)';
+                candleStatus.style.borderColor = 'rgba(40, 167, 69, 0.5)';
+                candleStatus.style.color = '#75fbb3';
+
+                triggerGrandConfetti();
+                showToast("Wish Made! Happy Birthday, Love! 🎂✨");
+
+                if (afterCakeBtn) {
+                    afterCakeBtn.classList.remove('d-none');
+                    afterCakeBtn.classList.add('animate__animated', 'animate__fadeInUp');
+                }
+            }
+        };
+
+        candle.addEventListener('click', blowCandle);
+        candle.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            blowCandle();
+        }, { passive: false });
+    });
+
+    if (afterCakeBtn) {
+        afterCakeBtn.addEventListener('click', () => {
+            switchCards('cake-card', 'map-card');
+        });
+    }
+
+    // Step 3 -> Step 4 (Map -> Memories)
+    const toMemoriesBtn = document.getElementById('to-memories-btn');
+    if (toMemoriesBtn) {
+        toMemoriesBtn.addEventListener('click', () => {
+            switchCards('map-card', 'memories-card');
+        });
+    }
+
+    // ==========================================
+    // 7. Memory Lane Polaroid Carousel
+    // ==========================================
+    const memories = [
+        {
+            icon: 'fa-heart-pulse',
+            color: '#ff65a6',
+            caption: '"The day your smile made 2,248 km feel like zero distance."'
+        },
+        {
+            icon: 'fa-phone-volume',
+            color: '#00d2ff',
+            caption: '"Our 2 AM video calls when neither of us wanted to say goodnight."'
+        },
+        {
+            icon: 'fa-plane-departure',
+            color: '#f9cb28',
+            caption: '"Every ticket booked and every day counted until I can hug you."'
+        },
+        {
+            icon: 'fa-cake-candles',
+            color: '#ff2a85',
+            caption: '"To the most beautiful girl celebrating her special day today. Happy Birthday! 💖"'
+        }
+    ];
+
+    let currentMemoryIndex = 0;
+    const polaroidCard = document.getElementById('polaroid-display');
+    const photoArtIcon = document.getElementById('photo-art-icon');
+    const polaroidCaptionText = document.getElementById('polaroid-caption-text');
+    const memoryCounter = document.getElementById('memory-counter');
+    const prevMemoryBtn = document.getElementById('prev-memory');
+    const nextMemoryBtn = document.getElementById('next-memory');
+
+    function updateMemoryCard(index) {
+        const mem = memories[index];
+        if (polaroidCard) {
+            polaroidCard.classList.add('animate__animated', 'animate__flipInX');
+            setTimeout(() => {
+                polaroidCard.classList.remove('animate__animated', 'animate__flipInX');
+            }, 500);
+        }
+
+        if (photoArtIcon) {
+            photoArtIcon.innerHTML = `<i class="fas ${mem.icon}" style="color: ${mem.color}"></i>`;
+        }
+        if (polaroidCaptionText) {
+            polaroidCaptionText.innerText = mem.caption;
+        }
+        if (memoryCounter) {
+            memoryCounter.innerText = `${index + 1} / ${memories.length}`;
+        }
+    }
+
+    if (prevMemoryBtn) {
+        prevMemoryBtn.addEventListener('click', () => {
+            currentMemoryIndex = (currentMemoryIndex - 1 + memories.length) % memories.length;
+            updateMemoryCard(currentMemoryIndex);
+        });
+    }
+
+    if (nextMemoryBtn) {
+        nextMemoryBtn.addEventListener('click', () => {
+            currentMemoryIndex = (currentMemoryIndex + 1) % memories.length;
+            updateMemoryCard(currentMemoryIndex);
+        });
+    }
+
+    // Step 4 -> Step 5 (Memories -> Letters)
+    const toLettersBtn = document.getElementById('to-letters-btn');
+    if (toLettersBtn) {
+        toLettersBtn.addEventListener('click', () => {
+            switchCards('memories-card', 'letters-card');
+        });
+    }
+
+    // ==========================================
+    // 8. "Open When..." Secret Letters
+    // ==========================================
+    const lettersData = {
+        birthday: {
+            tag: "Oct 19 Birthday Special 🎂",
+            title: "Happy Birthday to My Favorite Human ❤️",
+            body: "Today is the day the world was blessed with you. Even though work keeps me here in Chandigarh while you celebrate in Diphu, Assam, please know that you are the first thought in my morning and the last wish on my mind tonight. You make every day brighter simply by existing. May all your dreams and wishes come true this year! I love you so much."
+        },
+        miss: {
+            tag: "Across 2,248 Kilometers 🫂",
+            title: "When Diphu Feels Too Far Away",
+            body: "Whenever you miss me, look out at the sky. The very same stars shining over Diphu, Assam are shining over me in Chandigarh. Put your hand on your heart and take a deep breath — that's me reminding you that distance is only physical. My love is right beside you."
+        },
+        smile: {
+            tag: "Instant Cheer 😊",
+            title: "A Reason to Smile Right Now",
+            body: "Did you know you have the most beautiful smile in the entire world? Every single time you laugh, my whole day gets 100 times better. No matter what happens, you are strong, you are deeply loved, and you are my greatest blessing."
+        },
+        meet: {
+            tag: "A Promise for Our Reunion ✈️",
+            title: "When We Finally Reunite",
+            body: "The moment my work finishes and I step into Diphu, you are getting the biggest, longest hug in history! We'll go to your favorite spots, eat whatever you crave, and make up for every second we spent apart. I can't wait!"
+        }
+    };
+
+    const letterBoxes = document.querySelectorAll('.letter-box');
+    const letterModal = document.getElementById('letter-modal');
+    const modalLetterTag = document.getElementById('modal-letter-tag');
+    const modalLetterTitle = document.getElementById('modal-letter-title');
+    const modalLetterBody = document.getElementById('modal-letter-body');
+    const closeLetterBtn = document.getElementById('close-letter-btn');
+
+    letterBoxes.forEach(box => {
+        box.addEventListener('click', () => {
+            const letterKey = box.dataset.letter;
+            const data = lettersData[letterKey];
+            if (!data) return;
+
+            modalLetterTag.innerText = data.tag;
+            modalLetterTitle.innerText = data.title;
+            modalLetterBody.innerText = data.body;
+
+            letterModal.classList.remove('d-none');
+            triggerMiniConfetti();
+        });
+    });
+
+    if (closeLetterBtn) {
+        closeLetterBtn.addEventListener('click', () => {
+            letterModal.classList.add('d-none');
+        });
+    }
+
+    // Step 5 -> Step 6 (Letters -> Vouchers)
+    const toVouchersBtn = document.getElementById('to-vouchers-btn');
+    if (toVouchersBtn) {
+        toVouchersBtn.addEventListener('click', () => {
+            switchCards('letters-card', 'vouchers-card');
+        });
+    }
+
+    // ==========================================
+    // 9. Redeemable Long Distance Vouchers
+    // ==========================================
+    const claimBtns = document.querySelectorAll('.claim-btn');
+    const claimedVouchers = [];
+
+    claimBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const voucherName = btn.dataset.voucher;
+            const voucherCard = btn.closest('.voucher-card');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-check me-1"></i> Claimed!';
+            btn.classList.remove('btn-outline-pink');
+            btn.classList.add('btn-success');
+
+            if (voucherCard) {
+                voucherCard.classList.add('claimed');
+            }
+
+            if (!claimedVouchers.includes(voucherName)) {
+                claimedVouchers.push(voucherName);
+            }
+
+            triggerMiniConfetti();
+            showToast(`Claimed "${voucherName}"! ❤️`);
+        });
+    });
+
+    // Step 6 -> Step 7 (Vouchers -> Question)
+    const toQuestionBtn = document.getElementById('to-question-btn');
+    if (toQuestionBtn) {
+        toQuestionBtn.addEventListener('click', () => {
+            switchCards('vouchers-card', 'question-card');
+        });
+    }
+
+    // ==========================================
+    // 10. Playful Runaway "No" Button
+    // ==========================================
     const noBtn = document.getElementById('no-btn');
     const yesBtn = document.getElementById('yes-btn');
-    const successCard = document.getElementById('success-card');
-    const sparkContainer = document.getElementById('spark-container');
+    const questionCard = document.getElementById('question-card');
+    const finalCard = document.getElementById('final-card');
 
     const funnyMessages = [
         "Nice try! 😉",
-        "Error 404: 'No' not found",
-        "Wrong button, try the big blue one!",
-        "Even the button is running away!",
-        "Are you sure? I think you meant Yes!",
-        "You're persistent! I like that. But still No."
+        "Error 404: 'No' does not exist between Chandigarh & Diphu!",
+        "Diphu server strictly rejected this button!",
+        "Even the button refuses to leave my love for you!",
+        "Are you sure? You know you want to click YES!",
+        "You can't say No on your birthday! 😜"
     ];
 
     let yesScale = 1;
 
     const moveNoButton = () => {
-        const padding = 20;
-        
-        // Grow the Yes button
-        yesScale += 0.1;
-        yesBtn.style.transform = `scale(${yesScale})`;
-        yesBtn.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        const padding = 30;
 
-        // Show a funny message
+        yesScale += 0.12;
+        yesBtn.style.transform = `scale(${yesScale})`;
+
         showToast(funnyMessages[Math.floor(Math.random() * funnyMessages.length)]);
 
-        // Move the No button
         const maxX = window.innerWidth - noBtn.offsetWidth - padding;
         const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-        const randomX = Math.random() * maxX;
-        const randomY = Math.random() * maxY;
+        const randomX = Math.max(padding, Math.random() * maxX);
+        const randomY = Math.max(padding, Math.random() * maxY);
 
         noBtn.style.position = 'fixed';
         noBtn.style.left = `${randomX}px`;
@@ -170,205 +511,113 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.zIndex = '1000';
     };
 
-    const showToast = (message) => {
-        const toast = document.createElement('div');
-        toast.className = 'custom-toast';
-        toast.innerText = message;
-        document.body.appendChild(toast);
-
-        setTimeout(() => {
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 500);
-            }, 2000);
-        }, 100);
-    };
-
     if (noBtn) {
         noBtn.addEventListener('mouseover', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        }, { passive: false });
         noBtn.addEventListener('click', (e) => {
             e.preventDefault();
             moveNoButton();
         });
     }
 
-    // 2. "Yes" Button Action
+    // ==========================================
+    // 11. "YES, ALWAYS!" Button & WhatsApp Integration
+    // ==========================================
     if (yesBtn) {
         yesBtn.addEventListener('click', () => {
             questionCard.classList.add('d-none');
-            successCard.classList.remove('d-none');
-            triggerConfetti();
+            finalCard.classList.remove('d-none');
+            finalCard.classList.add('animate__animated', 'animate__zoomIn');
 
-            // Prepare the action card for later
-            const data = config[currentType];
-            document.getElementById('action-title').innerText = data.actionTitle;
-            document.getElementById('action-subtitle').innerText = data.actionSubtitle;
-            
-            // Show only relevant section
-            document.querySelectorAll('.action-section').forEach(s => s.classList.add('d-none'));
-            document.getElementById(data.sectionId).classList.remove('d-none');
-        });
-    }
+            triggerGrandConfetti();
+            showToast("Happy Birthday, My Love! ❤️🎂");
 
-    // 3. Planning Screen Transition
-    const planDateBtn = document.getElementById('plan-date-btn');
-    const planCard = document.getElementById('plan-card');
+            // Setup WhatsApp link
+            const whatsappBtn = document.getElementById('whatsapp-reply-btn');
+            if (whatsappBtn) {
+                let vouchersText = "";
+                if (claimedVouchers.length > 0) {
+                    vouchersText = `\nI also claimed these vouchers:\n- ${claimedVouchers.join('\n- ')}`;
+                }
 
-    if (planDateBtn) {
-        planDateBtn.addEventListener('click', () => {
-            successCard.classList.add('d-none');
-            planCard.classList.remove('d-none');
-        });
-    }
-
-    // 3.5 Back Buttons Logic
-    const backToType = document.getElementById('back-to-type');
-    const backToSuccess = document.getElementById('back-to-success');
-    const backToQuestion = document.getElementById('back-to-question');
-
-    if (backToType) {
-        backToType.addEventListener('click', () => {
-            // Clean up question card
-            questionCard.classList.add('animate__animated', 'animate__fadeOutRight');
-            
-            setTimeout(() => {
-                questionCard.classList.add('d-none');
-                questionCard.classList.remove('animate__animated', 'animate__fadeOutRight');
-                
-                // Prepare and show type selection card
-                typeSelectionCard.classList.remove('d-none', 'animate__fadeOutLeft'); // Remove previous fade out
-                typeSelectionCard.classList.add('animate__animated', 'animate__fadeInLeft');
-                
-                // Cleanup fadeIn class after it's done
-                setTimeout(() => {
-                    typeSelectionCard.classList.remove('animate__animated', 'animate__fadeInLeft');
-                }, 500);
-            }, 500);
-        });
-    }
-
-    if (backToSuccess) {
-        backToSuccess.addEventListener('click', () => {
-            planCard.classList.add('d-none');
-            successCard.classList.remove('d-none');
-        });
-    }
-
-    if (backToQuestion) {
-        backToQuestion.addEventListener('click', () => {
-            successCard.classList.add('d-none');
-            questionCard.classList.remove('d-none');
-        });
-    }
-
-    // 4. Selection Logic
-    const dateOptions = document.querySelectorAll('.date-option');
-    const dayButtons = document.querySelectorAll('.day-btn');
-    let selectedType = '';
-    let selectedDay = '';
-
-    dateOptions.forEach(opt => {
-        opt.addEventListener('click', () => {
-            dateOptions.forEach(o => o.classList.remove('active'));
-            opt.classList.add('active');
-            selectedType = opt.dataset.type;
-        });
-    });
-
-    dayButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            dayButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            selectedDay = btn.innerText;
-        });
-    });
-
-    const finalBtn = document.getElementById('final-confirm-btn');
-    const finalCard = document.getElementById('final-card');
-    const finalSummaryText = document.getElementById('final-summary-text');
-
-    if (finalBtn) {
-        finalBtn.addEventListener('click', () => {
-            if(!selectedType || !selectedDay) {
-                showToast("Please pick a place and a day! 😊");
-                return;
+                const waMessage = encodeURIComponent(
+                    `Hey love! ❤️ I just experienced your surprise birthday app from Chandigarh to Diphu, Assam! 🎂✨\n\nI loved every bit of it, especially the candle blowing and the letters! Thank you for making my birthday so special even from 2,248 km away.${vouchersText}\n\nI can't wait to see you soon! 💕`
+                );
+                whatsappBtn.href = `https://api.whatsapp.com/send?text=${waMessage}`;
             }
-            
-            // Set summary text
-            finalSummaryText.innerText = `${selectedType} on ${selectedDay}`;
-
-            // Transition to final card
-            planCard.classList.add('animate__animated', 'animate__zoomOut');
-            setTimeout(() => {
-                planCard.classList.add('d-none');
-                finalCard.classList.remove('d-none');
-                finalCard.classList.add('animate__animated', 'animate__zoomIn');
-                triggerConfetti();
-                showToast("Locked in! ❤️");
-            }, 500);
         });
     }
 
-    // 4.5 Email Integration (via Formspree)
-    const emailBtn = document.getElementById('email-btn');
-    if (emailBtn) {
-        emailBtn.addEventListener('click', async () => {
-            const email = "omitterang@gmail.com";
-            const originalText = emailBtn.innerHTML;
-            
-            // Show loading state
-            emailBtn.disabled = true;
-            emailBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Sending...';
+    // ==========================================
+    // 12. Email Reply Integration
+    // ==========================================
+    const emailReplyBtn = document.getElementById('email-reply-btn');
+    if (emailReplyBtn) {
+        emailReplyBtn.addEventListener('click', async () => {
+            const recipientEmail = "omitterang@gmail.com";
+            const originalContent = emailReplyBtn.innerHTML;
 
-            const responseData = {
-                category: currentType,
-                choice: selectedType,
-                day: selectedDay,
-                message: `I've decided to go for ${selectedType} on ${selectedDay}! ❤️`
-            };
+            emailReplyBtn.disabled = true;
+            emailReplyBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Sending Birthday Kiss...';
+
+            let claimedList = claimedVouchers.length > 0 ? claimedVouchers.join(', ') : 'None yet';
 
             try {
-                const response = await fetch(`https://formspree.io/f/xjkkvqlg`, { // Using a generic placeholder or the email
+                const response = await fetch(`https://formspree.io/f/xjkkvqlg`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     },
                     body: JSON.stringify({
-                        email: "visitor@proposalapp.com",
-                        message: `NEW RESPONSE! \nCategory: ${currentType}\nChoice: ${selectedType}\nDay: ${selectedDay}`,
-                        _subject: `New Proposal Response: ${selectedType} on ${selectedDay}!`
+                        email: "birthdaygirl@diphu.assam",
+                        message: `SHE SAID YES! Happy Birthday Response from Diphu, Assam to Chandigarh!\nClaimed Vouchers: ${claimedList}`,
+                        _subject: `Birthday Surprise Response from Diphu, Assam! ❤️🎂`
                     })
                 });
 
                 if (response.ok) {
-                    showToast("Response sent successfully! ❤️");
-                    emailBtn.innerHTML = '<i class="fas fa-check me-2"></i> Sent!';
-                    emailBtn.classList.remove('btn-primary');
-                    emailBtn.classList.add('btn-success');
+                    showToast("Birthday response sent to Chandigarh! ❤️");
+                    emailReplyBtn.innerHTML = '<i class="fas fa-check me-2"></i> Sent with Love!';
+                    emailReplyBtn.classList.remove('btn-outline-light');
+                    emailReplyBtn.classList.add('btn-success');
                 } else {
-                    throw new Error('Failed to send');
+                    throw new Error('Formspree fallback');
                 }
-            } catch (error) {
-                // Fallback to mailto if Formspree fails or isn't set up yet
-                showToast("Opening your email app... ✉️");
-                const subject = encodeURIComponent(`I Said Yes! - ${selectedType}`);
-                const body = encodeURIComponent(`Hey! I've decided...\n\nI want to go for ${selectedType} on ${selectedDay}! ❤️`);
-                window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-                
-                // Reset button
-                emailBtn.disabled = false;
-                emailBtn.innerHTML = originalText;
+            } catch (err) {
+                showToast("Opening email app to send wish... ✉️");
+                const subject = encodeURIComponent("Happy Birthday Response from Diphu! ❤️");
+                const body = encodeURIComponent(
+                    `Hey love!\n\nI loved my birthday surprise from Chandigarh to Diphu! 🎂✨\n\nClaimed Vouchers: ${claimedList}\n\nThank you for making my day so special. Can't wait to see you soon! 💕`
+                );
+                window.location.href = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
+
+                emailReplyBtn.disabled = false;
+                emailReplyBtn.innerHTML = originalContent;
             }
         });
     }
 
-    // 5. Confetti Effect
-    const triggerConfetti = () => {
-        const duration = 15 * 1000;
+    // ==========================================
+    // 13. Confetti Systems
+    // ==========================================
+    function triggerMiniConfetti() {
+        if (typeof confetti !== 'function') return;
+        confetti({
+            particleCount: 40,
+            spread: 60,
+            origin: { y: 0.6 }
+        });
+    }
+
+    function triggerGrandConfetti() {
+        if (typeof confetti !== 'function') return;
+        const duration = 10 * 1000;
         const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 2000 };
 
         function randomInRange(min, max) {
             return Math.random() * (max - min) + min;
@@ -385,37 +634,57 @@ document.addEventListener('DOMContentLoaded', () => {
             confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
             confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
         }, 250);
-    };
+    }
 
-    // 6. Spark Particle System
+    // ==========================================
+    // 14. Toast Notification
+    // ==========================================
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'custom-toast';
+        toast.innerText = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 2200);
+        }, 80);
+    }
+
+    // ==========================================
+    // 15. Sparkles Background System
+    // ==========================================
     const createSpark = () => {
         if (!sparkContainer) return;
         const spark = document.createElement('div');
         spark.className = 'spark';
-        
-        const size = Math.random() * 4 + 2;
+
+        const size = Math.random() * 3 + 1.5;
         spark.style.width = `${size}px`;
         spark.style.height = `${size}px`;
-        
+
         const startX = Math.random() * window.innerWidth;
         const startY = Math.random() * window.innerHeight;
-        
+
         spark.style.left = `${startX}px`;
         spark.style.top = `${startY}px`;
-        
-        const colors = ['#ff0080', '#7928ca', '#ffffff', '#ff4d4d'];
+
+        const colors = ['#ff2a85', '#c37aff', '#ffffff', '#ffd166', '#00d2ff'];
         spark.style.background = colors[Math.floor(Math.random() * colors.length)];
-        spark.style.boxShadow = `0 0 10px ${spark.style.background}`;
-        
+        spark.style.boxShadow = `0 0 8px ${spark.style.background}`;
+
         sparkContainer.appendChild(spark);
 
         const duration = Math.random() * 3000 + 2000;
-        const destinationX = startX + (Math.random() - 0.5) * 200;
-        const destinationY = startY - Math.random() * 300;
+        const destinationX = startX + (Math.random() - 0.5) * 150;
+        const destinationY = startY - Math.random() * 200;
 
         const animation = spark.animate([
             { opacity: 0, transform: 'translate(0, 0) scale(0)' },
-            { opacity: 0.8, transform: `translate(${(destinationX - startX) / 2}px, ${(destinationY - startY) / 2}px) scale(1)`, offset: 0.5 },
+            { opacity: 0.9, transform: `translate(${(destinationX - startX) / 2}px, ${(destinationY - startY) / 2}px) scale(1)`, offset: 0.5 },
             { opacity: 0, transform: `translate(${destinationX - startX}px, ${destinationY - startY}px) scale(0)` }
         ], {
             duration: duration,
@@ -425,5 +694,5 @@ document.addEventListener('DOMContentLoaded', () => {
         animation.onfinish = () => spark.remove();
     };
 
-    setInterval(createSpark, 200);
+    setInterval(createSpark, 250);
 });
