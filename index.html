@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>For Sengve Rongpharpi ❤️ | Birthday & Proposal</title>
     
     <!-- Bootstrap 5 CSS -->
@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -26,18 +28,35 @@
     <div id="spark-container"></div>
     <div id="glow-ambient"></div>
 
-    <!-- Floating Audio BGM Player -->
-    <div class="audio-controller-btn" id="music-toggle" title="Play / Pause Romantic Music">
-        <i class="fas fa-music" id="music-icon"></i>
-        <span class="music-wave">
-            <span></span><span></span><span></span><span></span>
-        </span>
+    <!-- Floating 3D Balloons & Atmospheric Celebration Canvas -->
+    <div id="balloons-container" class="balloons-container"></div>
+    <canvas id="fireworks-canvas"></canvas>
+
+    <!-- Luxury Floating Music Player Pill -->
+    <div class="audio-controller-btn luxury-music-pill" id="music-toggle" title="Play / Pause: Happy Birthday to Sengve">
+        <div class="music-disc-wrap">
+            <i class="fas fa-compact-disc music-disc" id="music-disc"></i>
+        </div>
+        <div class="music-text-track">
+            <span class="music-title">Happy Birthday to Sengve 🎂</span>
+            <span class="music-sub" id="music-sub">Happy Birthday Song 🎤🎵</span>
+        </div>
+        <div class="music-wave" id="music-wave">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
     </div>
 
     <!-- Top Admin Quick Access Trigger -->
     <button id="admin-modal-trigger" class="admin-quick-btn" title="Admin Dashboard">
         <i class="fas fa-shield-halved"></i>
     </button>
+
+    
+    <!-- Real Happy Birthday Vocal Song Audio Element -->
+    <audio id="birthday-audio-player" preload="auto" loop>
+        <source src="assets/audio/happy_birthday.mp3" type="audio/mpeg">
+        <source src="assets/audio/happy_birthday_2.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- Long Distance Top Live Indicator -->
     <header class="distance-header" id="distance-header">
@@ -176,55 +195,136 @@
             </button>
         </div>
 
-        <!-- CARD 2: Interactive Birthday Cake & Candle Blow -->
+        <!-- CARD 2: Interactive 3D Birthday Cake & Candle Blow -->
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="cake-card">
             <div class="icon-container mb-2">
-                <span class="badge bg-pink-glass px-3 py-2 rounded-pill mb-2">For Sengve Rongpharpi 🕯️</span>
+                <span class="badge bg-pink-glass px-3 py-2 rounded-pill mb-2">✨ Sengve Rongpharpi • 26th Birthday 🎂</span>
             </div>
-            <h2 class="display-6 fw-bold mb-2 title-gradient">Blow Out Your Candles, Sengve! 🎂</h2>
-            <p class="opacity-75 mb-4" id="cake-instruction">Make a secret wish and tap each candle flame to extinguish it!</p>
+            <h2 class="display-6 fw-bold mb-1 title-gradient">Happy 26th Birthday, Sengve! 🎂</h2>
+            <p class="opacity-75 small mb-3" id="cake-instruction">Artisanal 3-tier celebration cake with fresh cream, strawberries & roses • Drag to rotate in 360°!</p>
 
-            <!-- Virtual 3D Cake -->
-            <div class="cake-stage mb-4">
-                <div class="cake-container">
-                    <div class="cake-topper">
-                        <div class="candle candle-1" data-candle="1">
-                            <div class="flame"></div>
-                            <div class="smoke"></div>
-                        </div>
-                        <div class="candle candle-2" data-candle="2">
-                            <div class="flame"></div>
-                            <div class="smoke"></div>
-                        </div>
-                        <div class="candle candle-3" data-candle="3">
-                            <div class="flame"></div>
-                            <div class="smoke"></div>
-                        </div>
-                    </div>
-                    <div class="cake-layer layer-top">
-                        <div class="icing-drips">
-                            <span></span><span></span><span></span><span></span><span></span>
-                        </div>
-                        <span class="cake-text">Happy Birthday Sengve!</span>
-                    </div>
-                    <div class="cake-layer layer-bottom"></div>
-                    <div class="cake-plate"></div>
+            <!-- 3D Realistic Rotating Cake Canvas Stage -->
+            <div class="cake-3d-stage position-relative mb-3">
+                <div id="cake-3d-canvas-container" class="cake-3d-canvas-wrapper"></div>
+                <div class="cake-rotate-hint small opacity-60 mt-1">
+                    <i class="fas fa-arrows-left-right me-1 text-gold"></i> Drag horizontally to spin cake in 360° 🔄
                 </div>
             </div>
 
             <!-- Candle status message -->
-            <div id="candle-status" class="alert-msg mb-4">
-                <i class="fas fa-sparkles text-warning me-1"></i> Tap each flame to extinguish it!
+            <div id="candle-status" class="alert-msg mb-3">
+                <i class="fas fa-sparkles text-warning me-1"></i> Tap each glowing flame to make your 26th birthday wish!
             </div>
 
-            <button id="after-cake-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover d-none">
-                See What's In My Heart ✈️ <i class="fas fa-chevron-right ms-2"></i>
+            <div class="d-flex justify-content-center gap-2 mb-3">
+                <button type="button" id="blow-all-btn" class="btn btn-sm btn-outline-gold rounded-pill px-3 py-1">
+                    <i class="fas fa-wind me-1"></i> Blow All Candles At Once 🎂
+                </button>
+                <button type="button" id="toggle-cake-spin" class="btn btn-sm btn-outline-pink rounded-pill px-3 py-1">
+                    <i class="fas fa-rotate me-1"></i> Auto-Spin 360°
+                </button>
+            </div>
+
+            <!-- Step-By-Step Surprise Button (Pure Surprise Flow) -->
+            <div id="cake-celebration-hub" class="d-none mt-3">
+                <button type="button" id="after-cake-btn" class="btn btn-primary btn-lg w-100 py-3 rounded-pill fw-bold glow-on-hover shadow-lg">
+                    See Your Birthday Surprise 🎁 ✨ <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- CARD 2.4: BIRTHDAY GIFT: A WARM TEDDY BEAR HUG (SHOW ONLY ONE) -->
+        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="teddy-card">
+            <button class="back-btn" data-target="cake-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+
+            <div class="stamp-badge mb-3">
+                <i class="fas fa-gift text-warning me-1"></i> Special Delivery for Sengve
+            </div>
+
+            <h2 class="display-6 fw-bold mb-1 title-gradient">A Warm Birthday Hug For Sengve 🧸❤️</h2>
+            <p class="opacity-75 small mb-4">Because distance can't stop me from sending you a warm teddy hug and a fresh red rose!</p>
+
+            <!-- Single Plush Teddy Bear Showcase -->
+            <div class="single-teddy-showcase mb-4">
+                <div class="luxury-teddy-card p-3 p-md-4 rounded-4 mx-auto" id="teddy-box">
+                    <div class="teddy-speech-bubble mb-3 d-inline-block" id="teddy-speech">
+                        "Happy Birthday, Sengve! Big warm hug for you! 🧸❤️"
+                    </div>
+
+                    <div class="teddy-img-wrapper mb-3 position-relative">
+                        <img src="assets/images/teddy_bear.jpg" alt="Plush White Teddy Bear for Sengve" class="img-fluid rounded-4 shadow-2xl teddy-real-photo" id="teddy-main-img">
+                        <div class="teddy-badge-overlay">
+                            <span class="badge bg-pink-glass shadow-lg px-3 py-2 rounded-pill">
+                                <i class="fas fa-heart text-danger beat-animation me-1"></i> Warm Hugs for Sengve
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="teddy-actions-wrap mt-3">
+                        <button type="button" class="btn btn-outline-pink rounded-pill px-4 py-2 fw-bold" id="hug-teddy-btn">
+                            <i class="fas fa-heart text-pink me-1"></i> Squeeze & Hug Teddy 🤗
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <button id="to-bouquet-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
+                Next Surprise: Fresh Roses Just For You 💐🌹 <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+        </div>
+
+        <!-- CARD 2.5: BIRTHDAY GIFT: LUXURY HEART-SHAPED ROSE BOUQUET (SHOW ONLY ONE) -->
+        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="gift-card">
+            <button class="back-btn" data-target="teddy-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+
+            <div class="stamp-badge mb-3">
+                <i class="fas fa-gift text-warning me-1"></i> Special Delivery for Sengve
+            </div>
+
+            <h2 class="display-6 fw-bold mb-1 title-gradient">Fresh Birthday Roses for Sengve 💐❤️</h2>
+            <p class="opacity-75 small mb-4">A special delivery of 99 luxury velvet red roses straight to your heart!</p>
+
+            <!-- Single Luxury Bouquet Showcase (No two boxes - Pure focused surprise) -->
+            <div class="single-bouquet-showcase mb-4">
+                <div class="luxury-bouquet-card p-3 p-md-4 rounded-4 mx-auto" id="bouquet-box">
+                    <div class="bouquet-ribbon-tag mb-3 d-inline-block">
+                        <i class="fas fa-crown text-gold me-1"></i> Luxury 99 Velvet Roses • Just For You, Sengve
+                    </div>
+
+                    <div class="bouquet-img-wrapper mb-3 position-relative">
+                        <img src="assets/images/bouquet.jpg" alt="Heart-Shaped Rose Bouquet for Sengve" class="img-fluid rounded-4 shadow-2xl bouquet-real-photo" id="bouquet-main-img">
+                        <div class="bouquet-badge-overlay">
+                            <span class="badge bg-danger shadow-lg px-3 py-2 rounded-pill">
+                                <i class="fas fa-heart beat-animation me-1"></i> For Sengve Rongpharpi
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="bouquet-actions-wrap mt-3">
+                        <button type="button" class="btn btn-outline-gold rounded-pill px-4 py-2 fw-bold" id="receive-bouquet-btn">
+                            <i class="fas fa-spa text-warning me-1"></i> Accept Bouquet & Flower Shower 💐🌹
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flower Tag Note Revealed -->
+            <div id="flower-card-note" class="p-3 rounded-4 mb-4 bg-glass-dark d-none">
+                <i class="fas fa-quote-left text-pink opacity-50 me-2"></i>
+                <span class="small italic playfair" id="flower-note-text">
+                    "Every single petal in this heart bouquet carries a wish for your joy, health, and lovely smile, Sengve. May your days always be as vibrant and beautiful as blooming roses!"
+                </span>
+                <i class="fas fa-quote-right text-pink opacity-50 ms-2"></i>
+            </div>
+
+            <button id="to-map-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
+                Next: Across 2,248 Kilometers ✈️🗺️ <i class="fas fa-arrow-right ms-2"></i>
             </button>
         </div>
 
         <!-- CARD 3: Chandigarh to Diphu Distance & Realization -->
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="map-card">
-            <button class="back-btn" data-target="cake-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+            <button class="back-btn" data-target="gift-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
             <h2 class="display-6 fw-bold mb-2 title-gradient">Across 2,248 Kilometers 🗺️</h2>
             <p class="opacity-75 mb-4">Chandigarh to Diphu, Karbi Anglong, Assam</p>
@@ -264,7 +364,7 @@
             </div>
 
             <button id="to-video-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
-                A Video Message For You 🎥 <i class="fas fa-chevron-right ms-2"></i>
+                Next Surprise: Watch Video Message 🎥 <i class="fas fa-arrow-right ms-2"></i>
             </button>
         </div>
 
@@ -308,17 +408,28 @@
                 </p>
             </div>
 
-            <button id="to-memories-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
-                Explore Our Photo Scrapbook 📸 <i class="fas fa-chevron-right ms-2"></i>
+            <button id="to-memories-btn" class="btn btn-primary btn-lg py-3 rounded-pill fw-bold glow-on-hover w-100">
+                Next Surprise: Sengve's Phone & Scrapbook 📱 <i class="fas fa-arrow-right ms-2"></i>
             </button>
         </div>
 
-        <!-- CARD 5: PHOTO GALLERY / SCRAPBOOK (NEW & ENHANCED!) -->
+        <!-- CARD 5: PHOTO GALLERY / PHONE MEMORIES -->
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="memories-card">
             <button class="back-btn" data-target="video-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
-            <h2 class="display-6 fw-bold mb-2 title-gradient">Our Cherished Moments 📸</h2>
-            <p class="opacity-75 mb-4">Sengve, every picture with you tells a beautiful story</p>
+            <div class="stamp-badge mb-2">
+                <i class="fas fa-mobile-screen-button me-1 text-info"></i> Sengve's Phone Gallery
+            </div>
+
+            <h2 class="display-6 fw-bold mb-1 title-gradient">Phone Memories & Photos 📱📸</h2>
+            <p class="opacity-75 small mb-3">Sengve, every photo and late night talk with you is special</p>
+
+            <!-- Phone Screen Simulation Header -->
+            <div class="d-flex justify-content-between align-items-center mb-3 px-3 py-1 rounded-pill bg-glass-dark small opacity-75">
+                <span><i class="fas fa-signal me-1"></i> Jio 5G</span>
+                <span class="badge bg-pink-glass px-2"><i class="fas fa-heart text-danger me-1"></i> Sengve's Phone</span>
+                <span>100% <i class="fas fa-battery-full text-success ms-1"></i></span>
+            </div>
 
             <!-- Gallery Grid with Clean Placeholders -->
             <div class="row g-3 mb-4" id="photo-gallery-grid">
@@ -371,8 +482,8 @@
                 <i class="fas fa-camera me-1"></i> Tap any photo to enlarge • Replace in <code>assets/images/</code>
             </div>
 
-            <button id="to-letters-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
-                Read My Secret Letters 💌 <i class="fas fa-chevron-right ms-2"></i>
+            <button id="to-letters-btn" class="btn btn-primary btn-lg py-3 rounded-pill fw-bold glow-on-hover w-100">
+                Next Surprise: Read Birthday Letters 💌 <i class="fas fa-arrow-right ms-2"></i>
             </button>
         </div>
 
@@ -427,7 +538,7 @@
             </div>
 
             <button id="to-vouchers-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
-                Sengve's Girlfriend Privileges 🎟️ <i class="fas fa-chevron-right ms-2"></i>
+                Next Surprise: Sengve's Birthday Privileges 🎟️ <i class="fas fa-arrow-right ms-2"></i>
             </button>
         </div>
 
@@ -499,15 +610,15 @@
                     Sengve, will you be my girlfriend? ❤️
                 </h2>
                 <p class="opacity-75 small mb-4">
-                    Will you let me love you, care for you, and stand by you across any distance?
+                    No pressure at all, birthday girl — whether as best friends or partners in life, having you in my life and celebrating your special day is already my greatest happiness. ❤️
                 </p>
                 
                 <div class="d-flex justify-content-center gap-4 position-relative btn-container">
                     <button id="yes-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover">
                         YES, I WILL! <i class="fas fa-heart ms-2"></i>
                     </button>
-                    <button id="no-btn" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold position-absolute no-btn-style">
-                        No <i class="fas fa-face-frown ms-2"></i>
+                    <button id="no-btn" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill fw-bold position-absolute no-btn-style">
+                        Best Friends First 💕
                     </button>
                 </div>
             </div>
@@ -623,6 +734,7 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="assets/js/three.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

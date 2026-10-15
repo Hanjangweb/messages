@@ -295,8 +295,12 @@ app.use((req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Start Server
-app.listen(PORT, () => {
-    console.log(`🚀 Private Birthday & Proposal App running at: http://localhost:${PORT}`);
-    console.log(`🔒 Dedicated exclusively to: ${TARGET_NAME}`);
-});
+// Start Server locally if run directly
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`🚀 Private Birthday & Proposal App running at: http://localhost:${PORT}`);
+        console.log(`🔒 Dedicated exclusively to: ${TARGET_NAME}`);
+    });
+}
+
+module.exports = app;

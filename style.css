@@ -288,63 +288,201 @@ body {
     transform: scale(1.1);
 }
 
-/* Audio Player Floating Button */
-.audio-controller-btn {
+/* Luxury Audio Player Floating Pill */
+.audio-controller-btn.luxury-music-pill {
     position: fixed;
-    top: 18px;
-    right: 20px;
+    top: 16px;
+    right: 18px;
     z-index: 1000;
-    width: 44px;
-    height: 44px;
+    width: auto !important;
+    height: 48px !important;
+    border-radius: 50px !important;
+    background: rgba(18, 18, 28, 0.88) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 215, 0, 0.35) !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 16px 0 8px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 42, 133, 0.25);
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.luxury-music-pill:hover {
+    border-color: #ffd700 !important;
+    box-shadow: 0 10px 40px rgba(255, 42, 133, 0.4), 0 0 30px rgba(249, 203, 40, 0.4);
+    transform: translateY(-2px) scale(1.03);
+}
+
+.music-disc-wrap {
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
+    background: linear-gradient(135deg, #ff007f, #ffd700);
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 0, 128, 0.5);
+    flex-shrink: 0;
 }
 
-.audio-controller-btn:hover {
-    transform: scale(1.1);
-    border-color: var(--text-pink);
-    box-shadow: 0 0 20px rgba(255, 0, 128, 0.4);
+.music-disc {
+    font-size: 1.15rem;
+    color: #fff;
+    transition: transform 0.3s ease;
 }
 
-.audio-controller-btn.playing {
-    background: var(--primary-gradient);
-    border: none;
-    box-shadow: 0 0 25px rgba(255, 0, 128, 0.6);
+.luxury-music-pill.playing .music-disc {
+    animation: spinVinyl 3s linear infinite;
+}
+
+@keyframes spinVinyl {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.music-text-track {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.15;
+}
+
+.music-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #fff, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.music-sub {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.65);
+    white-space: nowrap;
 }
 
 .music-wave {
-    display: none;
-    position: absolute;
-    bottom: 6px;
-    gap: 2px;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 18px;
+    margin-left: 4px;
 }
-
-.audio-controller-btn.playing .music-wave { display: flex; }
-.audio-controller-btn.playing #music-icon { display: none; }
 
 .music-wave span {
     width: 3px;
-    height: 12px;
-    background: white;
+    height: 4px;
+    background: linear-gradient(180deg, #ffd700, #ff2a85);
     border-radius: 2px;
-    animation: wave 1s infinite ease-in-out;
+    transition: height 0.2s ease;
 }
 
-.music-wave span:nth-child(2) { animation-delay: 0.2s; height: 18px; }
-.music-wave span:nth-child(3) { animation-delay: 0.4s; height: 14px; }
-.music-wave span:nth-child(4) { animation-delay: 0.6s; height: 8px; }
+.luxury-music-pill.playing .music-wave span:nth-child(1) { animation: jumpWave 0.8s infinite ease-in-out; }
+.luxury-music-pill.playing .music-wave span:nth-child(2) { animation: jumpWave 1.1s infinite 0.2s ease-in-out; }
+.luxury-music-pill.playing .music-wave span:nth-child(3) { animation: jumpWave 0.7s infinite 0.4s ease-in-out; }
+.luxury-music-pill.playing .music-wave span:nth-child(4) { animation: jumpWave 1.2s infinite 0.1s ease-in-out; }
+.luxury-music-pill.playing .music-wave span:nth-child(5) { animation: jumpWave 0.9s infinite 0.3s ease-in-out; }
 
-@keyframes wave {
-    0%, 100% { transform: scaleY(0.4); }
-    50% { transform: scaleY(1.2); }
+@keyframes jumpWave {
+    0%, 100% { height: 4px; }
+    50% { height: 18px; }
+}
+
+/* Floating 3D Balloons System (Atmospheric Background) */
+.balloons-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1; /* Strictly behind cards so text is never obstructed */
+    overflow: hidden;
+}
+
+.balloon {
+    position: absolute;
+    bottom: -160px;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    pointer-events: none; /* Never blocks touches or clicks */
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.4));
+    animation: floatUpBalloon linear forwards;
+    transition: transform 0.25s ease;
+    user-select: none;
+    opacity: 0.65;
+}
+
+.balloon::before {
+    content: '';
+    position: absolute;
+    top: 14%;
+    left: 20%;
+    width: 25%;
+    height: 35%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.1) 60%, transparent 100%);
+    transform: rotate(-30deg);
+}
+
+.balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 8px;
+    background: inherit;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.balloon-string {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 1.5px;
+    height: 65px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), transparent);
+    transform-origin: top center;
+    animation: swingString 3s ease-in-out infinite alternate;
+}
+
+@keyframes swingString {
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(8deg); }
+}
+
+@keyframes floatUpBalloon {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    4% {
+        opacity: 0.95;
+    }
+    90% {
+        opacity: 0.95;
+    }
+    100% {
+        transform: translateY(-120vh) translateX(45px) rotate(14deg);
+        opacity: 0;
+    }
+}
+
+/* Fireworks Celebration Canvas */
+#fireworks-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 15;
 }
 
 /* Long Distance Header Bar */
@@ -529,148 +667,45 @@ body {
     margin-top: 5px;
 }
 
-/* 3D Birthday Cake Interactive Stage */
-.cake-stage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 0 10px 0;
-}
-
-.cake-container {
+/* ==========================================
+   3D REALISTIC ROTATING BIRTHDAY CAKE (THREE.JS)
+   ========================================== */
+.cake-3d-stage {
+    width: 100%;
+    max-width: 480px;
+    height: 410px;
+    margin: 0 auto;
     position: relative;
-    width: 220px;
-    height: 180px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
+    border-radius: 24px;
+    background: radial-gradient(circle at 50% 65%, rgba(255, 215, 0, 0.1) 0%, rgba(255, 42, 133, 0.05) 45%, rgba(15, 12, 25, 0.8) 75%, transparent 100%);
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6), 0 10px 30px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    border: 1px solid rgba(255, 215, 0, 0.2);
 }
 
-.cake-topper {
-    position: absolute;
-    top: 5px;
-    display: flex;
-    gap: 32px;
-    z-index: 10;
-}
-
-.candle {
+#cake-3d-canvas-container {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: none;
     position: relative;
-    width: 14px;
-    height: 48px;
-    background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff2a85 5px, #ff2a85 10px);
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease;
 }
 
-.candle:hover { transform: scale(1.1); }
-
-.flame {
-    position: absolute;
-    top: -24px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 16px;
-    height: 24px;
-    background: radial-gradient(circle, #fff, #f9cb28 50%, #ff4d4d);
-    border-radius: 50% 50% 20% 20%;
-    box-shadow: 0 0 20px #f9cb28, 0 0 35px #ff4d4d;
-    animation: flicker 0.6s infinite alternate;
-    cursor: pointer;
+#cake-3d-canvas-container:active {
+    cursor: grabbing;
 }
 
-@keyframes flicker {
-    0% { transform: translateX(-50%) rotate(-3deg) scale(0.95); opacity: 0.9; }
-    100% { transform: translateX(-50%) rotate(3deg) scale(1.08); opacity: 1; }
-}
-
-.candle.blown .flame { display: none; }
-
-.smoke {
-    display: none;
-    position: absolute;
-    top: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 8px;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
-}
-
-.candle.blown .smoke {
+#cake-3d-canvas-container canvas {
     display: block;
-    animation: puff 1s forwards ease-out;
+    width: 100% !important;
+    height: 100% !important;
+    outline: none;
 }
 
-@keyframes puff {
-    0% { opacity: 0.9; transform: translateX(-50%) translateY(0) scale(1); }
-    100% { opacity: 0; transform: translateX(-50%) translateY(-35px) scale(3.5); filter: blur(3px); }
-}
-
-.cake-layer {
-    width: 100%;
-    border-radius: 16px;
-    position: relative;
-    box-shadow: inset 0 -8px 0 rgba(0, 0, 0, 0.15);
-}
-
-.layer-top {
-    width: 185px;
-    height: 55px;
-    background: linear-gradient(135deg, #ff71a9, #ff2a85);
-    border: 3px solid #ffe6f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 5;
-    position: relative;
-}
-
-.cake-text {
-    font-size: 0.72rem;
-    font-weight: 800;
-    color: #fff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+.cake-rotate-hint {
     letter-spacing: 0.5px;
-}
-
-.icing-drips {
-    position: absolute;
-    top: -4px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-}
-
-.icing-drips span {
-    width: 18px;
-    height: 14px;
-    background: #ffe6f0;
-    border-radius: 0 0 10px 10px;
-}
-
-.layer-bottom {
-    width: 220px;
-    height: 65px;
-    background: linear-gradient(135deg, #7928ca, #511590);
-    border: 3px solid #d8b8ff;
-    margin-top: -6px;
-    z-index: 4;
-}
-
-.cake-plate {
-    width: 250px;
-    height: 12px;
-    background: #e2e8f0;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    margin-top: -4px;
-    z-index: 3;
+    font-size: 0.75rem;
+    color: rgba(255, 215, 0, 0.85);
 }
 
 .alert-msg {
@@ -835,14 +870,30 @@ body {
 .letter-box:hover {
     background: rgba(255, 42, 133, 0.12);
     border-color: var(--text-pink);
-    transform: translateY(-5px);
+    transform: none !important;
     box-shadow: 0 10px 25px rgba(255, 42, 133, 0.2);
 }
 
 .letter-modal-box {
-    border: 1px solid rgba(255, 42, 133, 0.3);
+    background: linear-gradient(135deg, rgba(28, 20, 40, 0.96), rgba(15, 12, 25, 0.98)) !important;
+    border: 1px solid rgba(255, 215, 0, 0.45) !important;
     text-align: left;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 42, 133, 0.25) !important;
+    border-radius: 24px !important;
+    position: relative;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+#modal-letter-body {
+    line-height: 1.75;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+#modal-letter-body strong {
+    color: #ffd700;
+    font-weight: 700;
 }
 
 /* Long Distance Vouchers */
@@ -1094,19 +1145,29 @@ body {
 
 .back-btn {
     position: absolute;
-    top: 18px;
-    left: 20px;
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.85rem;
-    transition: all 0.3s ease;
+    top: 14px;
+    left: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 14px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.25s ease;
     z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
 }
 
 .back-btn:hover {
-    color: white;
-    transform: translateX(-4px);
+    color: #ffffff;
+    background: rgba(255, 42, 133, 0.25);
+    border-color: rgba(255, 42, 133, 0.5);
+    transform: none !important;
 }
 
 /* Custom Toast */
@@ -1238,34 +1299,404 @@ body {
     }
 }
 
-/* Responsive Overrides */
-@media (max-width: 768px) {
-    .distance-pill {
-        font-size: 0.72rem;
-        padding: 5px 12px;
-    }
-    .flight-path { margin: 0 6px; }
+/* ==========================================
+   COMPREHENSIVE RESPONSIVE DESIGN (MOBILE, TABLET, DESKTOP)
+   ========================================== */
+
+/* ==========================================
+   COMPREHENSIVE RESPONSIVE DESIGN (MOBILE, TABLET, DESKTOP)
+   ========================================== */
+
+/* 1. Large Desktops & Laptops (min-width: 992px) */
+@media (min-width: 992px) {
     .proposal-card {
-        padding: 1.5rem !important;
-        margin-top: 60px;
+        max-width: 580px;
+        margin-top: 75px;
+        margin-bottom: 50px;
+        padding: 2.75rem 3rem !important;
     }
-    .display-5 { font-size: 1.85rem; }
-    .display-6 { font-size: 1.5rem; }
-    .countdown-grid { gap: 6px; }
+    .cake-3d-stage {
+        height: 410px;
+        max-width: 460px;
+    }
+    .audio-controller-btn.luxury-music-pill {
+        top: 20px;
+        right: 24px;
+        bottom: auto;
+    }
+    .distance-header {
+        top: 18px;
+        max-width: 540px;
+    }
+    .admin-quick-btn {
+        top: 18px;
+        left: 20px;
+        bottom: auto;
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* 2. Tablets & Small Laptops (769px to 991px) */
+@media (min-width: 769px) and (max-width: 991px) {
+    .proposal-card {
+        max-width: 540px;
+        width: 90%;
+        margin-top: 68px;
+        margin-bottom: 60px;
+        padding: 2.25rem 2rem !important;
+        border-radius: 28px;
+    }
+    .cake-3d-stage {
+        height: 380px;
+        max-width: 440px;
+    }
+    .audio-controller-btn.luxury-music-pill {
+        position: fixed;
+        bottom: 22px;
+        right: 18px;
+        top: auto;
+        z-index: 1000;
+    }
+    .admin-quick-btn {
+        position: fixed;
+        bottom: 22px;
+        left: 18px;
+        top: auto;
+        z-index: 1000;
+        width: 38px;
+        height: 38px;
+    }
+    .distance-header {
+        top: 15px;
+        max-width: 460px;
+    }
+    .teddy-real-photo,
+    .bouquet-real-photo {
+        max-height: 340px;
+    }
+}
+
+/* 3. Mobile & Tablets General Container Buffer */
+@media (max-width: 991px) {
+    main {
+        padding-bottom: 85px;
+    }
+}
+
+/* 4. Standard Mobile Phones & Devices (max-width: 768px) */
+@media (max-width: 768px) {
+    /* Unobstructed Top Distance Bar */
+    .distance-header {
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 24px);
+        max-width: 380px;
+        z-index: 990;
+        pointer-events: none;
+    }
+    .distance-pill {
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 30px;
+    }
+    .city-badge {
+        font-size: 11px;
+        gap: 4px;
+    }
+    .km-tag {
+        font-size: 10px;
+        padding: 1px 6px;
+    }
+    .flight-path {
+        margin: 0 5px;
+    }
+
+    /* Fixed Controls at Bottom Corners (Never Collide with Header or Back Buttons) */
+    .admin-quick-btn {
+        position: fixed;
+        bottom: 16px;
+        left: 14px;
+        top: auto;
+        z-index: 1000;
+        width: 34px;
+        height: 34px;
+        font-size: 12px;
+        opacity: 0.55;
+        background: rgba(18, 18, 28, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .audio-controller-btn.luxury-music-pill {
+        position: fixed;
+        bottom: 16px;
+        right: 14px;
+        top: auto;
+        z-index: 1000;
+        height: 38px !important;
+        padding: 3px 12px 3px 5px !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 42, 133, 0.3);
+    }
+    .music-disc-wrap {
+        width: 28px;
+        height: 28px;
+    }
+    .music-disc {
+        font-size: 0.95rem;
+    }
+    .music-text-track {
+        font-size: 11px;
+    }
+
+    /* Pixel-Perfect Card Spacing & Back-Button Clearance */
+    .proposal-card {
+        width: 95%;
+        max-width: 480px;
+        padding: 44px 16px 20px 16px !important;
+        margin-top: 52px;
+        margin-bottom: 75px;
+        border-radius: 22px;
+    }
+    #countdown-card {
+        padding-top: 24px !important; /* No back button on first card */
+    }
+
+    /* Sleek Back Button sitting cleanly in top-left without text collision */
+    .back-btn {
+        top: 12px;
+        left: 14px;
+        font-size: 11.5px;
+        padding: 3px 9px;
+        border-radius: 12px;
+    }
+
+    /* Typography: 15-16px Headings on Mobile */
+    h1, .display-4 {
+        font-size: 17px !important;
+        font-weight: 700 !important;
+        line-height: 1.35 !important;
+        margin-bottom: 6px !important;
+    }
+    h2, .display-5, .display-6, .title-gradient {
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        line-height: 1.35 !important;
+        margin-bottom: 6px !important;
+    }
+    h3, h4, h5, h6 {
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        line-height: 1.35 !important;
+        margin-bottom: 6px !important;
+    }
+    #main-question-text {
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        line-height: 1.4 !important;
+        margin-bottom: 14px !important;
+    }
+
+    /* Typography: 14px Body Font on Mobile */
+    body, p, .lead, .summary-box p, .video-caption-quote p, .distance-quote-box p {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+    .playfair.italic {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Subtitles & Micro Labels */
+    small, .opacity-75, .opacity-70, .opacity-60, .opacity-50 {
+        font-size: 12px !important;
+    }
+    .stamp-badge, .bouquet-ribbon-tag {
+        font-size: 11px !important;
+        padding: 3px 10px !important;
+        margin-bottom: 8px !important;
+    }
+
+    /* 3D Cake Canvas Stage on Mobile */
+    .cake-3d-stage {
+        height: 290px !important;
+        margin-bottom: 8px !important;
+        border-radius: 16px !important;
+    }
+    .cake-rotate-hint {
+        font-size: 11px !important;
+        margin-top: 2px !important;
+    }
+    #candle-status {
+        font-size: 12px !important;
+        padding: 5px 12px !important;
+        margin-bottom: 8px !important;
+    }
+    #cake-card .btn-outline-gold,
+    #cake-card .btn-outline-pink {
+        font-size: 11.5px !important;
+        padding: 4px 10px !important;
+    }
+
+    /* Countdown Grid on Mobile */
+    .countdown-grid {
+        gap: 6px !important;
+        margin-bottom: 12px !important;
+    }
     .time-block {
-        min-width: 52px;
-        padding: 8px 10px;
+        min-width: 48px !important;
+        padding: 6px 8px !important;
+        border-radius: 10px !important;
     }
-    .time-number { font-size: 1.35rem; }
-    .cake-container { transform: scale(0.9); }
+    .time-number {
+        font-size: 18px !important;
+        font-weight: 700 !important;
+    }
+    .time-label {
+        font-size: 9.5px !important;
+        letter-spacing: 0.5px;
+    }
+    .special-distance-quote {
+        padding: 10px 12px !important;
+        font-size: 13px !important;
+        line-height: 1.45 !important;
+        margin-bottom: 14px !important;
+    }
+
+    /* Map Card Internal Spacing */
+    .map-illustration-box {
+        padding: 12px 10px !important;
+        margin-bottom: 12px !important;
+    }
+    .city-circle {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 14px !important;
+    }
+    .city-node .fw-bold {
+        font-size: 13px !important;
+    }
+    .city-node small {
+        font-size: 10.5px !important;
+    }
+    .journey-km {
+        font-size: 10.5px !important;
+    }
+    .distance-quote-box {
+        padding: 10px 12px !important;
+        margin-top: 10px !important;
+    }
+    .distance-quote-box p {
+        font-size: 13.5px !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Single Teddy & Bouquet Showcases */
+    .single-teddy-showcase,
+    .single-bouquet-showcase {
+        max-width: 100% !important;
+        margin-bottom: 12px !important;
+    }
+    .luxury-teddy-card,
+    .luxury-bouquet-card {
+        padding: 10px !important;
+        border-radius: 16px !important;
+    }
+    .teddy-real-photo,
+    .bouquet-real-photo {
+        max-height: 230px !important;
+        border-radius: 12px !important;
+    }
+    .teddy-speech-bubble {
+        font-size: 12px !important;
+        padding: 6px 12px !important;
+        line-height: 1.35 !important;
+    }
+
+    /* Vouchers List on Mobile */
+    .vouchers-list .voucher-card {
+        padding: 9px 12px !important;
+        font-size: 13px !important;
+        border-radius: 14px !important;
+        margin-bottom: 8px !important;
+    }
+    .voucher-card .claim-btn {
+        padding: 3px 9px !important;
+        font-size: 12px !important;
+    }
+
+    /* Letter Card on Mobile */
+    .letter-box {
+        padding: 12px !important;
+        font-size: 13.5px !important;
+        line-height: 1.6 !important;
+        max-height: 360px !important;
+    }
+
+    /* Buttons on Mobile */
+    .btn-lg {
+        font-size: 14px !important;
+        padding: 11px 18px !important;
+        border-radius: 25px !important;
+    }
     .btn-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 12px !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 10px !important;
     }
-    .no-btn-style {
+    #yes-btn {
+        width: 100% !important;
+        max-width: 270px !important;
+        font-size: 14px !important;
+        padding: 11px 18px !important;
+    }
+    #no-btn {
+        width: 100% !important;
+        max-width: 270px !important;
+        font-size: 13px !important;
+        padding: 9px 16px !important;
         position: static !important;
-        margin-top: 5px;
+        margin-top: 0 !important;
+    }
+}
+
+/* 5. Ultra-Compact Mobile Screens (max-width: 380px e.g. iPhone SE, Fold) */
+@media (max-width: 380px) {
+    .proposal-card {
+        width: 98% !important;
+        padding: 40px 12px 18px 12px !important;
+        margin-top: 48px;
+    }
+    #countdown-card {
+        padding-top: 20px !important;
+    }
+    .cake-3d-stage {
+        height: 260px !important;
+    }
+    .envelope-wrapper {
+        transform: scale(0.85);
+    }
+    h2, .display-6 {
+        font-size: 15px !important;
+    }
+    body, p, .lead {
+        font-size: 13px !important;
+    }
+    .time-block {
+        min-width: 44px !important;
+        padding: 5px 6px !important;
+    }
+    .time-number {
+        font-size: 16px !important;
+    }
+    .city-badge {
+        font-size: 10px !important;
+    }
+    .km-tag {
+        font-size: 9.5px !important;
+    }
+    .btn-lg {
+        font-size: 13px !important;
+        padding: 10px 16px !important;
     }
 }
 
@@ -1365,7 +1796,7 @@ body {
 .gallery-photo-card:hover {
     background: rgba(255, 42, 133, 0.15);
     border-color: var(--text-pink);
-    transform: translateY(-6px) scale(1.02);
+    transform: none !important;
     box-shadow: 0 12px 30px rgba(255, 42, 133, 0.25);
 }
 
@@ -1385,7 +1816,7 @@ body {
 }
 
 .gallery-photo-card:hover .gallery-img {
-    transform: scale(1.08);
+    transform: none !important;
 }
 
 .photo-overlay-tag {
@@ -1451,4 +1882,145 @@ body {
     max-height: 55vh;
     object-fit: cover;
 }
+
+/* ==========================================
+   BIRTHDAY GIFTS: PLUSH TEDDY BEAR & LUXURY BOUQUET (SHOW ONLY ONE PER CARD)
+   ========================================== */
+.single-teddy-showcase,
+.single-bouquet-showcase {
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.luxury-teddy-card,
+.luxury-bouquet-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(15px);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transform: none !important;
+}
+
+.luxury-teddy-card:hover,
+.luxury-bouquet-card:hover {
+    border-color: rgba(255, 42, 133, 0.5);
+    box-shadow: 0 20px 45px rgba(255, 42, 133, 0.25);
+    transform: none !important; /* Zero hover movement */
+}
+
+.teddy-speech-bubble {
+    background: rgba(255, 42, 133, 0.2);
+    border: 1px solid rgba(255, 42, 133, 0.5);
+    color: #ffb3d9;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px rgba(255, 0, 128, 0.25);
+    line-height: 1.3;
+}
+
+.teddy-img-wrapper,
+.bouquet-img-wrapper {
+    position: relative;
+    max-width: 340px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.teddy-real-photo,
+.bouquet-real-photo {
+    width: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(255, 42, 133, 0.35);
+    transform: none !important; /* Zero hover movement */
+}
+
+.teddy-badge-overlay,
+.bouquet-badge-overlay {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 2;
+}
+
+.proposal-card,
+.proposal-card:hover,
+.luxury-teddy-card,
+.luxury-teddy-card:hover,
+.luxury-bouquet-card,
+.luxury-bouquet-card:hover,
+.single-teddy-showcase,
+.single-bouquet-showcase {
+    transform: none !important;
+}
+
+/* Enforce No Card Hover Movement Anywhere */
+.proposal-card,
+.proposal-card:hover,
+.gift-item-box,
+.gift-item-box:hover,
+.luxury-bouquet-card,
+.luxury-bouquet-card:hover,
+.gallery-photo-card,
+.gallery-photo-card:hover,
+.letter-box,
+.letter-box:hover,
+.voucher-card,
+.voucher-card:hover {
+    transform: none !important;
+}
+
+/* ==========================================
+   CELEBRATION ACTION HUB (AFTER CANDLES)
+   ========================================== */
+
+/* Celebration Hub on Cake Card */
+.hub-divider {
+    position: relative;
+    text-align: center;
+}
+
+.hub-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.4), transparent);
+}
+
+.hub-divider-text {
+    position: relative;
+    background: rgba(18, 18, 28, 0.95);
+    padding: 0 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #ffd700;
+    letter-spacing: 0.5px;
+}
+
+.hub-action-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hub-action-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
 
