@@ -404,35 +404,73 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 4.5 Floating 3D Balloons System
+    // 4.5 Floating 3D Balloons System (Flanking & Rich Presence)
     // ==========================================
     const balloonsContainer = document.getElementById('balloons-container');
     const balloonColors = [
-        'linear-gradient(135deg, #ff71a9, #ff007f)', // Rose Gold
-        'linear-gradient(135deg, #ffd700, #ff8c00)', // Champagne Gold
-        'linear-gradient(135deg, #c084fc, #9333ea)', // Amethyst Purple
-        'linear-gradient(135deg, #ff4d6d, #c9184a)', // Velvet Ruby
-        'linear-gradient(135deg, #38bdf8, #2563eb)'  // Sky Sapphire
+        'linear-gradient(135deg, #ff2a85, #ff71a9)', // Hot Romantic Pink
+        'linear-gradient(135deg, #ffd700, #ff9e00)', // Radiant Royal Gold
+        'linear-gradient(135deg, #c084fc, #7928ca)', // Regal Violet
+        'linear-gradient(135deg, #ff3366, #ba0c2f)', // Deep Crimson Velvet
+        'linear-gradient(135deg, #38bdf8, #1d4ed8)', // Sky Sapphire
+        'linear-gradient(135deg, #ff758c, #ff7eb3)', // Soft Peach Rose
+        'linear-gradient(135deg, #f472b6, #db2777)', // Blossom Magenta
+        'linear-gradient(135deg, #fef08a, #f59e0b)', // Warm Champagne
+        'linear-gradient(135deg, #a78bfa, #6366f1)', // Electric Lavender
+        'linear-gradient(135deg, #ffffff, #fbcfe8)'  // Pearlescent Silk
     ];
 
-    function createBalloon() {
+    function createBalloon(preferredFlank, initialStagger = false) {
         if (!balloonsContainer) return;
         const balloon = document.createElement('div');
-        balloon.className = 'balloon';
+        
+        // Determine flank: left (45%), right (45%), or center background (10%)
+        let flank = preferredFlank;
+        if (!flank) {
+            const rand = Math.random();
+            if (rand < 0.45) flank = 'left';
+            else if (rand < 0.90) flank = 'right';
+            else flank = 'center';
+        }
 
-        const size = Math.floor(Math.random() * 22) + 48; // 48px to 70px width
+        balloon.className = `balloon flank-${flank}`;
+        if (flank === 'center') balloon.classList.add('center-bg');
+
+        const isMobile = window.innerWidth <= 768;
+        const size = isMobile 
+            ? Math.floor(Math.random() * 18) + 40 // 40px to 58px on mobile
+            : Math.floor(Math.random() * 26) + 48; // 48px to 74px on desktop
         const height = Math.round(size * 1.25);
         const color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
-        const left = Math.random() * 90 + 3; // 3% to 93vw
-        const duration = Math.random() * 10 + 16; // 16s to 26s
-        const delay = Math.random() * 3;
+
+        // Position coordinates based on flank
+        let left;
+        if (flank === 'left') {
+            // Flanked generously on the left
+            left = isMobile ? (Math.random() * 18 + 1) : (Math.random() * 26 + 2);
+        } else if (flank === 'right') {
+            // Flanked generously on the right
+            left = isMobile ? (Math.random() * 18 + 80) : (Math.random() * 25 + 73);
+        } else {
+            // Subtle in background center
+            left = Math.random() * 40 + 30;
+        }
+
+        const duration = Math.random() * 8 + (isMobile ? 14 : 16); // 14s to 24s
 
         balloon.style.width = `${size}px`;
         balloon.style.height = `${height}px`;
         balloon.style.background = color;
-        balloon.style.left = `${left}vw`;
-        balloon.style.animationDuration = `${duration}s`;
-        balloon.style.animationDelay = `${delay}s`;
+        balloon.style.left = `${left.toFixed(1)}vw`;
+        balloon.style.animationDuration = `${duration.toFixed(1)}s`;
+
+        if (initialStagger) {
+            // Negative delay so balloons are ALREADY floating mid-air immediately on page load!
+            const negativeDelay = -(Math.random() * duration * 0.95).toFixed(2);
+            balloon.style.animationDelay = `${negativeDelay}s`;
+        } else {
+            balloon.style.animationDelay = `${(Math.random() * 1.5).toFixed(2)}s`;
+        }
 
         // Balloon string
         const string = document.createElement('div');
@@ -442,14 +480,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Click or tap to pop!
         const popBalloon = (e) => {
             e.stopPropagation();
-            playSfx('pop');
-            triggerMiniConfetti();
+            if (typeof playSfx === 'function') playSfx('pop');
+            if (typeof triggerMiniConfetti === 'function') triggerMiniConfetti();
             balloon.style.transition = 'all 0.16s ease-out';
             balloon.style.transform = 'scale(1.4)';
             balloon.style.opacity = '0';
             setTimeout(() => {
                 balloon.remove();
-                setTimeout(createBalloon, 2200); // respawn
+                setTimeout(() => createBalloon(flank, false), 1500); // respawn in same flank
             }, 180);
         };
 
@@ -458,17 +496,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         balloonsContainer.appendChild(balloon);
 
-        setTimeout(() => {
+        // Respawn upon animation completion
+        balloon.addEventListener('animationend', () => {
             if (balloon.parentNode) {
                 balloon.remove();
-                createBalloon();
+                createBalloon(flank, false);
             }
-        }, (duration + delay) * 1000);
+        });
     }
 
-    // Launch initial balloons
-    for (let i = 0; i < 12; i++) {
-        setTimeout(createBalloon, i * 650);
+    // Launch initial balloons immediately flanking left and right
+    const isMobileDevice = window.innerWidth <= 768;
+    const initialCount = isMobileDevice ? 18 : 34;
+    for (let i = 0; i < initialCount; i++) {
+        const targetFlank = (i % 2 === 0) ? 'left' : ((i % 5 === 0) ? 'center' : 'right');
+        createBalloon(targetFlank, true);
     }
 
     // ==========================================

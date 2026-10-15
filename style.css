@@ -433,12 +433,31 @@ body {
     position: absolute;
     bottom: -160px;
     border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-    pointer-events: none; /* Never blocks touches or clicks */
-    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.4));
+    pointer-events: auto; /* Clickable outside cards */
+    cursor: pointer;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.5));
     animation: floatUpBalloon linear forwards;
-    transition: transform 0.25s ease;
+    transition: transform 0.25s ease, opacity 0.2s ease;
     user-select: none;
-    opacity: 0.65;
+    opacity: 0.88;
+    will-change: transform;
+}
+
+.balloon.flank-left {
+    animation-name: floatUpBalloonLeft;
+    opacity: 0.92;
+}
+
+.balloon.flank-right {
+    animation-name: floatUpBalloonRight;
+    opacity: 0.92;
+}
+
+.balloon.center-bg {
+    animation-name: floatUpBalloon;
+    opacity: 0.22;
+    filter: blur(1px) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+    pointer-events: none;
 }
 
 .balloon::before {
@@ -449,7 +468,7 @@ body {
     width: 25%;
     height: 35%;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.1) 60%, transparent 100%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.15) 60%, transparent 100%);
     transform: rotate(-30deg);
 }
 
@@ -481,19 +500,68 @@ body {
     100% { transform: rotate(8deg); }
 }
 
+@keyframes floatUpBalloonLeft {
+    0% {
+        transform: translateY(0) translateX(0) rotate(-6deg);
+        opacity: 0;
+    }
+    4% {
+        opacity: 0.92;
+    }
+    35% {
+        transform: translateY(-45vh) translateX(24px) rotate(8deg);
+    }
+    70% {
+        transform: translateY(-90vh) translateX(-14px) rotate(-6deg);
+    }
+    92% {
+        opacity: 0.92;
+    }
+    100% {
+        transform: translateY(-135vh) translateX(18px) rotate(10deg);
+        opacity: 0;
+    }
+}
+
+@keyframes floatUpBalloonRight {
+    0% {
+        transform: translateY(0) translateX(0) rotate(6deg);
+        opacity: 0;
+    }
+    4% {
+        opacity: 0.92;
+    }
+    35% {
+        transform: translateY(-45vh) translateX(-24px) rotate(-8deg);
+    }
+    70% {
+        transform: translateY(-90vh) translateX(14px) rotate(6deg);
+    }
+    92% {
+        opacity: 0.92;
+    }
+    100% {
+        transform: translateY(-135vh) translateX(-18px) rotate(-10deg);
+        opacity: 0;
+    }
+}
+
 @keyframes floatUpBalloon {
     0% {
         transform: translateY(0) translateX(0) rotate(0deg);
         opacity: 0;
     }
     4% {
-        opacity: 0.95;
+        opacity: 0.85;
     }
-    90% {
-        opacity: 0.95;
+    50% {
+        transform: translateY(-65vh) translateX(20px) rotate(6deg);
+    }
+    92% {
+        opacity: 0.85;
     }
     100% {
-        transform: translateY(-120vh) translateX(45px) rotate(14deg);
+        transform: translateY(-135vh) translateX(-20px) rotate(-6deg);
         opacity: 0;
     }
 }
@@ -617,20 +685,17 @@ body {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 42, 133, 0.12);
     position: relative;
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
-    max-height: calc(100vh - 36px);
-    max-height: calc(100dvh - 36px);
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 42, 133, 0.4) transparent;
+    overflow: hidden !important; /* Zero card scrollbar anywhere */
 }
 
 .proposal-card::-webkit-scrollbar {
-    width: 4px;
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
 }
+
 .proposal-card::-webkit-scrollbar-thumb {
-    background: rgba(255, 42, 133, 0.4);
-    border-radius: 10px;
+    display: none !important;
 }
 
 .proposal-card::before {
@@ -1368,48 +1433,193 @@ body {
 /* 1. Large Desktops & Laptops (min-width: 992px) */
 @media (min-width: 992px) {
     .proposal-card {
-        max-width: 560px;
+        max-width: 600px !important;
         margin: 0 auto !important;
-        padding: 1.4rem 1.8rem !important;
+        padding: 2.2rem 2.5rem !important;
+        border-radius: 28px !important;
+        overflow: hidden !important;
     }
-    .cake-3d-stage {
-        height: 240px;
-        max-width: 380px;
+    .auth-card {
+        max-width: 580px !important;
+        padding: 2.2rem 2.5rem !important;
+    }
+    #auth-screen .proposal-card,
+    #countdown-card {
+        padding: 2.2rem 2.5rem !important;
+    }
+    .security-crest,
+    .security-crest .crest-ring {
+        width: 72px !important;
+        height: 72px !important;
+        font-size: 1.8rem !important;
+        margin-bottom: 14px !important;
+    }
+    .vip-exclusive-badge {
+        font-size: 0.92rem !important;
+        padding: 7px 20px !important;
+        margin-bottom: 16px !important;
+    }
+    /* Desktop Headings Base */
+    h1, .display-4 {
+        font-size: 2.3rem !important;
+        font-weight: 700 !important;
+        line-height: 1.25 !important;
+        margin-bottom: 12px !important;
+    }
+    h2, .display-5, .display-6, .title-gradient, .title-gradient-shine {
+        font-size: 1.9rem !important;
+        font-weight: 700 !important;
+        line-height: 1.3 !important;
+        margin-bottom: 12px !important;
+    }
+    h3, h4 {
+        font-size: 1.5rem !important;
+        font-weight: 600 !important;
+    }
+    h5, h6 {
+        font-size: 1.25rem !important;
+    }
+
+    /* Subtitles, Cinzel & Letter-spacing */
+    .cinzel.letter-spacing-2,
+    .letter-spacing-2,
+    h1.letter-spacing-2,
+    .auth-card h1 {
+        font-size: 1.3rem !important;
+        letter-spacing: 3.5px !important;
+    }
+
+    /* Prominent Majestic Calligraphy (highest specificity and precedence) */
+    .calligraphy-name,
+    h2.calligraphy-name,
+    .title-gradient-shine.calligraphy-name {
+        font-size: 3.8rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 16px !important;
+        display: block !important;
+    }
+
+    /* Body text, Paragraphs & Small text */
+    body, p, .lead, .proposal-card p, .special-distance-quote, .distance-quote-box p {
+        font-size: 1.12rem !important;
+        line-height: 1.65 !important;
+    }
+    .proposal-card small,
+    .proposal-card .small,
+    .proposal-card p.small,
+    .auth-card p {
+        font-size: 1.05rem !important;
+        line-height: 1.6 !important;
+    }
+
+    .glass-input {
+        font-size: 1.1rem !important;
+        padding: 15px 50px !important;
+        height: 56px !important;
+    }
+    .glass-input::placeholder {
+        font-size: 1.02rem !important;
+    }
+    .group-icon {
+        font-size: 1.25rem !important;
+    }
+    .btn-lg,
+    #unlock-btn {
+        font-size: 1.2rem !important;
+        padding: 15px 30px !important;
+        height: 56px !important;
+    }
+    #quick-sengve-btn {
+        font-size: 1.05rem !important;
+        padding: 13px 26px !important;
+    }
+    .back-btn {
+        font-size: 14px !important;
+        padding: 7px 16px !important;
+        top: 18px !important;
+        left: 20px !important;
+    }
+    .distance-header {
+        top: 20px;
+        max-width: 620px;
+    }
+    .distance-pill {
+        font-size: 13.5px !important;
+        padding: 7px 18px !important;
+    }
+    .city-badge {
+        font-size: 13px !important;
+    }
+    .km-tag {
+        font-size: 12px !important;
     }
     .audio-controller-btn.luxury-music-pill {
         top: 20px;
         right: 24px;
         bottom: auto;
-    }
-    .distance-header {
-        top: 18px;
-        max-width: 540px;
+        height: 48px !important;
+        padding: 4px 18px 4px 8px !important;
+        font-size: 13.5px !important;
     }
     .admin-quick-btn {
-        top: 18px;
+        top: 20px;
         left: 20px;
         bottom: auto;
         width: 44px;
         height: 44px;
     }
+    .cake-3d-stage {
+        height: 270px;
+        max-width: 420px;
+    }
     .teddy-real-photo,
     .bouquet-real-photo {
-        max-height: 180px;
+        max-height: 190px;
+    }
+    .time-number {
+        font-size: 32px !important;
+    }
+    .time-label {
+        font-size: 12px !important;
+    }
+    .time-block {
+        min-width: 76px !important;
+        padding: 12px 14px !important;
     }
 }
 
 /* 2. Tablets & Small Laptops (769px to 991px) */
 @media (min-width: 769px) and (max-width: 991px) {
     .proposal-card {
-        max-width: 520px;
+        max-width: 540px;
         width: 92%;
         margin: 0 auto !important;
-        padding: 1.25rem 1.5rem !important;
+        padding: 1.6rem 1.8rem !important;
         border-radius: 26px;
+        overflow: hidden !important;
+    }
+    .auth-card {
+        max-width: 520px !important;
+    }
+    .calligraphy-name {
+        font-size: 2.8rem !important;
+        line-height: 1.15 !important;
+    }
+    h1, .display-4 {
+        font-size: 1.85rem !important;
+        line-height: 1.3 !important;
+    }
+    h2, .display-5, .display-6, .title-gradient {
+        font-size: 1.5rem !important;
+        line-height: 1.3 !important;
+    }
+    p, .lead, .proposal-card p {
+        font-size: 0.98rem !important;
+        line-height: 1.55 !important;
     }
     .cake-3d-stage {
-        height: 230px;
-        max-width: 360px;
+        height: 250px;
+        max-width: 380px;
     }
     .audio-controller-btn.luxury-music-pill {
         position: fixed;
@@ -1429,11 +1639,11 @@ body {
     }
     .distance-header {
         top: 15px;
-        max-width: 460px;
+        max-width: 480px;
     }
     .teddy-real-photo,
     .bouquet-real-photo {
-        max-height: 170px;
+        max-height: 175px;
     }
 }
 
@@ -1504,61 +1714,108 @@ body {
     /* Pixel-Perfect Card Spacing & Back-Button Clearance */
     .proposal-card {
         width: 95%;
-        max-width: 460px;
-        padding: 38px 14px 18px 14px !important;
+        max-width: 440px;
+        padding: 36px 14px 16px 14px !important;
         margin: 0 auto !important;
         border-radius: 22px;
-        max-height: calc(100vh - 110px);
-        max-height: calc(100dvh - 110px);
+        overflow: hidden !important;
     }
     #auth-screen .proposal-card,
     #countdown-card {
-        padding: 22px 14px 18px 14px !important; /* No back button on first card */
+        padding: 20px 14px 16px 14px !important; /* No back button on first card */
     }
 
     /* Sleek Back Button sitting cleanly in top-left without text collision */
     .back-btn {
         top: 12px;
         left: 14px;
-        font-size: 11.5px;
+        font-size: 11px;
         padding: 3px 9px;
         border-radius: 12px;
     }
 
-    /* Typography: 15-16px Headings on Mobile */
+    /* Typography: 14-16.5px Headings on Mobile */
     h1, .display-4 {
-        font-size: 17px !important;
+        font-size: 16.5px !important;
         font-weight: 700 !important;
-        line-height: 1.35 !important;
-        margin-bottom: 6px !important;
+        line-height: 1.3 !important;
+        margin-bottom: 5px !important;
     }
-    h2, .display-5, .display-6, .title-gradient {
-        font-size: 16px !important;
+    h2, .display-5, .display-6, .title-gradient, .title-gradient-shine {
+        font-size: 15px !important;
         font-weight: 700 !important;
-        line-height: 1.35 !important;
-        margin-bottom: 6px !important;
+        line-height: 1.3 !important;
+        margin-bottom: 5px !important;
     }
     h3, h4, h5, h6 {
-        font-size: 15px !important;
+        font-size: 14px !important;
         font-weight: 600 !important;
-        line-height: 1.35 !important;
-        margin-bottom: 6px !important;
+        line-height: 1.3 !important;
+        margin-bottom: 5px !important;
     }
     #main-question-text {
-        font-size: 16px !important;
+        font-size: 15.5px !important;
         font-weight: 700 !important;
-        line-height: 1.4 !important;
-        margin-bottom: 14px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 12px !important;
+    }
+
+    .cinzel.letter-spacing-2,
+    .letter-spacing-2,
+    h1.letter-spacing-2,
+    .auth-card h1 {
+        font-size: 13.5px !important;
+        letter-spacing: 1.8px !important;
+    }
+
+    /* Calligraphy scaled gracefully for mobile (neat & elegant, placed after headings so it wins) */
+    .calligraphy-name,
+    h2.calligraphy-name,
+    .title-gradient-shine.calligraphy-name {
+        font-size: 1.95rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 8px !important;
+        display: block !important;
+    }
+    .vip-exclusive-badge {
+        font-size: 10.5px !important;
+        padding: 4px 12px !important;
+        margin-bottom: 10px !important;
+    }
+    .security-crest,
+    .security-crest .crest-ring {
+        width: 52px !important;
+        height: 52px !important;
+        font-size: 1.3rem !important;
+        margin-bottom: 8px !important;
+    }
+    .glass-input {
+        font-size: 13px !important;
+        padding: 10px 38px !important;
+        height: 44px !important;
+    }
+    .glass-input::placeholder {
+        font-size: 12px !important;
+    }
+    .btn-lg,
+    #unlock-btn {
+        font-size: 13.5px !important;
+        padding: 10px 20px !important;
+        height: 44px !important;
+    }
+    #quick-sengve-btn {
+        font-size: 12px !important;
+        padding: 8px 14px !important;
     }
 
     /* Typography: 14px Body Font on Mobile */
     body, p, .lead, .summary-box p, .video-caption-quote p, .distance-quote-box p {
         font-size: 14px !important;
-        line-height: 1.5 !important;
+        line-height: 1.45 !important;
     }
     .playfair.italic {
         font-size: 14px !important;
-        line-height: 1.5 !important;
+        line-height: 1.45 !important;
     }
 
     /* Subtitles & Micro Labels */
@@ -1718,10 +1975,9 @@ body {
 @media (max-width: 380px) {
     .proposal-card {
         width: 98% !important;
-        padding: 34px 10px 14px 10px !important;
+        padding: 30px 10px 14px 10px !important;
         margin: 0 auto !important;
-        max-height: calc(100vh - 100px);
-        max-height: calc(100dvh - 100px);
+        overflow: hidden !important;
     }
     #auth-screen .proposal-card,
     #countdown-card {
