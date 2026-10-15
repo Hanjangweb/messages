@@ -808,44 +808,126 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 17. Sparkles Background System
+    // 17. 3D Card Parallax Tilt System (Ultra-Premium Micro-Interactions)
     // ==========================================
-    const createSpark = () => {
-        if (!sparkContainer) return;
-        const spark = document.createElement('div');
-        spark.className = 'spark';
+    const cards = document.querySelectorAll('.proposal-card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -6; // Max 6 deg
+            const rotateY = ((x - centerX) / centerX) * 6;
 
-        const size = Math.random() * 3 + 1.5;
-        spark.style.width = `${size}px`;
-        spark.style.height = `${size}px`;
-
-        const startX = Math.random() * window.innerWidth;
-        const startY = Math.random() * window.innerHeight;
-
-        spark.style.left = `${startX}px`;
-        spark.style.top = `${startY}px`;
-
-        const colors = ['#ff2a85', '#ffd700', '#ffffff', '#ffd166', '#00d2ff'];
-        spark.style.background = colors[Math.floor(Math.random() * colors.length)];
-        spark.style.boxShadow = `0 0 8px ${spark.style.background}`;
-
-        sparkContainer.appendChild(spark);
-
-        const duration = Math.random() * 3000 + 2000;
-        const destinationX = startX + (Math.random() - 0.5) * 150;
-        const destinationY = startY - Math.random() * 200;
-
-        const animation = spark.animate([
-            { opacity: 0, transform: 'translate(0, 0) scale(0)' },
-            { opacity: 0.9, transform: `translate(${(destinationX - startX) / 2}px, ${(destinationY - startY) / 2}px) scale(1)`, offset: 0.5 },
-            { opacity: 0, transform: `translate(${destinationX - startX}px, ${destinationY - startY}px) scale(0)` }
-        ], {
-            duration: duration,
-            easing: 'ease-out'
+            card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
         });
 
-        animation.onfinish = () => spark.remove();
-    };
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+        });
+    });
 
-    setInterval(createSpark, 250);
+    // ==========================================
+    // 18. Atmospheric Canvas: Golden Fireflies & Rose Petals
+    // ==========================================
+    const canvas = document.getElementById('atmosphere-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // Golden Stars & Fireflies
+        const particles = [];
+        const particleCount = window.innerWidth < 768 ? 25 : 45;
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 2 + 0.8,
+                color: Math.random() > 0.4 ? 'rgba(249, 203, 40, ' : 'rgba(255, 42, 133, ',
+                alpha: Math.random() * 0.7 + 0.3,
+                speedX: (Math.random() - 0.5) * 0.4,
+                speedY: -Math.random() * 0.5 - 0.1,
+                pulse: Math.random() * 0.03 + 0.01
+            });
+        }
+
+        // Floating Rose Petals
+        const petals = [];
+        const petalCount = window.innerWidth < 768 ? 8 : 16;
+        for (let i = 0; i < petalCount; i++) {
+            petals.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: Math.random() * 8 + 6,
+                speedY: Math.random() * 0.8 + 0.4,
+                speedX: Math.sin(Math.random() * 3) * 0.5,
+                angle: Math.random() * 360,
+                angularSpeed: (Math.random() - 0.5) * 1.5,
+                opacity: Math.random() * 0.4 + 0.25
+            });
+        }
+
+        function renderAtmosphere() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw Golden Fireflies
+            particles.forEach(p => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+                p.alpha += Math.sin(Date.now() * p.pulse * 0.05) * 0.01;
+
+                if (p.y < 0) p.y = height;
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `${p.color}${Math.max(0.1, Math.min(1, p.alpha))})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#ffd700';
+                ctx.fill();
+                ctx.restore();
+            });
+
+            // Draw Drifting Rose Petals
+            petals.forEach(pt => {
+                pt.y += pt.speedY;
+                pt.x += Math.sin(pt.y * 0.015) * 0.8;
+                pt.angle += pt.angularSpeed;
+
+                if (pt.y > height + 20) {
+                    pt.y = -20;
+                    pt.x = Math.random() * width;
+                }
+
+                ctx.save();
+                ctx.translate(pt.x, pt.y);
+                ctx.rotate((pt.angle * Math.PI) / 180);
+                ctx.beginPath();
+                // Draw petal curve
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(pt.size / 2, -pt.size / 2, pt.size, pt.size / 3, 0, pt.size);
+                ctx.bezierCurveTo(-pt.size, pt.size / 3, -pt.size / 2, -pt.size / 2, 0, 0);
+                ctx.fillStyle = `rgba(255, 42, 133, ${pt.opacity})`;
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = 'rgba(255, 0, 127, 0.4)';
+                ctx.fill();
+                ctx.restore();
+            });
+
+            requestAnimationFrame(renderAtmosphere);
+        }
+
+        renderAtmosphere();
+    }
 });
