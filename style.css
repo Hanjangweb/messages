@@ -1089,3 +1089,187 @@ body {
         margin-top: 5px;
     }
 }
+
+/* ==========================================
+   VIDEO PLAYER STYLES (NEW)
+   ========================================== */
+.video-player-wrapper {
+    position: relative;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.video-frame {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    background: #000;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 42, 133, 0.35);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+}
+
+.custom-video-el {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+.video-placeholder-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(121, 40, 202, 0.85) 0%, rgba(10, 10, 18, 0.95) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: opacity 0.4s ease;
+}
+
+.play-btn-circle {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    border: 2px solid #fff;
+    box-shadow: 0 0 30px rgba(255, 0, 127, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: playPulse 2s infinite;
+}
+
+.play-btn-circle i {
+    margin-left: 4px; /* Optical center */
+}
+
+@keyframes playPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(255, 0, 127, 0.6); }
+    50% { transform: scale(1.12); box-shadow: 0 0 45px rgba(255, 0, 127, 0.9); }
+}
+
+.play-btn-circle:hover {
+    transform: scale(1.2);
+}
+
+.video-tip-note {
+    font-size: 0.75rem;
+    color: #ff9ec7;
+    background: rgba(255, 0, 128, 0.15);
+    padding: 3px 12px;
+    border-radius: 12px;
+}
+
+/* ==========================================
+   PHOTO GALLERY & LIGHTBOX STYLES (NEW)
+   ========================================== */
+.gallery-photo-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-photo-card:hover {
+    background: rgba(255, 42, 133, 0.15);
+    border-color: var(--text-pink);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(255, 42, 133, 0.25);
+}
+
+.photo-thumb-box {
+    position: relative;
+    width: 100%;
+    height: 125px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-photo-card:hover .gallery-img {
+    transform: scale(1.08);
+}
+
+.photo-overlay-tag {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+}
+
+.gallery-caption-small {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Lightbox Modal */
+.photo-lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(15px);
+    z-index: 6000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.photo-lightbox-content {
+    background: rgba(20, 20, 32, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 500px;
+    width: 100%;
+    animation: zoomIn 0.3s ease;
+}
+
+.lightbox-close-btn {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    z-index: 10;
+    background: #ff007f;
+    border: none;
+    box-shadow: 0 4px 15px rgba(255, 0, 127, 0.5);
+}
+
+.lightbox-img-el {
+    width: 100%;
+    max-height: 55vh;
+    object-fit: cover;
+}
+

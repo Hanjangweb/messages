@@ -492,81 +492,94 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Step 3 -> Step 4 (Map -> Video Message)
+    const toVideoBtn = document.getElementById('to-video-btn');
+    if (toVideoBtn) {
+        toVideoBtn.addEventListener('click', () => {
+            switchCards('map-card', 'video-card');
+        });
+    }
+
+    // ==========================================
+    // 9.5 Video Player Interactivity (NEW)
+    // ==========================================
+    const birthdayVideo = document.getElementById('birthday-video');
+    const playVideoTrigger = document.getElementById('play-video-trigger');
+    const videoPlaceholder = document.getElementById('video-placeholder');
+
+    function playBirthdayVideo() {
+        if (!birthdayVideo) return;
+        // Pause background chimes while video is playing
+        if (isPlaying) {
+            stopRomanticMusic();
+        }
+        if (videoPlaceholder) {
+            videoPlaceholder.style.opacity = '0';
+            setTimeout(() => { videoPlaceholder.classList.add('d-none'); }, 300);
+        }
+        birthdayVideo.play().catch(e => {
+            console.log("Video play request handled:", e);
+        });
+        logDbEvent('VIDEO_PLAYED_BY_SENGVE');
+    }
+
+    if (playVideoTrigger) {
+        playVideoTrigger.addEventListener('click', playBirthdayVideo);
+    }
+    if (birthdayVideo) {
+        birthdayVideo.addEventListener('play', () => {
+            if (isPlaying) stopRomanticMusic();
+        });
+    }
+
+    // Step 4 -> Step 5 (Video -> Memories / Photo Gallery)
     const toMemoriesBtn = document.getElementById('to-memories-btn');
     if (toMemoriesBtn) {
         toMemoriesBtn.addEventListener('click', () => {
-            switchCards('map-card', 'memories-card');
+            if (birthdayVideo && !birthdayVideo.paused) {
+                birthdayVideo.pause();
+            }
+            switchCards('video-card', 'memories-card');
         });
     }
 
     // ==========================================
-    // 10. Polaroid Scrapbook Carousel
+    // 10. Photo Gallery Lightbox Interactivity (NEW)
     // ==========================================
-    const memories = [
-        {
-            icon: 'fa-face-smile-beam',
-            color: '#ff65a6',
-            caption: '"The effortless way your smile instantly lights up my entire mood, Sengve."'
-        },
-        {
-            icon: 'fa-phone-volume',
-            color: '#00d2ff',
-            caption: '"Our endless late-night chats that make 2,248 km feel like you are right beside me."'
-        },
-        {
-            icon: 'fa-heart-circle-check',
-            color: '#f9cb28',
-            caption: '"How you naturally became the first and last person on my mind every single day."'
-        },
-        {
-            icon: 'fa-sparkles',
-            color: '#ff2a85',
-            caption: '"The kindness and warmth in your soul that made me fall completely for you, Sengve."'
-        }
-    ];
+    const photoCards = document.querySelectorAll('.gallery-photo-card');
+    const photoModal = document.getElementById('photo-modal');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const closePhotoModal = document.getElementById('close-photo-modal');
 
-    let currentMemoryIndex = 0;
-    const polaroidCard = document.getElementById('polaroid-display');
-    const photoArtIcon = document.getElementById('photo-art-icon');
-    const polaroidCaptionText = document.getElementById('polaroid-caption-text');
-    const memoryCounter = document.getElementById('memory-counter');
-    const prevMemoryBtn = document.getElementById('prev-memory');
-    const nextMemoryBtn = document.getElementById('next-memory');
+    photoCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const imgEl = card.querySelector('.gallery-img');
+            const caption = card.dataset.caption || "";
+            if (imgEl && photoModal) {
+                lightboxImg.src = imgEl.src;
+                lightboxCaption.innerText = caption;
+                photoModal.classList.remove('d-none');
+                logDbEvent('PHOTO_VIEWED_BY_SENGVE', { photoId: card.dataset.photo, caption });
+            }
+        });
+    });
 
-    function updateMemoryCard(index) {
-        const mem = memories[index];
-        if (polaroidCard) {
-            polaroidCard.classList.add('animate__animated', 'animate__flipInX');
-            setTimeout(() => {
-                polaroidCard.classList.remove('animate__animated', 'animate__flipInX');
-            }, 500);
-        }
-
-        if (photoArtIcon) {
-            photoArtIcon.innerHTML = `<i class="fas ${mem.icon}" style="color: ${mem.color}"></i>`;
-        }
-        if (polaroidCaptionText) {
-            polaroidCaptionText.innerText = mem.caption;
-        }
-        if (memoryCounter) {
-            memoryCounter.innerText = `${index + 1} / ${memories.length}`;
-        }
-    }
-
-    if (prevMemoryBtn) {
-        prevMemoryBtn.addEventListener('click', () => {
-            currentMemoryIndex = (currentMemoryIndex - 1 + memories.length) % memories.length;
-            updateMemoryCard(currentMemoryIndex);
+    if (closePhotoModal) {
+        closePhotoModal.addEventListener('click', () => {
+            photoModal.classList.add('d-none');
         });
     }
 
-    if (nextMemoryBtn) {
-        nextMemoryBtn.addEventListener('click', () => {
-            currentMemoryIndex = (currentMemoryIndex + 1) % memories.length;
-            updateMemoryCard(currentMemoryIndex);
+    if (photoModal) {
+        photoModal.addEventListener('click', (e) => {
+            if (e.target === photoModal) {
+                photoModal.classList.add('d-none');
+            }
         });
     }
 
+    // Step 5 -> Step 6 (Photo Gallery -> Letters)
     const toLettersBtn = document.getElementById('to-letters-btn');
     if (toLettersBtn) {
         toLettersBtn.addEventListener('click', () => {

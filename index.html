@@ -65,7 +65,7 @@
             <h2 class="display-5 fw-bold mb-3 title-gradient playfair italic">Sengve Rongpharpi</h2>
             
             <p class="opacity-75 small mb-4">
-                This experience is private and protected. Only Sengve Rongpharpi or the verified Admin may enter.
+                This experience is private and protected. Only Sengve Rongpharpi
             </p>
 
             <form id="auth-form" class="auth-input-wrapper mb-3">
@@ -245,37 +245,112 @@
                 </div>
             </div>
 
-            <button id="to-memories-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
-                Things I Love About You 📸 <i class="fas fa-chevron-right ms-2"></i>
+            <button id="to-video-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
+                A Video Message For You 🎥 <i class="fas fa-chevron-right ms-2"></i>
             </button>
         </div>
 
-        <!-- CARD 4: What Made Me Fall For Sengve (Polaroid Gallery) -->
-        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="memories-card">
+        <!-- CARD 4: PERSONAL VIDEO MESSAGE (NEW!) -->
+        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="video-card">
             <button class="back-btn" data-target="map-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
-            <h2 class="display-6 fw-bold mb-2 title-gradient">Why You Stole My Heart 💖</h2>
-            <p class="opacity-75 mb-4">Little things about you that make my whole world spin</p>
+            <div class="stamp-badge mb-3">
+                <i class="fas fa-video me-1 text-warning"></i> From Chandigarh With Love
+            </div>
 
-            <div class="polaroid-carousel-container mb-4">
-                <div class="polaroid-card" id="polaroid-display">
-                    <div class="polaroid-inner">
-                        <div class="polaroid-photo" id="polaroid-img-box">
-                            <div class="photo-art" id="photo-art-icon">
-                                <i class="fas fa-face-smile-beam"></i>
-                            </div>
+            <h2 class="display-6 fw-bold mb-2 title-gradient">A Video Message For Sengve 🎥</h2>
+            <p class="opacity-75 mb-3">A special message recorded just for your birthday</p>
+
+            <div class="video-player-wrapper mb-3">
+                <div class="video-frame shadow-2xl">
+                    <!-- HTML5 Video Player (Ready for your actual video at assets/videos/birthday_video.mp4) -->
+                    <video id="birthday-video" class="custom-video-el" playsinline controls preload="metadata">
+                        <source src="assets/videos/birthday_video.mp4" type="video/mp4">
+                    </video>
+                    
+                    <!-- Fallback / Placeholder Poster & Overlay -->
+                    <div id="video-placeholder" class="video-placeholder-overlay">
+                        <div class="play-btn-circle" id="play-video-trigger">
+                            <i class="fas fa-play"></i>
                         </div>
-                        <div class="polaroid-caption" id="polaroid-caption-text">
-                            "The effortless way your smile instantly lights up my entire mood, Sengve."
+                        <div class="video-placeholder-text mt-3">
+                            <div class="fw-bold">Recorded for Sengve Rongpharpi</div>
+                            <small class="opacity-70"><i class="fas fa-location-dot text-pink me-1"></i> Chandigarh ✈️ Diphu</small>
+                        </div>
+                        <div class="video-tip-note mt-2">
+                            <i class="fas fa-info-circle me-1"></i> (Place your video at <code>assets/videos/birthday_video.mp4</code>)
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
-                    <button class="carousel-nav-btn" id="prev-memory"><i class="fas fa-arrow-left"></i></button>
-                    <span class="memory-counter opacity-75 small" id="memory-counter">1 / 4</span>
-                    <button class="carousel-nav-btn" id="next-memory"><i class="fas fa-arrow-right"></i></button>
+            <div class="video-caption-quote p-3 rounded-3 mb-4 bg-glass-dark">
+                <p class="m-0 small italic playfair">
+                    "I wanted you to hear my voice and see in my eyes how much you mean to me today, Sengve."
+                </p>
+            </div>
+
+            <button id="to-memories-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
+                Explore Our Photo Scrapbook 📸 <i class="fas fa-chevron-right ms-2"></i>
+            </button>
+        </div>
+
+        <!-- CARD 5: PHOTO GALLERY / SCRAPBOOK (NEW & ENHANCED!) -->
+        <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="memories-card">
+            <button class="back-btn" data-target="video-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+            
+            <h2 class="display-6 fw-bold mb-2 title-gradient">Our Cherished Moments 📸</h2>
+            <p class="opacity-75 mb-4">Sengve, every picture with you tells a beautiful story</p>
+
+            <!-- Gallery Grid with Clean Placeholders -->
+            <div class="row g-3 mb-4" id="photo-gallery-grid">
+                <!-- Photo 1 -->
+                <div class="col-6">
+                    <div class="gallery-photo-card p-2 rounded-3" data-photo="1" data-caption="The smile that captured my heart instantly, Sengve.">
+                        <div class="photo-thumb-box">
+                            <img src="assets/images/photo1.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=400&q=80';" alt="Memory 1" class="gallery-img">
+                            <div class="photo-overlay-tag"><i class="fas fa-heart text-pink"></i></div>
+                        </div>
+                        <div class="gallery-caption-small mt-2">Her Beautiful Smile</div>
+                    </div>
                 </div>
+
+                <!-- Photo 2 -->
+                <div class="col-6">
+                    <div class="gallery-photo-card p-2 rounded-3" data-photo="2" data-caption="Our endless late-night talks that make 2,248 km feel like zero distance.">
+                        <div class="photo-thumb-box">
+                            <img src="assets/images/photo2.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80';" alt="Memory 2" class="gallery-img">
+                            <div class="photo-overlay-tag"><i class="fas fa-phone text-info"></i></div>
+                        </div>
+                        <div class="gallery-caption-small mt-2">Late Night Talks</div>
+                    </div>
+                </div>
+
+                <!-- Photo 3 -->
+                <div class="col-6">
+                    <div class="gallery-photo-card p-2 rounded-3" data-photo="3" data-caption="How you naturally became the first and last thought of my day.">
+                        <div class="photo-thumb-box">
+                            <img src="assets/images/photo3.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=400&q=80';" alt="Memory 3" class="gallery-img">
+                            <div class="photo-overlay-tag"><i class="fas fa-sparkles text-gold"></i></div>
+                        </div>
+                        <div class="gallery-caption-small mt-2">Special Moments</div>
+                    </div>
+                </div>
+
+                <!-- Photo 4 -->
+                <div class="col-6">
+                    <div class="gallery-photo-card p-2 rounded-3" data-photo="4" data-caption="To celebrating you today, tomorrow, and every year ahead, Sengve!">
+                        <div class="photo-thumb-box">
+                            <img src="assets/images/photo4.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=400&q=80';" alt="Memory 4" class="gallery-img">
+                            <div class="photo-overlay-tag"><i class="fas fa-cake-candles text-danger"></i></div>
+                        </div>
+                        <div class="gallery-caption-small mt-2">Birthday Celebration</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-tip-tag mb-4 opacity-50 small">
+                <i class="fas fa-camera me-1"></i> Tap any photo to enlarge • Replace in <code>assets/images/</code>
             </div>
 
             <button id="to-letters-btn" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold glow-on-hover w-100">
@@ -283,7 +358,7 @@
             </button>
         </div>
 
-        <!-- CARD 5: "Open When..." Secret Letters -->
+        <!-- CARD 6: "Open When..." Secret Letters -->
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="letters-card">
             <button class="back-btn" data-target="memories-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
@@ -338,7 +413,7 @@
             </button>
         </div>
 
-        <!-- CARD 6: Girlfriend Privileges & Vouchers (Direct DB Insert) -->
+        <!-- CARD 7: Girlfriend Privileges & Vouchers (Direct DB Insert) -->
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="vouchers-card">
             <button class="back-btn" data-target="letters-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
@@ -388,7 +463,7 @@
             </button>
         </div>
 
-        <!-- CARD 7: THE OFFICIAL PROPOSAL (Will you be my girlfriend, Sengve?) -->
+        <!-- CARD 8: THE OFFICIAL PROPOSAL (Will you be my girlfriend, Sengve?) -->
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="question-card">
             <button class="back-btn" data-target="vouchers-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
             
@@ -420,7 +495,7 @@
             </div>
         </div>
 
-        <!-- CARD 8: The Grand Celebration (Direct MongoDB Lock-in) -->
+        <!-- CARD 9: The Grand Celebration (Direct MongoDB Lock-in) -->
         <div class="proposal-card text-center p-4 p-md-5 shadow-lg d-none" id="final-card">
             <div class="icon-container mb-3">
                 <div class="final-heart-burst">
@@ -459,6 +534,17 @@
         </div>
 
     </main>
+
+    <!-- ================= PHOTO ENLARGE LIGHTBOX MODAL ================= -->
+    <div id="photo-modal" class="photo-lightbox-overlay d-none">
+        <div class="photo-lightbox-content p-3 rounded-4 bg-dark-glass text-center position-relative">
+            <button id="close-photo-modal" class="btn btn-sm btn-outline-light rounded-circle lightbox-close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="lightbox-img" src="" alt="Enlarged Photo" class="lightbox-img-el rounded-3 mb-3">
+            <p id="lightbox-caption" class="playfair italic text-pink m-0"></p>
+        </div>
+    </div>
 
     <!-- ================= ADMIN LIVE DASHBOARD MODAL ================= -->
     <div id="admin-modal" class="admin-modal-overlay d-none">
