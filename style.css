@@ -95,15 +95,40 @@ body {
 .cinzel { font-family: 'Cinzel', serif; }
 .italic { font-style: italic; }
 
+.calligraphy-name {
+    font-family: 'Great Vibes', cursive !important;
+    font-size: 3.4rem !important;
+    line-height: 1.15;
+    text-shadow: 0 0 25px rgba(255, 42, 133, 0.6), 0 0 50px rgba(255, 0, 127, 0.3);
+}
+
+.letter-spacing-2 {
+    letter-spacing: 2.5px;
+    font-size: 0.95rem;
+}
+
 .title-gradient {
-    background: linear-gradient(135deg, #ff65a6, #ff007f, #c37aff);
+    background: linear-gradient(135deg, #ff7ebb, #ff007f, #c37aff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
+.title-gradient-shine {
+    background: linear-gradient(90deg, #ff65a6 0%, #ffffff 50%, #ff2a85 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: textShine 4s linear infinite;
+}
+
+@keyframes textShine {
+    to { background-position: 200% center; }
+}
+
 .title-gold {
-    background: linear-gradient(135deg, #ffe066, #f9cb28, #ff8c00);
+    background: linear-gradient(135deg, #fff3a8, #f9cb28, #ff8c00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -119,39 +144,40 @@ body {
 }
 
 .crest-ring {
-    width: 68px;
-    height: 68px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
-    background: rgba(249, 203, 40, 0.1);
-    border: 2px solid rgba(249, 203, 40, 0.4);
-    box-shadow: 0 0 30px rgba(249, 203, 40, 0.3);
+    background: radial-gradient(circle, rgba(249, 203, 40, 0.2) 0%, rgba(249, 203, 40, 0.05) 70%);
+    border: 2px solid rgba(249, 203, 40, 0.5);
+    box-shadow: 0 0 35px rgba(249, 203, 40, 0.4), inset 0 0 20px rgba(249, 203, 40, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.6rem;
+    font-size: 1.75rem;
     animation: crestPulse 2.5s infinite ease-in-out;
 }
 
 @keyframes crestPulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(249, 203, 40, 0.3); }
-    50% { transform: scale(1.08); box-shadow: 0 0 45px rgba(249, 203, 40, 0.5); }
+    0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(249, 203, 40, 0.35); }
+    50% { transform: scale(1.1); box-shadow: 0 0 50px rgba(249, 203, 40, 0.65); }
 }
 
 .vip-exclusive-badge {
     display: inline-block;
-    background: rgba(255, 42, 133, 0.15);
-    border: 1px solid rgba(255, 42, 133, 0.4);
-    color: #ff9ec7;
-    padding: 5px 16px;
+    background: linear-gradient(135deg, rgba(255, 42, 133, 0.2), rgba(249, 203, 40, 0.15));
+    border: 1px solid rgba(249, 203, 40, 0.45);
+    color: #ffe066;
+    padding: 6px 18px;
     border-radius: 30px;
     font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 0.8px;
+    letter-spacing: 1px;
     text-transform: uppercase;
+    box-shadow: 0 0 20px rgba(249, 203, 40, 0.2);
 }
 
 .auth-card {
-    max-width: 480px;
+    max-width: 490px;
     margin: 0 auto;
 }
 
@@ -164,30 +190,65 @@ body {
 .group-icon {
     position: absolute;
     left: 18px;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 1rem;
+    color: #ffd700;
+    font-size: 1.05rem;
     transition: color 0.3s ease;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.5));
 }
 
 .glass-input {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
     border-radius: 50px !important;
-    color: #fff !important;
-    padding: 14px 20px 14px 48px !important;
+    color: #ffffff !important;
+    padding: 14px 45px 14px 48px !important;
     font-size: 0.95rem;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     transition: all 0.3s ease;
 }
 
-.glass-input:focus {
-    border-color: #ff007f !important;
-    box-shadow: 0 0 25px rgba(255, 0, 127, 0.35) !important;
-    background: rgba(255, 255, 255, 0.08) !important;
+.glass-input::placeholder {
+    color: rgba(255, 255, 255, 0.65) !important;
+    font-size: 0.88rem;
 }
 
-.glass-input:focus + .group-icon, .input-glass-group:focus-within .group-icon {
-    color: #ff007f;
+.glass-input:focus {
+    border-color: #ffd700 !important;
+    box-shadow: 0 0 30px rgba(249, 203, 40, 0.45) !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.pass-eye-btn {
+    position: absolute;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    z-index: 5;
+}
+
+.pass-eye-btn:hover {
+    color: #ffd700 !important;
+}
+
+.btn-outline-gold {
+    background: rgba(249, 203, 40, 0.08);
+    border: 1px solid rgba(249, 203, 40, 0.5);
+    color: #ffd700;
+    font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(249, 203, 40, 0.15);
+}
+
+.btn-outline-gold:hover {
+    background: linear-gradient(135deg, #ffd700, #ff8c00);
+    border-color: #ffd700;
+    color: #000;
+    box-shadow: 0 0 30px rgba(249, 203, 40, 0.6);
+    transform: translateY(-2px) scale(1.02);
 }
 
 .auth-error-msg {

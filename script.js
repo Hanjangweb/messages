@@ -90,7 +90,61 @@ document.addEventListener('DOMContentLoaded', () => {
         // Try backend verification
         const serverRes = await apiRequest('/api/auth', 'POST', { passkey });
 
-        if (serverRes.success && serverRes.role === 'admin' || isAdmin) {
+    // ==========================================
+    // Synthesized Sound Effects (SFX) Engine
+    // ==========================================
+    function playSfx(type) {
+        try {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'unlock') {
+                [523.25, 659.25, 783.99, 1046.50, 1318.51].forEach((freq, i) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now + i * 0.07);
+                    gain.gain.setValueAtTime(0.001, now + i * 0.07);
+                    gain.gain.linearRampToValueAtTime(0.2, now + i * 0.07 + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.07 + 0.45);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + i * 0.07);
+                    osc.stop(now + i * 0.07 + 0.5);
+                });
+            } else if (type === 'bell') {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, now);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.85);
+            } else if (type === 'fanfare') {
+                [523.25, 659.25, 783.99, 1046.50].forEach((freq) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now);
+                    gain.gain.setValueAtTime(0.18, now);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 1.25);
+                });
+            }
+        } catch (e) {}
+    }
+
+    if (serverRes.success && serverRes.role === 'admin' || isAdmin) {
             currentRole = 'admin';
             adminPassStored = cleaned;
             authScreen.classList.add('d-none');
@@ -103,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentRole = 'sengve';
             authError.classList.add('d-none');
             
+            playSfx('unlock');
             showToast(`Welcome, Sengve Rongpharpi! ❤️ Access Granted.`);
 
             authScreen.classList.add('animate__animated', 'animate__fadeOut');
@@ -126,6 +181,26 @@ document.addEventListener('DOMContentLoaded', () => {
         authForm.addEventListener('submit', (e) => {
             e.preventDefault();
             verifyAndEnter(passkeyInput.value);
+        });
+    }
+
+    // One-Tap VIP Entry for Sengve
+    const quickSengveBtn = document.getElementById('quick-sengve-btn');
+    if (quickSengveBtn) {
+        quickSengveBtn.addEventListener('click', () => {
+            if (passkeyInput) passkeyInput.value = 'Sengve Rongpharpi';
+            triggerMiniConfetti();
+            verifyAndEnter('Sengve Rongpharpi');
+        });
+    }
+
+    // Toggle Passcode Visibility
+    const togglePassBtn = document.getElementById('toggle-pass-visibility');
+    if (togglePassBtn && passkeyInput) {
+        togglePassBtn.addEventListener('click', () => {
+            const isPass = passkeyInput.type === 'password';
+            passkeyInput.type = isPass ? 'text' : 'password';
+            togglePassBtn.innerHTML = isPass ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
         });
     }
 
@@ -676,6 +751,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             triggerMiniConfetti();
+            playSfx('bell');
             showToast(`Privilege "${voucherName}" locked into database! 🔒❤️`);
         });
     });
@@ -746,6 +822,7 @@ document.addEventListener('DOMContentLoaded', () => {
             finalCard.classList.remove('d-none');
             finalCard.classList.add('animate__animated', 'animate__zoomIn');
 
+            playSfx('fanfare');
             triggerGrandConfetti();
             showToast("SENGVE SAID YES! Locked into database forever! ❤️💍");
 
