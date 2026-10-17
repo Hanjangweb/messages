@@ -235,7 +235,14 @@
 
         <!-- CARD 2.4: BIRTHDAY GIFT: A WARM TEDDY BEAR HUG (SHOW ONLY ONE) -->
         <div class="proposal-card text-center shadow-lg d-none gift-showcase-card" id="teddy-card">
-            <button class="back-btn" data-target="cake-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+            <!-- Top Navigation & Header Bar (Prevents Back Button Collision) -->
+            <div class="gift-card-top-bar d-flex justify-content-between align-items-center mb-3">
+                <button class="back-btn back-btn-inline" data-target="cake-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+                <div class="stamp-badge">
+                    <i class="fas fa-gift text-warning me-1"></i> Special Delivery for Sengve
+                </div>
+                <div class="top-bar-spacer" style="width: 70px;"></div>
+            </div>
 
             <div class="gift-card-inner-grid" id="teddy-box">
                 <!-- Left Column: Big 100% Image Showcase -->
@@ -243,7 +250,7 @@
                     <div class="teddy-img-wrapper mb-2">
                         <img src="assets/images/teddy_bear.jpg" alt="Plush White Teddy Bear for Sengve" class="img-fluid rounded-4 shadow-2xl teddy-real-photo" id="teddy-main-img" title="Tap to view full screen">
                     </div>
-                    <div class="teddy-badge-wrap mb-2">
+                    <div class="teddy-badge-wrap">
                         <span class="badge bg-pink-glass shadow-lg px-3 py-1 rounded-pill">
                             <i class="fas fa-heart text-danger beat-animation me-1"></i> Warm Hugs for Sengve
                         </span>
@@ -252,10 +259,6 @@
 
                 <!-- Right Column: Birthday Message, Actions & Navigation -->
                 <div class="gift-grid-col-content">
-                    <div class="stamp-badge mb-2">
-                        <i class="fas fa-gift text-warning me-1"></i> Special Delivery for Sengve
-                    </div>
-
                     <h2 class="display-6 fw-bold mb-1 title-gradient">A Warm Birthday Hug For Sengve 🧸❤️</h2>
                     <p class="opacity-75 small mb-3">Because distance can't stop me from sending you a warm teddy hug and a fresh red rose!</p>
 
@@ -278,7 +281,14 @@
 
         <!-- CARD 2.5: BIRTHDAY GIFT: LUXURY HEART-SHAPED ROSE BOUQUET (SHOW ONLY ONE) -->
         <div class="proposal-card text-center shadow-lg d-none gift-showcase-card" id="gift-card">
-            <button class="back-btn" data-target="teddy-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+            <!-- Top Navigation & Header Bar (Prevents Back Button Collision) -->
+            <div class="gift-card-top-bar d-flex justify-content-between align-items-center mb-3">
+                <button class="back-btn back-btn-inline" data-target="teddy-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
+                <div class="stamp-badge">
+                    <i class="fas fa-gift text-warning me-1"></i> Special Delivery for Sengve
+                </div>
+                <div class="top-bar-spacer" style="width: 70px;"></div>
+            </div>
 
             <div class="gift-card-inner-grid" id="bouquet-box">
                 <!-- Left Column: Big 100% Image Showcase -->
@@ -286,7 +296,7 @@
                     <div class="bouquet-img-wrapper mb-2">
                         <img src="assets/images/bouquet.jpg" alt="Heart-Shaped Rose Bouquet for Sengve" class="img-fluid rounded-4 shadow-2xl bouquet-real-photo" id="bouquet-main-img" title="Tap to view full screen">
                     </div>
-                    <div class="bouquet-badge-wrap mb-2">
+                    <div class="bouquet-badge-wrap">
                         <span class="badge bg-danger shadow-lg px-3 py-1 rounded-pill">
                             <i class="fas fa-heart beat-animation me-1"></i> For Sengve Rongpharpi
                         </span>
@@ -295,10 +305,6 @@
 
                 <!-- Right Column: Birthday Message, Actions & Navigation -->
                 <div class="gift-grid-col-content">
-                    <div class="stamp-badge mb-2">
-                        <i class="fas fa-gift text-warning me-1"></i> Special Delivery for Sengve
-                    </div>
-
                     <h2 class="display-6 fw-bold mb-1 title-gradient">Fresh Birthday Roses for Sengve 💐❤️</h2>
                     <p class="opacity-75 small mb-3">A special delivery of 99 luxury velvet red roses straight to your heart!</p>
 

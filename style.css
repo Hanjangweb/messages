@@ -2236,6 +2236,39 @@ body {
     padding: 20px 22px !important;
     max-width: 500px !important;
     width: 95% !important;
+    position: relative;
+}
+
+.gift-card-top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    z-index: 5;
+}
+
+.gift-showcase-card .back-btn,
+.back-btn-inline {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 13px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.gift-showcase-card .back-btn:hover,
+.back-btn-inline:hover {
+    color: #ffffff;
+    background: rgba(255, 42, 133, 0.3);
+    border-color: rgba(255, 42, 133, 0.6);
+    box-shadow: 0 0 15px rgba(255, 42, 133, 0.4);
 }
 
 .gift-card-inner-grid {
@@ -2263,12 +2296,12 @@ body {
     #teddy-card,
     #gift-card {
         max-width: 780px !important;
-        padding: 28px 32px !important;
+        padding: 24px 32px 28px 32px !important;
     }
 
     .gift-card-inner-grid {
         display: grid !important;
-        grid-template-columns: 330px 1fr !important;
+        grid-template-columns: 320px 1fr !important;
         gap: 32px !important;
         align-items: center !important;
         text-align: left !important;
@@ -2287,7 +2320,6 @@ body {
 
     .gift-grid-col-content h2,
     .gift-grid-col-content p,
-    .gift-grid-col-content .stamp-badge,
     .gift-grid-col-content .teddy-speech-bubble,
     .gift-grid-col-content .bouquet-ribbon-tag {
         text-align: left !important;
@@ -2314,20 +2346,34 @@ body {
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 auto 8px auto !important;
-    border-radius: 18px;
+    border-radius: 20px;
     background: transparent !important;
     padding: 0 !important;
     display: block !important;
 }
 
-.teddy-real-photo,
+.teddy-real-photo {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    object-fit: cover !important;
+    border-radius: 20px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 42, 133, 0.35);
+    border: 2px solid rgba(255, 42, 133, 0.45);
+    cursor: pointer;
+    transform: none !important; /* Zero hover movement */
+}
+
 .bouquet-real-photo {
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
-    max-height: 480px !important;
+    max-height: 420px !important;
     object-fit: contain !important;
-    border-radius: 18px;
+    border-radius: 20px;
     display: block;
     margin: 0 auto;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 42, 133, 0.35);
