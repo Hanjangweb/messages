@@ -61,7 +61,25 @@ body {
     z-index: 5;
 }
 
-.full-screen-section.d-none {
+/* Universal Ironclad Visibility Controller: When any card or section has .d-none, it MUST be hidden unconditionally */
+.d-none,
+.full-screen-section.d-none,
+.proposal-card.d-none,
+div.proposal-card.d-none,
+#auth-screen.d-none,
+#envelope-screen.d-none,
+#main-content.d-none,
+#countdown-card.d-none,
+#cake-card.d-none,
+#teddy-card.d-none,
+#gift-card.d-none,
+#map-card.d-none,
+#video-card.d-none,
+#memories-card.d-none,
+#letters-card.d-none,
+#vouchers-card.d-none,
+#question-card.d-none,
+#celebration-card.d-none {
     display: none !important;
 }
 
@@ -1480,7 +1498,7 @@ body {
         align-items: center !important;
         padding: 55px 24px 30px 24px !important;
     }
-    .proposal-card {
+    .proposal-card:not(.d-none) {
         max-width: 580px !important;
         width: 100% !important;
         height: auto !important;
@@ -1488,9 +1506,9 @@ body {
         margin: 0 auto !important;
         padding: 28px 36px !important;
         border-radius: 26px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         box-sizing: border-box !important;
     }
     .auth-card {
@@ -1667,7 +1685,7 @@ body {
         align-items: center !important;
         padding: 50px 20px 25px 20px !important;
     }
-    .proposal-card {
+    .proposal-card:not(.d-none) {
         max-width: 500px !important;
         width: 92% !important;
         height: auto !important;
@@ -1675,9 +1693,9 @@ body {
         margin: 0 auto !important;
         padding: 26px 30px !important;
         border-radius: 24px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         box-sizing: border-box !important;
     }
     .auth-card {
@@ -1862,7 +1880,7 @@ body {
     }
 
     /* Naturally Sized Luxury Card - Zero Inner Scroll, Luxurious Padding */
-    .proposal-card {
+    .proposal-card:not(.d-none) {
         width: 100% !important;
         max-width: 420px !important;
         height: auto !important;
@@ -1871,10 +1889,10 @@ body {
         padding: 24px 20px 22px 20px !important;
         margin: 0 auto !important;
         border-radius: 22px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-start !important;
-        align-items: center !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
         overflow: visible !important;
         box-sizing: border-box !important;
     }
@@ -2129,8 +2147,8 @@ body {
     }
 
     /* Mobile Teddy & Bouquet Cards - Naturally Hugged, No Inner Scroll */
-    #teddy-card,
-    #gift-card {
+    #teddy-card:not(.d-none),
+    #gift-card:not(.d-none) {
         width: 100% !important;
         max-width: 420px !important;
         height: auto !important;
@@ -2138,10 +2156,10 @@ body {
         max-height: unset !important;
         padding: 20px 18px !important;
         margin: 0 auto !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-start !important;
-        align-items: center !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
         overflow: visible !important;
     }
 
@@ -2350,7 +2368,7 @@ body {
 
 /* 5. Ultra-Compact Mobile Screens (max-width: 380px e.g. iPhone SE, Fold) */
 @media (max-width: 380px) {
-    .proposal-card {
+    .proposal-card:not(.d-none) {
         width: 100% !important;
         padding: 20px 16px 18px 16px !important;
         margin: 0 auto !important;
@@ -2889,19 +2907,7 @@ body {
         overflow: hidden !important;
     }
 
-    .proposal-card,
-    #auth-screen .proposal-card,
-    #countdown-card,
-    #cake-card,
-    #teddy-card,
-    #gift-card,
-    #map-card,
-    #video-card,
-    #memories-card,
-    #letters-card,
-    #vouchers-card,
-    #question-card,
-    #celebration-card {
+    .proposal-card:not(.d-none) {
         width: 100% !important;
         max-width: 420px !important;
         height: auto !important;
@@ -2910,10 +2916,10 @@ body {
         padding: 24px 20px 22px 20px !important;
         margin: 0 auto !important;
         border-radius: 22px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-start !important;
-        align-items: center !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
         overflow: visible !important;
         box-sizing: border-box !important;
     }
@@ -2957,6 +2963,28 @@ body {
         flex-shrink: 0 !important;
         width: 100% !important;
     }
+}
+
+/* Absolute Priority Rule: Hidden cards and screens stay 100% hidden across all devices */
+.d-none,
+.full-screen-section.d-none,
+.proposal-card.d-none,
+div.proposal-card.d-none,
+#auth-screen.d-none,
+#envelope-screen.d-none,
+#main-content.d-none,
+#countdown-card.d-none,
+#cake-card.d-none,
+#teddy-card.d-none,
+#gift-card.d-none,
+#map-card.d-none,
+#video-card.d-none,
+#memories-card.d-none,
+#letters-card.d-none,
+#vouchers-card.d-none,
+#question-card.d-none,
+#celebration-card.d-none {
+    display: none !important;
 }
 
 

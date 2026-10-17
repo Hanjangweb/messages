@@ -643,6 +643,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     envelopeScreen.classList.add('d-none');
                     mainContent.classList.remove('d-none');
                     mainContent.classList.add('animate__animated', 'animate__fadeIn');
+                    
+                    // Guarantee only countdown-card is visible initially
+                    document.querySelectorAll('#main-content .proposal-card').forEach(card => {
+                        if (card.id === 'countdown-card') {
+                            card.classList.remove('d-none');
+                            card.style.display = '';
+                        } else {
+                            card.classList.add('d-none');
+                            card.style.display = 'none';
+                        }
+                    });
+
                     window.scrollTo({ top: 0, behavior: 'instant' });
                     triggerMiniConfetti();
                 }, 500);
@@ -695,13 +707,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // 8. Card Navigation Flow
     // ==========================================
     function switchCards(currentId, targetId) {
-        const currentCard = document.getElementById(currentId);
         const targetCard = document.getElementById(targetId);
+        if (!targetCard) return;
 
-        if (!currentCard || !targetCard) return;
+        // Strictly guarantee only the target card is visible across #main-content
+        document.querySelectorAll('#main-content .proposal-card').forEach(card => {
+            if (card.id === targetId) {
+                card.classList.remove('d-none');
+                card.style.display = '';
+            } else {
+                card.classList.add('d-none');
+                card.style.display = 'none';
+            }
+        });
 
-        currentCard.classList.add('d-none');
-        targetCard.classList.remove('d-none');
         targetCard.scrollTop = 0;
         window.scrollTo({ top: 0, behavior: 'instant' });
 
@@ -713,19 +732,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Back Buttons
     document.querySelectorAll('.back-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const currentCard = btn.closest('.proposal-card');
             const targetId = btn.dataset.target;
-            const targetCard = document.getElementById(targetId);
-
-            if (currentCard && targetCard) {
-                currentCard.classList.add('d-none');
-                targetCard.classList.remove('d-none');
-                targetCard.scrollTop = 0;
-                window.scrollTo({ top: 0, behavior: 'instant' });
-
-                if (targetId === 'cake-card') {
-                    setTimeout(init3DCake, 60);
-                }
+            if (targetId) {
+                switchCards(btn.closest('.proposal-card')?.id, targetId);
             }
         });
     });
