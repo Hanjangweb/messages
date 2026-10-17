@@ -1592,11 +1592,10 @@ body {
     }
     .teddy-real-photo,
     .bouquet-real-photo {
-        height: 180px;
-        max-height: 185px;
-        width: auto;
-        max-width: 100%;
-        object-fit: contain;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
     }
     .time-number {
         font-size: 32px !important;
@@ -1665,11 +1664,10 @@ body {
     }
     .teddy-real-photo,
     .bouquet-real-photo {
-        height: 170px;
-        max-height: 175px;
-        width: auto;
-        max-width: 100%;
-        object-fit: contain;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
     }
 }
 
@@ -1941,12 +1939,11 @@ body {
     }
     .teddy-real-photo,
     .bouquet-real-photo {
-        height: 160px !important;
-        max-height: 165px !important;
-        width: auto !important;
+        width: 100% !important;
         max-width: 100% !important;
+        height: auto !important;
         object-fit: contain !important;
-        border-radius: 12px !important;
+        border-radius: 14px !important;
     }
     .teddy-speech-bubble {
         font-size: 12px !important;
@@ -2226,9 +2223,10 @@ body {
 }
 
 .lightbox-img-el {
-    width: 100%;
-    max-height: 55vh;
-    object-fit: cover;
+    width: auto;
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
 }
 
 /* ==========================================
@@ -2236,14 +2234,15 @@ body {
    ========================================== */
 #teddy-card,
 #gift-card {
-    padding: 14px 18px 14px 18px !important;
-    max-width: 480px !important;
+    padding: 16px 20px 16px 20px !important;
+    max-width: 440px !important;
 }
 
 .single-teddy-showcase,
 .single-bouquet-showcase {
-    max-width: 340px !important;
-    margin: 0 auto 6px auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 auto 8px auto !important;
 }
 
 .luxury-teddy-card,
@@ -2251,8 +2250,8 @@ body {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(15px);
-    border-radius: 18px;
-    padding: 8px 12px 10px 12px !important;
+    border-radius: 20px;
+    padding: 12px 14px 14px 14px !important;
     position: relative;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -2271,22 +2270,22 @@ body {
     background: rgba(255, 42, 133, 0.2);
     border: 1px solid rgba(255, 42, 133, 0.5);
     color: #ffb3d9;
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     font-weight: 600;
-    padding: 3px 12px;
-    margin-bottom: 6px !important;
+    padding: 4px 14px;
+    margin-bottom: 8px !important;
     border-radius: 16px;
     box-shadow: 0 4px 15px rgba(255, 0, 128, 0.25);
-    line-height: 1.25;
+    line-height: 1.3;
 }
 
 .teddy-img-wrapper,
 .bouquet-img-wrapper {
     position: relative;
-    width: fit-content !important;
+    width: 100% !important;
     max-width: 100% !important;
-    margin: 0 auto 4px auto !important;
-    border-radius: 14px;
+    margin: 0 auto 8px auto !important;
+    border-radius: 16px;
     background: transparent !important;
     padding: 0 !important;
     display: block !important;
@@ -2294,29 +2293,34 @@ body {
 
 .teddy-real-photo,
 .bouquet-real-photo {
-    width: auto !important;
+    width: 100% !important;
     max-width: 100% !important;
-    height: 165px !important;
-    max-height: 170px !important;
+    height: auto !important;
     object-fit: contain !important;
-    border-radius: 14px;
+    border-radius: 16px;
     display: block;
     margin: 0 auto;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 42, 133, 0.3);
-    border: 2px solid rgba(255, 42, 133, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 42, 133, 0.35);
+    border: 2px solid rgba(255, 42, 133, 0.45);
+    cursor: pointer;
     transform: none !important; /* Zero hover movement */
+}
+
+.teddy-real-photo:hover,
+.bouquet-real-photo:hover {
+    box-shadow: 0 15px 40px rgba(255, 42, 133, 0.45), 0 0 30px rgba(255, 42, 133, 0.5);
 }
 
 .teddy-badge-wrap,
 .bouquet-badge-wrap {
-    margin: 4px auto 6px auto !important;
+    margin: 6px auto 8px auto !important;
     text-align: center !important;
 }
 
 .teddy-badge-wrap .badge,
 .bouquet-badge-wrap .badge {
-    font-size: 0.74rem !important;
-    padding: 4px 12px !important;
+    font-size: 0.76rem !important;
+    padding: 5px 14px !important;
     display: inline-block !important;
     white-space: nowrap !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;

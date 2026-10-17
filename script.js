@@ -1782,6 +1782,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Allow clicking teddy and bouquet photos to view in full-screen lightbox
+    const teddyMainImg = document.getElementById('teddy-main-img');
+    if (teddyMainImg && photoModal && lightboxImg && lightboxCaption) {
+        teddyMainImg.addEventListener('click', (e) => {
+            e.stopPropagation();
+            lightboxImg.src = teddyMainImg.src;
+            lightboxCaption.innerText = "Plush White Teddy Bear with a Velvet Red Rose for Sengve 🧸🌹";
+            photoModal.classList.remove('d-none');
+            logDbEvent('TEDDY_PHOTO_FULLSCREEN_VIEWED');
+        });
+    }
+
+    const bouquetMainImg = document.getElementById('bouquet-main-img');
+    if (bouquetMainImg && photoModal && lightboxImg && lightboxCaption) {
+        bouquetMainImg.addEventListener('click', (e) => {
+            e.stopPropagation();
+            lightboxImg.src = bouquetMainImg.src;
+            lightboxCaption.innerText = "Heart-Shaped Bouquet of 99 Luxury Red Velvet Roses for Sengve 💐❤️";
+            photoModal.classList.remove('d-none');
+            logDbEvent('BOUQUET_PHOTO_FULLSCREEN_VIEWED');
+        });
+    }
+
     if (closePhotoModal) {
         closePhotoModal.addEventListener('click', () => {
             photoModal.classList.add('d-none');
