@@ -1486,7 +1486,7 @@ body {
         height: auto !important;
         min-height: unset !important;
         margin: 0 auto !important;
-        padding: 24px 30px !important;
+        padding: 28px 36px !important;
         border-radius: 26px !important;
         display: flex !important;
         flex-direction: column !important;
@@ -1495,11 +1495,11 @@ body {
     }
     .auth-card {
         max-width: 520px !important;
-        padding: 24px 30px !important;
+        padding: 28px 36px !important;
     }
     #auth-screen .proposal-card,
     #countdown-card {
-        padding: 24px 30px !important;
+        padding: 28px 36px !important;
     }
     .security-crest {
         width: 100% !important;
@@ -1524,13 +1524,13 @@ body {
     h1, .display-4 {
         font-size: 1.85rem !important;
         font-weight: 700 !important;
-        line-height: 1.25 !important;
+        line-height: 1.3 !important;
         margin-bottom: 8px !important;
     }
     h2, .display-5, .display-6, .title-gradient, .title-gradient-shine {
         font-size: 1.6rem !important;
         font-weight: 700 !important;
-        line-height: 1.25 !important;
+        line-height: 1.3 !important;
         margin-bottom: 8px !important;
     }
     h3, h4 {
@@ -1548,7 +1548,7 @@ body {
     .auth-card h1 {
         font-size: 0.95rem !important;
         letter-spacing: 2.5px !important;
-        margin-bottom: 4px !important;
+        margin-bottom: 6px !important;
     }
 
     /* Prominent Majestic Calligraphy (highest specificity and precedence) */
@@ -1556,23 +1556,23 @@ body {
     h2.calligraphy-name,
     .title-gradient-shine.calligraphy-name {
         font-size: 3rem !important;
-        line-height: 1.15 !important;
-        margin-bottom: 10px !important;
+        line-height: 1.25 !important;
+        margin-bottom: 12px !important;
         display: block !important;
     }
 
     /* Body text, Paragraphs & Small text */
     body, p, .lead, .proposal-card p, .special-distance-quote, .distance-quote-box p {
         font-size: 0.95rem !important;
-        line-height: 1.4 !important;
+        line-height: 1.6 !important;
     }
     .proposal-card small,
     .proposal-card .small,
     .proposal-card p.small,
     .auth-card p {
         font-size: 0.88rem !important;
-        line-height: 1.35 !important;
-        margin-bottom: 14px !important;
+        line-height: 1.55 !important;
+        margin-bottom: 16px !important;
     }
 
     .glass-input {
@@ -1673,7 +1673,7 @@ body {
         height: auto !important;
         min-height: unset !important;
         margin: 0 auto !important;
-        padding: 22px 26px !important;
+        padding: 26px 30px !important;
         border-radius: 24px !important;
         display: flex !important;
         flex-direction: column !important;
@@ -1682,7 +1682,7 @@ body {
     }
     .auth-card {
         max-width: 480px !important;
-        padding: 22px 26px !important;
+        padding: 26px 30px !important;
     }
     .security-crest {
         width: 100% !important;
@@ -1705,28 +1705,31 @@ body {
     }
     .calligraphy-name {
         font-size: 2.5rem !important;
-        line-height: 1.15 !important;
-        margin-bottom: 8px !important;
+        line-height: 1.25 !important;
+        margin-bottom: 10px !important;
     }
     h1, .display-4 {
         font-size: 1.6rem !important;
-        line-height: 1.25 !important;
+        line-height: 1.35 !important;
         margin-bottom: 6px !important;
     }
     h2, .display-5, .display-6, .title-gradient {
         font-size: 1.4rem !important;
-        line-height: 1.25 !important;
+        line-height: 1.35 !important;
         margin-bottom: 6px !important;
     }
     .auth-card h1 {
         font-size: 0.88rem !important;
         letter-spacing: 2px !important;
-        margin-bottom: 4px !important;
+        margin-bottom: 6px !important;
+    }
+    body, p, .lead, .proposal-card p {
+        line-height: 1.55 !important;
     }
     .auth-card p {
-        font-size: 0.85rem !important;
-        line-height: 1.35 !important;
-        margin-bottom: 12px !important;
+        font-size: 0.88rem !important;
+        line-height: 1.55 !important;
+        margin-bottom: 16px !important;
     }
     .glass-input {
         font-size: 0.95rem !important;
@@ -1858,27 +1861,26 @@ body {
         font-size: 10px;
     }
 
-    /* Pixel-Perfect Naturally Hugged Card - Zero Gaps, Perfectly Centered */
+    /* Naturally Sized Luxury Card - Zero Inner Scroll, Luxurious Padding */
     .proposal-card {
         width: 100% !important;
-        max-width: 410px !important;
+        max-width: 420px !important;
         height: auto !important;
         min-height: unset !important;
-        max-height: calc(100dvh - 96px) !important;
-        padding: 16px 16px 14px 16px !important;
+        max-height: unset !important;
+        padding: 24px 20px 22px 20px !important;
         margin: 0 auto !important;
-        border-radius: 20px !important;
+        border-radius: 22px !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: flex-start !important;
         align-items: center !important;
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
+        overflow: visible !important;
         box-sizing: border-box !important;
     }
     #auth-screen .proposal-card,
     #countdown-card {
-        padding: 16px 16px 14px 16px !important;
+        padding: 24px 20px 22px 20px !important;
     }
 
     /* Clean Rows with Zero Horizontal Overflow */
@@ -1938,103 +1940,108 @@ body {
     .letter-spacing-2,
     h1.letter-spacing-2,
     .auth-card h1 {
-        font-size: 11px !important;
-        letter-spacing: 1.5px !important;
-        margin-bottom: 2px !important;
+        font-size: 11.5px !important;
+        letter-spacing: 1.8px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 6px !important;
     }
 
-    /* Calligraphy scaled gracefully for mobile */
+    /* Calligraphy scaled gracefully for mobile with proper line-height */
     .calligraphy-name,
     h2.calligraphy-name,
     .title-gradient-shine.calligraphy-name {
-        font-size: 1.85rem !important;
-        line-height: 1.15 !important;
-        margin-bottom: 6px !important;
+        font-size: 2.1rem !important;
+        line-height: 1.25 !important;
+        margin-bottom: 10px !important;
         display: block !important;
     }
     .vip-exclusive-badge {
-        font-size: 9.5px !important;
-        padding: 2px 10px !important;
-        margin: 0 auto 6px auto !important;
+        font-size: 10px !important;
+        padding: 4px 14px !important;
+        margin: 0 auto 10px auto !important;
         display: inline-block !important;
+        line-height: 1.4 !important;
     }
     .security-crest {
         width: 100% !important;
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
-        margin: 0 auto 6px auto !important;
+        margin: 0 auto 10px auto !important;
     }
     .crest-ring {
-        width: 48px !important;
-        height: 48px !important;
-        font-size: 1.15rem !important;
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.25rem !important;
         margin: 0 auto !important;
     }
     .input-glass-group {
-        margin-bottom: 8px !important;
+        margin-bottom: 10px !important;
         width: 100% !important;
     }
     .glass-input {
-        font-size: 12px !important;
-        padding: 7px 32px 7px 34px !important;
-        height: 38px !important;
+        font-size: 12.5px !important;
+        padding: 9px 36px 9px 38px !important;
+        height: 42px !important;
     }
     .glass-input::placeholder {
-        font-size: 11px !important;
+        font-size: 11.5px !important;
     }
     .btn-lg,
     #unlock-btn {
-        font-size: 12px !important;
-        padding: 8px 12px !important;
-        min-height: 40px !important;
+        font-size: 12.5px !important;
+        padding: 9px 16px !important;
+        min-height: 42px !important;
         height: auto !important;
         margin-top: 0 !important;
         width: 100% !important;
+        line-height: 1.35 !important;
     }
     .quick-vip-access {
-        margin-top: 6px !important;
+        margin-top: 10px !important;
         margin-bottom: 0 !important;
         width: 100% !important;
     }
     .quick-vip-access .my-3 {
-        margin-top: 6px !important;
-        margin-bottom: 6px !important;
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
     }
     #quick-sengve-btn {
-        font-size: 11.5px !important;
-        padding: 6px 10px !important;
-        min-height: 38px !important;
+        font-size: 12px !important;
+        padding: 8px 14px !important;
+        min-height: 40px !important;
         width: 100% !important;
+        line-height: 1.35 !important;
     }
     .hint-tag {
-        margin-top: 8px !important;
-        font-size: 9.5px !important;
+        margin-top: 12px !important;
+        font-size: 10px !important;
+        line-height: 1.4 !important;
     }
 
-    /* Typography: Sleek 11.5px Body Font on Mobile */
+    /* Typography: Comfortable Line-Height on Mobile (No Sticking) */
     body, p, .lead, .summary-box p, .video-caption-quote p, .distance-quote-box p {
-        font-size: 11.5px !important;
-        line-height: 1.35 !important;
+        font-size: 12px !important;
+        line-height: 1.5 !important;
     }
     .auth-card p {
-        font-size: 11px !important;
-        line-height: 1.3 !important;
-        margin: 0 auto 10px auto !important;
-        max-width: 320px !important;
+        font-size: 12px !important;
+        line-height: 1.5 !important;
+        margin: 0 auto 16px auto !important;
+        max-width: 340px !important;
     }
     .playfair.italic {
-        font-size: 11.5px !important;
-        line-height: 1.35 !important;
+        font-size: 12px !important;
+        line-height: 1.5 !important;
     }
 
-    /* Subtitles & Micro Labels */
+    /* Subtitles & Micro Labels with Breathing Room */
     .proposal-card small,
     .proposal-card .small,
     .proposal-card p.small,
     small, .opacity-75, .opacity-70, .opacity-60, .opacity-50 {
-        font-size: 10.5px !important;
-        line-height: 1.3 !important;
+        font-size: 11px !important;
+        line-height: 1.45 !important;
     }
     .stamp-badge, .bouquet-ribbon-tag {
         font-size: 10px !important;
@@ -2121,22 +2128,21 @@ body {
         line-height: 1.35 !important;
     }
 
-    /* Mobile Teddy & Bouquet Cards - Naturally Hugged, No Gaps */
+    /* Mobile Teddy & Bouquet Cards - Naturally Hugged, No Inner Scroll */
     #teddy-card,
     #gift-card {
         width: 100% !important;
-        max-width: 410px !important;
+        max-width: 420px !important;
         height: auto !important;
         min-height: unset !important;
-        max-height: calc(100dvh - 96px) !important;
-        padding: 14px 14px !important;
+        max-height: unset !important;
+        padding: 20px 18px !important;
         margin: 0 auto !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: flex-start !important;
         align-items: center !important;
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
+        overflow: visible !important;
     }
 
     .gift-card-top-bar {
@@ -2345,13 +2351,16 @@ body {
 /* 5. Ultra-Compact Mobile Screens (max-width: 380px e.g. iPhone SE, Fold) */
 @media (max-width: 380px) {
     .proposal-card {
-        width: 98% !important;
-        padding: 22px 8px 12px 8px !important;
+        width: 100% !important;
+        padding: 20px 16px 18px 16px !important;
         margin: 0 auto !important;
+        overflow: visible !important;
+        max-height: unset !important;
+        height: auto !important;
     }
     #auth-screen .proposal-card,
     #countdown-card {
-        padding: 16px 8px 12px 8px !important;
+        padding: 20px 16px 18px 16px !important;
     }
     .cake-3d-stage {
         height: 230px !important;
@@ -2894,19 +2903,18 @@ body {
     #question-card,
     #celebration-card {
         width: 100% !important;
-        max-width: 410px !important;
+        max-width: 420px !important;
         height: auto !important;
         min-height: unset !important;
-        max-height: calc(100dvh - 96px) !important;
-        padding: 16px 16px 14px 16px !important;
+        max-height: unset !important;
+        padding: 24px 20px 22px 20px !important;
         margin: 0 auto !important;
-        border-radius: 20px !important;
+        border-radius: 22px !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: flex-start !important;
         align-items: center !important;
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
+        overflow: visible !important;
         box-sizing: border-box !important;
     }
 
