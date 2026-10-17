@@ -1898,6 +1898,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Restore previously claimed vouchers from localStorage
+    try {
+        const storedClaims = JSON.parse(localStorage.getItem('sengve_vouchers') || '[]');
+        if (Array.isArray(storedClaims)) {
+            claimBtns.forEach(btn => {
+                if (storedClaims.includes(btn.dataset.voucher)) {
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fas fa-check me-1"></i> Claimed & Saved to DB!';
+                    btn.classList.remove('btn-outline-pink');
+                    btn.classList.add('btn-success');
+                    const voucherCard = btn.closest('.voucher-card');
+                    if (voucherCard) voucherCard.classList.add('claimed');
+                }
+            });
+        }
+    } catch (e) {}
+
     const toQuestionBtn = document.getElementById('to-question-btn');
     if (toQuestionBtn) {
         toQuestionBtn.addEventListener('click', () => {
