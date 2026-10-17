@@ -680,6 +680,8 @@ body {
     border-radius: 28px;
     max-width: 560px;
     width: 95%;
+    max-height: calc(100vh - 70px);
+    max-height: calc(100dvh - 70px);
     z-index: 10;
     transition: box-shadow 0.4s ease, border-color 0.4s ease;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 42, 133, 0.12);
@@ -1593,7 +1595,8 @@ body {
     }
     .teddy-real-photo,
     .bouquet-real-photo {
-        max-height: 270px;
+        height: 180px;
+        max-height: 185px;
         width: auto;
         max-width: 100%;
         object-fit: contain;
@@ -1665,7 +1668,8 @@ body {
     }
     .teddy-real-photo,
     .bouquet-real-photo {
-        max-height: 250px;
+        height: 170px;
+        max-height: 175px;
         width: auto;
         max-width: 100%;
         object-fit: contain;
@@ -1940,10 +1944,10 @@ body {
     }
     .teddy-real-photo,
     .bouquet-real-photo {
-        max-height: 220px !important;
+        height: 160px !important;
+        max-height: 165px !important;
         width: auto !important;
         max-width: 100% !important;
-        height: auto !important;
         object-fit: contain !important;
         border-radius: 12px !important;
     }
@@ -2233,10 +2237,16 @@ body {
 /* ==========================================
    BIRTHDAY GIFTS: PLUSH TEDDY BEAR & LUXURY BOUQUET (SHOW ONLY ONE PER CARD)
    ========================================== */
+#teddy-card,
+#gift-card {
+    padding: 16px 20px 14px 20px !important;
+    max-width: 500px !important;
+}
+
 .single-teddy-showcase,
 .single-bouquet-showcase {
-    max-width: 440px;
-    margin: 0 auto 10px auto;
+    max-width: 360px !important;
+    margin: 0 auto 6px auto !important;
 }
 
 .luxury-teddy-card,
@@ -2244,8 +2254,8 @@ body {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(15px);
-    border-radius: 20px;
-    padding: 10px 14px !important;
+    border-radius: 18px;
+    padding: 8px 12px !important;
     position: relative;
     overflow: hidden;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
@@ -2260,13 +2270,14 @@ body {
     transform: none !important; /* Zero hover movement */
 }
 
-.teddy-speech-bubble {
+.teddy-speech-bubble,
+.bouquet-ribbon-tag {
     background: rgba(255, 42, 133, 0.2);
     border: 1px solid rgba(255, 42, 133, 0.5);
     color: #ffb3d9;
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     font-weight: 600;
-    padding: 5px 12px;
+    padding: 4px 12px;
     margin-bottom: 6px !important;
     border-radius: 16px;
     box-shadow: 0 4px 15px rgba(255, 0, 128, 0.25);
@@ -2276,41 +2287,46 @@ body {
 .teddy-img-wrapper,
 .bouquet-img-wrapper {
     position: relative;
-    max-width: 320px;
-    margin: 0 auto 8px auto;
-    border-radius: 18px;
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin: 0 auto 6px auto !important;
+    border-radius: 14px;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.25);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 6px;
+    background: transparent !important;
+    padding: 0 !important;
+    display: block !important;
 }
 
 .teddy-real-photo,
 .bouquet-real-photo {
-    width: auto;
-    max-width: 100%;
-    max-height: 260px;
-    height: auto;
-    object-fit: contain;
+    width: auto !important;
+    max-width: 100% !important;
+    height: 180px !important;
+    max-height: 180px !important;
+    object-fit: contain !important;
     border-radius: 14px;
     display: block;
     margin: 0 auto;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-    border: 2px solid rgba(255, 42, 133, 0.35);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 42, 133, 0.3);
+    border: 2px solid rgba(255, 42, 133, 0.4);
     transform: none !important; /* Zero hover movement */
 }
 
 .teddy-badge-overlay,
 .bouquet-badge-overlay {
     position: absolute;
-    bottom: 12px;
+    bottom: 6px;
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
     z-index: 2;
     pointer-events: none;
+}
+
+.teddy-badge-overlay .badge,
+.bouquet-badge-overlay .badge {
+    font-size: 0.72rem !important;
+    padding: 3px 10px !important;
 }
 
 .proposal-card,
