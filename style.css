@@ -2575,6 +2575,26 @@ div.proposal-card.d-none,
     text-overflow: ellipsis;
 }
 
+.border-gold-glow {
+    border: 1.5px solid rgba(255, 215, 0, 0.5) !important;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(255, 42, 133, 0.08) 100%) !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.18) !important;
+}
+
+.border-gold-glow:hover {
+    border-color: #ffd700 !important;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.38) !important;
+}
+
+.featured-thumb-box {
+    height: 165px !important;
+}
+
+.badge-favourite-tag {
+    background: rgba(255, 215, 0, 0.25) !important;
+    border: 1px solid rgba(255, 215, 0, 0.6) !important;
+}
+
 /* Lightbox Modal */
 .photo-lightbox-overlay {
     position: fixed;
