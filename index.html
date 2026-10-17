@@ -73,54 +73,82 @@
 
     <!-- ================= STAGE 0: PRIVATE VIP GATEKEEPER SCREEN ================= -->
     <section id="auth-screen" class="full-screen-section">
-        <div class="proposal-card auth-card text-center shadow-2xl animate__animated animate__fadeIn">
-            <div class="security-crest mb-3">
-                <div class="crest-ring">
-                    <i class="fas fa-lock text-gold"></i>
+        <div class="proposal-card auth-card royal-vip-card text-center shadow-2xl animate__animated animate__fadeIn">
+            <!-- Decorative Gold Corner Accents -->
+            <div class="royal-corner-accent top-left"></div>
+            <div class="royal-corner-accent top-right"></div>
+            <div class="royal-corner-accent bottom-left"></div>
+            <div class="royal-corner-accent bottom-right"></div>
+
+            <!-- Royal Crest: Golden Crown & Beating Ruby Heart Wax Seal -->
+            <div class="royal-crest-wrapper mb-2">
+                <div class="royal-crest-seal">
+                    <i class="fas fa-crown royal-crown-icon text-gold"></i>
+                    <i class="fas fa-heart royal-heart-icon text-pink"></i>
                 </div>
             </div>
 
-            <div class="vip-exclusive-badge mb-3">
-                <i class="fas fa-crown text-gold me-1"></i> Strictly Private VIP Access
+            <!-- Luxury VIP Badge -->
+            <div class="royal-invite-badge mb-2">
+                <span class="badge-sparkle">✦</span>
+                <span class="badge-text">EXCLUSIVE ROYAL INVITATION</span>
+                <span class="badge-sparkle">✦</span>
             </div>
 
-            <h1 class="display-6 fw-bold mb-1 title-gold cinzel letter-spacing-2">DEDICATED EXCLUSIVELY TO</h1>
-            <h2 class="display-4 fw-bold mb-3 title-gradient-shine calligraphy-name">Sengve Rongpharpi</h2>
+            <!-- Elegant Dedication Header -->
+            <div class="royal-dedication-wrap mb-1">
+                <span class="ornament-line"></span>
+                <h1 class="royal-dedication-title cinzel">HANDCRAFTED WITH ALL MY HEART FOR</h1>
+                <span class="ornament-line"></span>
+            </div>
+
+            <!-- Sengve Rongpharpi with Shimmering Rose Gold Liquid Gradient -->
+            <h2 class="display-4 fw-bold mb-1 title-gradient-shine calligraphy-name royal-name-shimmer">Sengve Rongpharpi</h2>
             
-            <p class="opacity-80 small mb-4">
-                This experience is strictly private & protected. Created with all my heart exclusively for Sengve.
+            <p class="royal-invite-quote mb-3">
+                <i class="fas fa-sparkles text-gold me-1"></i>
+                A 26th birthday celebration created across 2,248 km • Diphu, Assam
             </p>
 
-            <form id="auth-form" class="auth-input-wrapper mb-3">
-                <div class="input-glass-group mb-3">
-                    <i class="fas fa-key group-icon"></i>
-                    <input type="password" id="passkey-input" class="form-control glass-input" placeholder="Enter VIP passcode or your name..." autocomplete="off">
-                    <button type="button" id="toggle-pass-visibility" class="btn btn-link text-white-50 pass-eye-btn" title="Show/Hide">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                </div>
-                <button type="submit" id="unlock-btn" class="btn btn-primary btn-lg w-100 py-3 rounded-pill fw-bold glow-on-hover">
-                    Unlock Experience <i class="fas fa-sparkles ms-2"></i>
-                </button>
-            </form>
-
-            <div class="quick-vip-access mb-3">
-                <div class="d-flex align-items-center my-3">
-                    <div class="flex-grow-1 border-top border-secondary opacity-25"></div>
-                    <span class="px-2 small opacity-50">OR</span>
-                    <div class="flex-grow-1 border-top border-secondary opacity-25"></div>
-                </div>
-                <button type="button" id="quick-sengve-btn" class="btn btn-outline-gold rounded-pill px-3 py-2 w-100 fw-bold">
-                    <i class="fas fa-crown text-gold me-2"></i> I am Sengve Rongpharpi ✨ (One-Tap Entry)
+            <!-- PRIMARY CALL TO ACTION: Royal One-Tap VIP Entry -->
+            <div class="royal-hero-cta-wrap mb-3 w-100">
+                <button type="button" id="quick-sengve-btn" class="btn royal-hero-cta-btn w-100 py-3 rounded-pill fw-bold glow-on-hover">
+                    <span class="cta-shimmer-sweep"></span>
+                    <i class="fas fa-crown text-gold me-2"></i>
+                    <span>Enter as Sengve Rongpharpi ✨</span>
                 </button>
             </div>
 
-            <div id="auth-error" class="auth-error-msg d-none animate__animated animate__shakeX">
+            <!-- Sleek Integrated Passkey Bar (Secondary Option) -->
+            <div class="royal-passkey-container w-100">
+                <div class="royal-divider mb-2">
+                    <span class="divider-line"></span>
+                    <span class="divider-text">OR ENTER SECRET PASSKEY</span>
+                    <span class="divider-line"></span>
+                </div>
+
+                <form id="auth-form" class="auth-input-wrapper">
+                    <div class="luxury-passcode-bar">
+                        <i class="fas fa-key group-icon-clean text-gold"></i>
+                        <input type="password" id="passkey-input" class="form-control glass-input-clean" placeholder="Enter secret code or name..." autocomplete="off">
+                        <button type="button" id="toggle-pass-visibility" class="btn btn-link pass-eye-clean" title="Show/Hide">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button type="submit" id="unlock-btn" class="btn btn-gold-arrow" title="Unlock Experience">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Access Denied Error Notification -->
+            <div id="auth-error" class="auth-error-msg d-none animate__animated animate__shakeX mt-2">
                 <i class="fas fa-triangle-exclamation me-1"></i> Access Denied. Reserved strictly for Sengve.
             </div>
 
-            <div class="hint-tag opacity-40 small mt-3">
-                <i class="fas fa-shield-heart me-1"></i> End-to-end encrypted celebration for October 19
+            <!-- Luxury Protection Watermark -->
+            <div class="royal-protection-badge mt-2">
+                <i class="fas fa-shield-heart text-gold me-1"></i> Strictly Private & Protected • October 19
             </div>
         </div>
     </section>
