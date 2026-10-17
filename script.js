@@ -663,31 +663,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 7. Live Countdown to October 19
+    // 7. Live Countdown & Birthday Mode (October 19)
     // ==========================================
     const daysEl = document.getElementById('cd-days');
     const hoursEl = document.getElementById('cd-hours');
     const minutesEl = document.getElementById('cd-minutes');
     const secondsEl = document.getElementById('cd-seconds');
+    const cdBadge = document.getElementById('cd-badge');
+    const cdTitle = document.getElementById('cd-title');
+    const cdSubtitle = document.getElementById('cd-subtitle');
 
     function updateCountdown() {
         const now = new Date();
         const currentYear = now.getFullYear();
-        let targetDate = new Date(currentYear, 9, 19, 0, 0, 0); // Month 9 = October
+        const targetDate = new Date(currentYear, 9, 19, 0, 0, 0); // Month 9 = October (19th, 00:00:00)
+        const isBirthdayToday = (now.getMonth() === 9 && now.getDate() === 19);
+        const isAfterBirthday = (now.getMonth() === 9 && now.getDate() > 19) || (now.getMonth() > 9);
+        const startBtn = document.getElementById('start-celebration-btn');
 
-        if (now.getMonth() === 9 && now.getDate() > 19) {
-            targetDate = new Date(currentYear + 1, 9, 19, 0, 0, 0);
-        }
+        if (isBirthdayToday) {
+            // It is officially October 19th! (After 12:00 AM Midnight)
+            if (cdBadge) {
+                cdBadge.innerHTML = '<i class="fas fa-crown me-2 text-warning"></i> 🎉 THE WAIT IS OVER: TODAY IS YOUR BIRTHDAY! 🎂';
+                cdBadge.classList.add('border', 'border-warning');
+            }
+            if (cdTitle) cdTitle.innerHTML = 'Happy 26th Birthday, Sengve! 🎂✨';
+            if (cdSubtitle) cdSubtitle.innerText = 'The most special day of the year is finally here! Today is 100% dedicated to you, my love. ❤️';
+            if (startBtn) startBtn.innerHTML = 'Enter Your Birthday Celebration! 🎂✨ <i class="fas fa-arrow-right ms-2"></i>';
 
-        const diff = targetDate - now;
+            // Celebrate inside the 4 countdown blocks
+            if (daysEl) daysEl.innerText = "IT'S";
+            if (hoursEl) hoursEl.innerText = "YOUR";
+            if (minutesEl) minutesEl.innerText = "DAY";
+            if (secondsEl) secondsEl.innerText = "💖";
 
-        if (diff <= 0) {
-            if (daysEl) daysEl.innerText = "00";
-            if (hoursEl) hoursEl.innerText = "00";
-            if (minutesEl) minutesEl.innerText = "00";
-            if (secondsEl) secondsEl.innerText = "00";
+            const labels = document.querySelectorAll('.countdown-grid .time-label');
+            if (labels.length >= 4) {
+                labels[0].innerText = "Happy";
+                labels[1].innerText = "26th";
+                labels[2].innerText = "Birthday";
+                labels[3].innerText = "Sengve";
+            }
             return;
         }
+
+        if (isAfterBirthday) {
+            if (cdBadge) cdBadge.innerHTML = '<i class="fas fa-heart me-2 text-pink"></i> Celebrating Sengve 26th Birthday Year ✨';
+            if (cdTitle) cdTitle.innerHTML = 'Happy 26th Birthday, Sengve! 🎂💖';
+            if (cdSubtitle) cdSubtitle.innerText = 'Every single day with you is a celebration, today, tomorrow, and forever.';
+            if (startBtn) startBtn.innerHTML = 'Relive Your Birthday Celebration! 🎂✨ <i class="fas fa-arrow-right ms-2"></i>';
+            return;
+        }
+
+        // Countdown Mode (Prior to October 19th, 12:00 AM)
+        const diff = targetDate - now;
+        if (diff <= 0) return;
 
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
