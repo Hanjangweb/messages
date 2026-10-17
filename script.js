@@ -1718,54 +1718,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (receiveBouquetBtn) receiveBouquetBtn.addEventListener('click', triggerReceiveBouquet);
     if (bouquetBox) bouquetBox.addEventListener('click', triggerReceiveBouquet);
 
-    // Step 3 -> Step 4 (Map -> Video Message)
-    const toVideoBtn = document.getElementById('to-video-btn');
-    if (toVideoBtn) {
-        toVideoBtn.addEventListener('click', () => {
-            switchCards('map-card', 'video-card');
-        });
-    }
-
-    // ==========================================
-    // 9.5 Video Player Interactivity (NEW)
-    // ==========================================
-    const birthdayVideo = document.getElementById('birthday-video');
-    const playVideoTrigger = document.getElementById('play-video-trigger');
-    const videoPlaceholder = document.getElementById('video-placeholder');
-
-    function playBirthdayVideo() {
-        if (!birthdayVideo) return;
-        // Pause background chimes while video is playing
-        if (isPlaying) {
-            stopRomanticMusic();
-        }
-        if (videoPlaceholder) {
-            videoPlaceholder.style.opacity = '0';
-            setTimeout(() => { videoPlaceholder.classList.add('d-none'); }, 300);
-        }
-        birthdayVideo.play().catch(e => {
-            console.log("Video play request handled:", e);
-        });
-        logDbEvent('VIDEO_PLAYED_BY_SENGVE');
-    }
-
-    if (playVideoTrigger) {
-        playVideoTrigger.addEventListener('click', playBirthdayVideo);
-    }
-    if (birthdayVideo) {
-        birthdayVideo.addEventListener('play', () => {
-            if (isPlaying) stopRomanticMusic();
-        });
-    }
-
-    // Step 4 -> Step 5 (Video -> Memories / Photo Gallery)
+    // Step 3 -> Step 4 (Map -> Memories / Photo Gallery)
     const toMemoriesBtn = document.getElementById('to-memories-btn');
     if (toMemoriesBtn) {
         toMemoriesBtn.addEventListener('click', () => {
-            if (birthdayVideo && !birthdayVideo.paused) {
-                birthdayVideo.pause();
-            }
-            switchCards('video-card', 'memories-card');
+            switchCards('map-card', 'memories-card');
         });
     }
 
