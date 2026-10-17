@@ -173,27 +173,31 @@ body {
 
 /* Security Crest & VIP Gate */
 .security-crest {
-    display: flex;
-    justify-content: center;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto 10px auto !important;
 }
 
 .crest-ring {
-    width: 58px;
-    height: 58px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(249, 203, 40, 0.2) 0%, rgba(249, 203, 40, 0.05) 70%);
-    border: 2px solid rgba(249, 203, 40, 0.5);
-    box-shadow: 0 0 35px rgba(249, 203, 40, 0.4), inset 0 0 20px rgba(249, 203, 40, 0.2);
+    background: radial-gradient(circle, rgba(249, 203, 40, 0.25) 0%, rgba(249, 203, 40, 0.08) 70%);
+    border: 2px solid rgba(249, 203, 40, 0.55);
+    box-shadow: 0 0 30px rgba(249, 203, 40, 0.45), inset 0 0 16px rgba(249, 203, 40, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
+    font-size: 1.35rem;
+    margin: 0 auto !important;
     animation: crestPulse 2.5s infinite ease-in-out;
 }
 
 @keyframes crestPulse {
     0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(249, 203, 40, 0.35); }
-    50% { transform: scale(1.1); box-shadow: 0 0 50px rgba(249, 203, 40, 0.65); }
+    50% { transform: scale(1.08); box-shadow: 0 0 45px rgba(249, 203, 40, 0.65); }
 }
 
 .vip-exclusive-badge {
@@ -201,18 +205,22 @@ body {
     background: linear-gradient(135deg, rgba(255, 42, 133, 0.2), rgba(249, 203, 40, 0.15));
     border: 1px solid rgba(249, 203, 40, 0.45);
     color: #ffe066;
-    padding: 6px 18px;
+    padding: 5px 16px;
     border-radius: 30px;
     font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
     box-shadow: 0 0 20px rgba(249, 203, 40, 0.2);
+    margin: 0 auto 10px auto;
 }
 
 .auth-card {
     max-width: 480px;
     margin: 0 auto;
+    background: linear-gradient(160deg, rgba(24, 18, 32, 0.88) 0%, rgba(14, 11, 20, 0.94) 100%) !important;
+    border: 1px solid rgba(249, 203, 40, 0.32) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 42, 133, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.18) !important;
 }
 
 .input-glass-group {
@@ -1463,51 +1471,74 @@ body {
 
 /* 1. Large Desktops & Laptops (min-width: 992px) */
 @media (min-width: 992px) {
+    .full-screen-section {
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 55px 24px 30px 24px !important;
+    }
     .proposal-card {
-        max-width: 650px !important;
+        max-width: 580px !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: unset !important;
         margin: 0 auto !important;
-        padding: 2.2rem 2.5rem !important;
-        border-radius: 28px !important;
+        padding: 24px 30px !important;
+        border-radius: 26px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
     }
     .auth-card {
-        max-width: 580px !important;
-        padding: 2.2rem 2.5rem !important;
+        max-width: 520px !important;
+        padding: 24px 30px !important;
     }
     #auth-screen .proposal-card,
     #countdown-card {
-        padding: 2.2rem 2.5rem !important;
+        padding: 24px 30px !important;
     }
-    .security-crest,
-    .security-crest .crest-ring {
-        width: 72px !important;
-        height: 72px !important;
-        font-size: 1.8rem !important;
-        margin-bottom: 14px !important;
+    .security-crest {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 0 auto 10px auto !important;
+    }
+    .crest-ring {
+        width: 58px !important;
+        height: 58px !important;
+        font-size: 1.45rem !important;
+        margin: 0 auto !important;
     }
     .vip-exclusive-badge {
-        font-size: 0.92rem !important;
-        padding: 7px 20px !important;
-        margin-bottom: 16px !important;
+        font-size: 0.82rem !important;
+        padding: 5px 16px !important;
+        margin: 0 auto 10px auto !important;
+        display: inline-block !important;
     }
     /* Desktop Headings Base */
     h1, .display-4 {
-        font-size: 2.3rem !important;
+        font-size: 1.85rem !important;
         font-weight: 700 !important;
         line-height: 1.25 !important;
-        margin-bottom: 12px !important;
+        margin-bottom: 8px !important;
     }
     h2, .display-5, .display-6, .title-gradient, .title-gradient-shine {
-        font-size: 1.9rem !important;
+        font-size: 1.6rem !important;
         font-weight: 700 !important;
-        line-height: 1.3 !important;
-        margin-bottom: 12px !important;
+        line-height: 1.25 !important;
+        margin-bottom: 8px !important;
     }
     h3, h4 {
-        font-size: 1.5rem !important;
+        font-size: 1.35rem !important;
         font-weight: 600 !important;
     }
     h5, h6 {
-        font-size: 1.25rem !important;
+        font-size: 1.15rem !important;
     }
 
     /* Subtitles, Cinzel & Letter-spacing */
@@ -1515,23 +1546,24 @@ body {
     .letter-spacing-2,
     h1.letter-spacing-2,
     .auth-card h1 {
-        font-size: 1.3rem !important;
-        letter-spacing: 3.5px !important;
+        font-size: 0.95rem !important;
+        letter-spacing: 2.5px !important;
+        margin-bottom: 4px !important;
     }
 
     /* Prominent Majestic Calligraphy (highest specificity and precedence) */
     .calligraphy-name,
     h2.calligraphy-name,
     .title-gradient-shine.calligraphy-name {
-        font-size: 3.8rem !important;
-        line-height: 1.2 !important;
-        margin-bottom: 16px !important;
+        font-size: 3rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 10px !important;
         display: block !important;
     }
 
     /* Body text, Paragraphs & Small text */
     body, p, .lead, .proposal-card p, .special-distance-quote, .distance-quote-box p {
-        font-size: 0.98rem !important;
+        font-size: 0.95rem !important;
         line-height: 1.4 !important;
     }
     .proposal-card small,
@@ -1540,28 +1572,31 @@ body {
     .auth-card p {
         font-size: 0.88rem !important;
         line-height: 1.35 !important;
+        margin-bottom: 14px !important;
     }
 
     .glass-input {
-        font-size: 1.1rem !important;
-        padding: 15px 50px !important;
-        height: 56px !important;
+        font-size: 1rem !important;
+        padding: 12px 45px 12px 48px !important;
+        height: 48px !important;
     }
     .glass-input::placeholder {
-        font-size: 1.02rem !important;
+        font-size: 0.92rem !important;
     }
     .group-icon {
-        font-size: 1.25rem !important;
+        font-size: 1.15rem !important;
     }
     .btn-lg,
     #unlock-btn {
-        font-size: 1.2rem !important;
-        padding: 15px 30px !important;
-        height: 56px !important;
+        font-size: 1.05rem !important;
+        padding: 11px 24px !important;
+        min-height: 48px !important;
+        height: auto !important;
     }
     #quick-sengve-btn {
-        font-size: 1.05rem !important;
-        padding: 13px 26px !important;
+        font-size: 0.98rem !important;
+        padding: 10px 22px !important;
+        min-height: 44px !important;
     }
     .back-btn {
         font-size: 14px !important;
@@ -1623,32 +1658,91 @@ body {
 
 /* 2. Tablets & Small Laptops (769px to 991px) */
 @media (min-width: 769px) and (max-width: 991px) {
+    .full-screen-section {
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 50px 20px 25px 20px !important;
+    }
     .proposal-card {
-        max-width: 540px;
-        width: 92%;
+        max-width: 500px !important;
+        width: 92% !important;
+        height: auto !important;
+        min-height: unset !important;
         margin: 0 auto !important;
-        padding: 1.6rem 1.8rem !important;
-        border-radius: 26px;
-        overflow: hidden !important;
+        padding: 22px 26px !important;
+        border-radius: 24px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
     }
     .auth-card {
-        max-width: 520px !important;
+        max-width: 480px !important;
+        padding: 22px 26px !important;
+    }
+    .security-crest {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 0 auto 10px auto !important;
+    }
+    .crest-ring {
+        width: 52px !important;
+        height: 52px !important;
+        font-size: 1.3rem !important;
+        margin: 0 auto !important;
+    }
+    .vip-exclusive-badge {
+        font-size: 0.78rem !important;
+        padding: 4px 14px !important;
+        margin: 0 auto 10px auto !important;
+        display: inline-block !important;
     }
     .calligraphy-name {
-        font-size: 2.8rem !important;
+        font-size: 2.5rem !important;
         line-height: 1.15 !important;
+        margin-bottom: 8px !important;
     }
     h1, .display-4 {
-        font-size: 1.85rem !important;
-        line-height: 1.3 !important;
+        font-size: 1.6rem !important;
+        line-height: 1.25 !important;
+        margin-bottom: 6px !important;
     }
     h2, .display-5, .display-6, .title-gradient {
-        font-size: 1.5rem !important;
-        line-height: 1.3 !important;
+        font-size: 1.4rem !important;
+        line-height: 1.25 !important;
+        margin-bottom: 6px !important;
     }
-    p, .lead, .proposal-card p {
+    .auth-card h1 {
+        font-size: 0.88rem !important;
+        letter-spacing: 2px !important;
+        margin-bottom: 4px !important;
+    }
+    .auth-card p {
+        font-size: 0.85rem !important;
+        line-height: 1.35 !important;
+        margin-bottom: 12px !important;
+    }
+    .glass-input {
+        font-size: 0.95rem !important;
+        padding: 10px 38px 10px 42px !important;
+        height: 44px !important;
+    }
+    .btn-lg,
+    #unlock-btn {
         font-size: 0.98rem !important;
-        line-height: 1.55 !important;
+        padding: 10px 20px !important;
+        min-height: 44px !important;
+    }
+    #quick-sengve-btn {
+        font-size: 0.92rem !important;
+        padding: 9px 18px !important;
+        min-height: 40px !important;
     }
     .cake-3d-stage {
         height: 250px;
@@ -1685,19 +1779,17 @@ body {
 
 /* 4. Standard Mobile Phones & Devices (max-width: 768px) */
 @media (max-width: 768px) {
-    /* Mobile Section Architecture: Fit Full Mobile Screen with Zero Outer Gap */
+    /* Mobile Section Architecture: Centered Viewport Placement */
     .full-screen-section {
-        padding: 44px 8px 10px 8px !important;
         min-height: 100vh !important;
         min-height: 100dvh !important;
-        height: 100dvh !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: flex-start !important;
+        justify-content: center !important;
         align-items: center !important;
+        padding: 46px 12px 50px 12px !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
-        overflow-y: hidden !important;
     }
 
     /* Unobstructed Top Distance Bar */
@@ -1734,7 +1826,7 @@ body {
     /* Fixed Controls at Bottom Corners (Never Collide with Header or Back Buttons) */
     .admin-quick-btn {
         position: fixed;
-        bottom: 14px;
+        bottom: 12px;
         left: 12px;
         top: auto;
         z-index: 1000;
@@ -1747,7 +1839,7 @@ body {
     }
     .audio-controller-btn.luxury-music-pill {
         position: fixed;
-        bottom: 14px;
+        bottom: 12px;
         right: 12px;
         top: auto;
         z-index: 1000;
@@ -1766,26 +1858,27 @@ body {
         font-size: 10px;
     }
 
-    /* Pixel-Perfect Card: FITS FULL MOBILE SCREEN */
+    /* Pixel-Perfect Naturally Hugged Card - Zero Gaps, Perfectly Centered */
     .proposal-card {
         width: 100% !important;
-        max-width: 440px !important;
-        height: calc(100dvh - 54px) !important;
-        min-height: calc(100dvh - 54px) !important;
-        max-height: calc(100dvh - 54px) !important;
-        padding: 10px 12px 10px 12px !important;
+        max-width: 410px !important;
+        height: auto !important;
+        min-height: unset !important;
+        max-height: calc(100dvh - 96px) !important;
+        padding: 16px 16px 14px 16px !important;
         margin: 0 auto !important;
-        border-radius: 18px !important;
+        border-radius: 20px !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: space-between !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
         overflow-x: hidden !important;
         overflow-y: auto !important;
         box-sizing: border-box !important;
     }
     #auth-screen .proposal-card,
     #countdown-card {
-        padding: 10px 12px 10px 12px !important;
+        padding: 16px 16px 14px 16px !important;
     }
 
     /* Clean Rows with Zero Horizontal Overflow */
@@ -1845,34 +1938,46 @@ body {
     .letter-spacing-2,
     h1.letter-spacing-2,
     .auth-card h1 {
-        font-size: 11.5px !important;
-        letter-spacing: 1.2px !important;
+        font-size: 11px !important;
+        letter-spacing: 1.5px !important;
+        margin-bottom: 2px !important;
     }
 
     /* Calligraphy scaled gracefully for mobile */
     .calligraphy-name,
     h2.calligraphy-name,
     .title-gradient-shine.calligraphy-name {
-        font-size: 1.65rem !important;
-        line-height: 1.1 !important;
-        margin-bottom: 4px !important;
+        font-size: 1.85rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 6px !important;
         display: block !important;
     }
     .vip-exclusive-badge {
         font-size: 9.5px !important;
-        padding: 2px 9px !important;
-        margin-bottom: 6px !important;
+        padding: 2px 10px !important;
+        margin: 0 auto 6px auto !important;
+        display: inline-block !important;
     }
-    .security-crest,
-    .security-crest .crest-ring {
-        width: 42px !important;
-        height: 42px !important;
-        font-size: 1.1rem !important;
-        margin-bottom: 4px !important;
+    .security-crest {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 0 auto 6px auto !important;
+    }
+    .crest-ring {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 1.15rem !important;
+        margin: 0 auto !important;
+    }
+    .input-glass-group {
+        margin-bottom: 8px !important;
+        width: 100% !important;
     }
     .glass-input {
         font-size: 12px !important;
-        padding: 7px 32px !important;
+        padding: 7px 32px 7px 34px !important;
         height: 38px !important;
     }
     .glass-input::placeholder {
@@ -1884,16 +1989,39 @@ body {
         padding: 8px 12px !important;
         min-height: 40px !important;
         height: auto !important;
+        margin-top: 0 !important;
+        width: 100% !important;
+    }
+    .quick-vip-access {
+        margin-top: 6px !important;
+        margin-bottom: 0 !important;
+        width: 100% !important;
+    }
+    .quick-vip-access .my-3 {
+        margin-top: 6px !important;
+        margin-bottom: 6px !important;
     }
     #quick-sengve-btn {
-        font-size: 11px !important;
-        padding: 5px 10px !important;
+        font-size: 11.5px !important;
+        padding: 6px 10px !important;
+        min-height: 38px !important;
+        width: 100% !important;
+    }
+    .hint-tag {
+        margin-top: 8px !important;
+        font-size: 9.5px !important;
     }
 
     /* Typography: Sleek 11.5px Body Font on Mobile */
     body, p, .lead, .summary-box p, .video-caption-quote p, .distance-quote-box p {
         font-size: 11.5px !important;
         line-height: 1.35 !important;
+    }
+    .auth-card p {
+        font-size: 11px !important;
+        line-height: 1.3 !important;
+        margin: 0 auto 10px auto !important;
+        max-width: 320px !important;
     }
     .playfair.italic {
         font-size: 11.5px !important;
@@ -1993,19 +2121,20 @@ body {
         line-height: 1.35 !important;
     }
 
-    /* Mobile Teddy & Bouquet Full-Screen Cards */
+    /* Mobile Teddy & Bouquet Cards - Naturally Hugged, No Gaps */
     #teddy-card,
     #gift-card {
         width: 100% !important;
-        max-width: 440px !important;
-        height: calc(100dvh - 54px) !important;
-        min-height: calc(100dvh - 54px) !important;
-        max-height: calc(100dvh - 54px) !important;
-        padding: 10px 12px 10px 12px !important;
+        max-width: 410px !important;
+        height: auto !important;
+        min-height: unset !important;
+        max-height: calc(100dvh - 96px) !important;
+        padding: 14px 14px !important;
         margin: 0 auto !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: space-between !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
         overflow-x: hidden !important;
         overflow-y: auto !important;
     }
@@ -2713,8 +2842,8 @@ body {
 
 /* ==========================================
    FINAL MOBILE SAFETY LOCK: PIXEL-PERFECT FIT
-   Guarantees Full Mobile Screen Fit, Zero Scroll-X,
-   Zero Clipping, and Consistent Padding
+   Guarantees Natural Card Fit, Zero Empty Voids,
+   Zero Scroll-X, Zero Clipping, and Consistent Spacing
    ========================================== */
 @media (max-width: 768px) {
     html, body {
@@ -2724,17 +2853,15 @@ body {
     }
 
     .full-screen-section {
-        padding: 44px 8px 10px 8px !important;
         min-height: 100vh !important;
         min-height: 100dvh !important;
-        height: 100dvh !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: flex-start !important;
+        justify-content: center !important;
         align-items: center !important;
+        padding: 46px 12px 50px 12px !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
-        overflow-y: hidden !important;
     }
 
     .distance-header {
@@ -2759,44 +2886,66 @@ body {
     #cake-card,
     #teddy-card,
     #gift-card,
-    #memory-lane-card,
+    #map-card,
+    #video-card,
+    #memories-card,
     #letters-card,
     #vouchers-card,
     #question-card,
     #celebration-card {
         width: 100% !important;
-        max-width: 440px !important;
-        height: calc(100dvh - 54px) !important;
-        min-height: calc(100dvh - 54px) !important;
-        max-height: calc(100dvh - 54px) !important;
-        padding: 10px 12px 10px 12px !important;
+        max-width: 410px !important;
+        height: auto !important;
+        min-height: unset !important;
+        max-height: calc(100dvh - 96px) !important;
+        padding: 16px 16px 14px 16px !important;
         margin: 0 auto !important;
-        border-radius: 18px !important;
+        border-radius: 20px !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: space-between !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
         overflow-x: hidden !important;
         overflow-y: auto !important;
         box-sizing: border-box !important;
     }
 
+    .security-crest {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 0 auto 6px auto !important;
+    }
+    .crest-ring {
+        width: 48px !important;
+        height: 48px !important;
+        margin: 0 auto !important;
+    }
+
     .teddy-real-photo,
     .bouquet-real-photo {
-        width: 120px !important;
-        height: 120px !important;
-        max-height: 120px !important;
-        min-height: 120px !important;
+        width: 125px !important;
+        height: 125px !important;
+        max-height: 125px !important;
+        min-height: 125px !important;
         aspect-ratio: 1 / 1 !important;
         object-fit: cover !important;
-        border-radius: 12px !important;
+        border-radius: 14px !important;
         margin: 0 auto !important;
+    }
+
+    .cake-3d-stage {
+        height: 200px !important;
+        max-width: 100% !important;
+        margin-bottom: 6px !important;
     }
 
     .gift-card-bottom-nav,
     #cake-celebration-hub,
     .btn-container,
     .proposal-card > button.btn-lg {
-        margin-top: auto !important;
+        margin-top: 8px !important;
         flex-shrink: 0 !important;
         width: 100% !important;
     }
