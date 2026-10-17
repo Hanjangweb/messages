@@ -680,14 +680,11 @@ body {
     border-radius: 28px;
     max-width: 560px;
     width: 95%;
-    max-height: calc(100vh - 70px);
-    max-height: calc(100dvh - 70px);
     z-index: 10;
     transition: box-shadow 0.4s ease, border-color 0.4s ease;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 42, 133, 0.12);
     position: relative;
     margin: 0 auto;
-    overflow: hidden !important; /* Zero card scrollbar anywhere */
 }
 
 .proposal-card::-webkit-scrollbar {
@@ -2239,13 +2236,13 @@ body {
    ========================================== */
 #teddy-card,
 #gift-card {
-    padding: 16px 20px 14px 20px !important;
-    max-width: 500px !important;
+    padding: 14px 18px 14px 18px !important;
+    max-width: 480px !important;
 }
 
 .single-teddy-showcase,
 .single-bouquet-showcase {
-    max-width: 360px !important;
+    max-width: 340px !important;
     margin: 0 auto 6px auto !important;
 }
 
@@ -2255,9 +2252,8 @@ body {
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(15px);
     border-radius: 18px;
-    padding: 8px 12px !important;
+    padding: 8px 12px 10px 12px !important;
     position: relative;
-    overflow: hidden;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     transform: none !important;
@@ -2275,9 +2271,9 @@ body {
     background: rgba(255, 42, 133, 0.2);
     border: 1px solid rgba(255, 42, 133, 0.5);
     color: #ffb3d9;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 600;
-    padding: 4px 12px;
+    padding: 3px 12px;
     margin-bottom: 6px !important;
     border-radius: 16px;
     box-shadow: 0 4px 15px rgba(255, 0, 128, 0.25);
@@ -2289,9 +2285,8 @@ body {
     position: relative;
     width: fit-content !important;
     max-width: 100% !important;
-    margin: 0 auto 6px auto !important;
+    margin: 0 auto 4px auto !important;
     border-radius: 14px;
-    overflow: hidden;
     background: transparent !important;
     padding: 0 !important;
     display: block !important;
@@ -2301,8 +2296,8 @@ body {
 .bouquet-real-photo {
     width: auto !important;
     max-width: 100% !important;
-    height: 180px !important;
-    max-height: 180px !important;
+    height: 165px !important;
+    max-height: 170px !important;
     object-fit: contain !important;
     border-radius: 14px;
     display: block;
@@ -2312,21 +2307,19 @@ body {
     transform: none !important; /* Zero hover movement */
 }
 
-.teddy-badge-overlay,
-.bouquet-badge-overlay {
-    position: absolute;
-    bottom: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    z-index: 2;
-    pointer-events: none;
+.teddy-badge-wrap,
+.bouquet-badge-wrap {
+    margin: 4px auto 6px auto !important;
+    text-align: center !important;
 }
 
-.teddy-badge-overlay .badge,
-.bouquet-badge-overlay .badge {
-    font-size: 0.72rem !important;
-    padding: 3px 10px !important;
+.teddy-badge-wrap .badge,
+.bouquet-badge-wrap .badge {
+    font-size: 0.74rem !important;
+    padding: 4px 12px !important;
+    display: inline-block !important;
+    white-space: nowrap !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
 }
 
 .proposal-card,
