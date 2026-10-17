@@ -171,318 +171,101 @@ body {
 .text-pink { color: var(--text-pink) !important; }
 .text-gold { color: var(--text-gold) !important; }
 
-/* ==========================================
-   ROYAL VIP INVITATION GATE (STAGE 0)
-   ========================================== */
-.royal-vip-card {
-    background: radial-gradient(ellipse at 50% 12%, rgba(255, 42, 133, 0.22) 0%, rgba(249, 203, 40, 0.10) 42%, rgba(13, 10, 22, 0.96) 100%) !important;
-    backdrop-filter: blur(28px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
-    border: 1px solid rgba(249, 203, 40, 0.45) !important;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 50px rgba(255, 42, 133, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.25) !important;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Luxury Gold Corner Brackets */
-.royal-corner-accent {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    pointer-events: none;
-    border-color: rgba(249, 203, 40, 0.7);
-    border-style: solid;
-    border-width: 0;
-    z-index: 2;
-}
-.royal-corner-accent.top-left { top: 9px; left: 9px; border-top-width: 2px; border-left-width: 2px; border-top-left-radius: 4px; }
-.royal-corner-accent.top-right { top: 9px; right: 9px; border-top-width: 2px; border-right-width: 2px; border-top-right-radius: 4px; }
-.royal-corner-accent.bottom-left { bottom: 9px; left: 9px; border-bottom-width: 2px; border-left-width: 2px; border-bottom-left-radius: 4px; }
-.royal-corner-accent.bottom-right { bottom: 9px; right: 9px; border-bottom-width: 2px; border-right-width: 2px; border-bottom-right-radius: 4px; }
-
-/* Royal Wax Seal Crest (Always Centered) */
-.royal-crest-wrapper {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin: 0 auto;
-}
-
-.royal-crest-seal {
-    width: 62px;
-    height: 62px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #fff2a3 0%, #ffd700 35%, #b8860b 70%, #4a3504 100%);
-    border: 2px solid #fff5b8;
-    box-shadow: 0 0 28px rgba(255, 215, 0, 0.65), 0 8px 22px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.75), inset 0 -3px 6px rgba(0, 0, 0, 0.6);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    animation: royalSealFloat 3s ease-in-out infinite;
-}
-
-@keyframes royalSealFloat {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(255, 215, 0, 0.55), 0 6px 18px rgba(0, 0, 0, 0.7); }
-    50% { transform: scale(1.05); box-shadow: 0 0 45px rgba(255, 215, 0, 0.85), 0 10px 26px rgba(0, 0, 0, 0.8); }
-}
-
-.royal-crown-icon {
-    font-size: 1.3rem;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
-    color: #4a3504 !important;
-    line-height: 1;
-}
-
-.royal-heart-icon {
-    font-size: 0.72rem;
-    margin-top: 1px;
-    color: #ff2a85 !important;
-    filter: drop-shadow(0 0 6px rgba(255, 42, 133, 0.95));
-    animation: royalHeartBeat 1.4s infinite;
-}
-
-@keyframes royalHeartBeat {
-    0%, 100% { transform: scale(1); }
-    15% { transform: scale(1.25); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.2); }
-}
-
-/* Luxury Royal Invite Badge */
-.royal-invite-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.16), rgba(255, 42, 133, 0.20));
-    border: 1px solid rgba(255, 215, 0, 0.55);
-    border-radius: 30px;
-    padding: 4px 16px;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
-    margin: 0 auto;
-}
-.badge-text {
-    color: #ffe066;
-    font-family: 'Cinzel', serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-}
-.badge-sparkle {
-    color: #ffd700;
-    font-size: 0.68rem;
-}
-
-/* Dedication Header */
-.royal-dedication-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-}
-.royal-dedication-title {
-    font-size: 0.82rem;
-    letter-spacing: 2.4px;
-    color: #ffd978;
-    margin: 0;
-    font-weight: 600;
-}
-.ornament-line {
-    flex: 1;
-    max-width: 45px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(249, 203, 40, 0.6), transparent);
-}
-
-/* Liquid Rose Gold Shimmer Name */
-.royal-name-shimmer {
-    background: linear-gradient(135deg, #ffffff 0%, #ffe082 25%, #ff758c 50%, #ffd700 75%, #ffffff 100%);
-    background-size: 250% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: goldShimmerSweep 5s linear infinite;
-    filter: drop-shadow(0 0 22px rgba(255, 117, 140, 0.55));
-}
-@keyframes goldShimmerSweep {
-    0% { background-position: 0% center; }
-    100% { background-position: 250% center; }
-}
-
-.royal-invite-quote {
-    font-size: 0.88rem;
-    color: rgba(255, 255, 255, 0.75);
-    line-height: 1.35;
-    margin: 0 auto;
-}
-
-/* PRIMARY HERO BUTTON: Royal VIP Access */
-.royal-hero-cta-btn {
-    position: relative;
-    background: linear-gradient(135deg, #ff1493 0%, #ff2a85 35%, #e02875 65%, #ffd700 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.45) !important;
-    color: #ffffff !important;
-    font-size: 1.05rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.6px !important;
-    border-radius: 50px !important;
-    box-shadow: 0 10px 30px rgba(255, 42, 133, 0.5), 0 0 25px rgba(255, 215, 0, 0.35) !important;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.royal-hero-cta-btn:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 15px 42px rgba(255, 42, 133, 0.65), 0 0 35px rgba(255, 215, 0, 0.5) !important;
-}
-.royal-hero-cta-btn:active {
-    transform: translateY(1px) scale(0.98);
-}
-.cta-shimmer-sweep {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transform: skewX(-25deg);
-    animation: btnShimmerSweep 3.5s infinite;
-}
-@keyframes btnShimmerSweep {
-    0% { left: -100%; }
-    30% { left: 200%; }
-    100% { left: 200%; }
-}
-
-/* Royal Divider */
-.royal-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-}
-.royal-divider .divider-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-}
-.royal-divider .divider-text {
-    font-size: 0.68rem;
-    letter-spacing: 1.6px;
-    color: rgba(255, 255, 255, 0.45);
-    font-weight: 600;
-}
-
-/* Unified Luxury Passcode Bar */
-.luxury-passcode-bar {
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(249, 203, 40, 0.4);
-    border-radius: 40px;
-    padding: 3px 4px 3px 14px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
-}
-.luxury-passcode-bar:focus-within {
-    border-color: #ffd700;
-    box-shadow: 0 0 22px rgba(249, 203, 40, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.1);
-}
-.group-icon-clean {
-    font-size: 0.95rem;
-    color: #ffd700;
-    margin-right: 8px;
-    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.55));
-    flex-shrink: 0;
-}
-.glass-input-clean {
-    flex: 1;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    color: #ffffff !important;
-    font-size: 0.9rem;
-    padding: 6px 6px !important;
-    outline: none !important;
-    min-width: 0;
-}
-.glass-input-clean::placeholder {
-    color: rgba(255, 255, 255, 0.45) !important;
-    font-size: 0.85rem;
-}
-.pass-eye-clean {
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.45) !important;
-    font-size: 0.9rem;
-    padding: 4px 8px;
-    cursor: pointer;
-    transition: color 0.2s ease;
-    flex-shrink: 0;
-}
-.pass-eye-clean:hover {
-    color: #ffd700 !important;
-}
-.btn-gold-arrow {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #ffd700, #ff758c);
-    border: none;
-    color: #12101e !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.92rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.45);
-    transition: all 0.25s ease;
-    flex-shrink: 0;
-}
-.btn-gold-arrow:hover {
-    transform: scale(1.08);
-    box-shadow: 0 6px 18px rgba(255, 215, 0, 0.65);
-}
-
-.royal-protection-badge {
-    font-size: 0.72rem;
-    color: rgba(255, 255, 255, 0.45);
-    letter-spacing: 0.5px;
-}
-
-/* Legacy Fallbacks for Backward Compatibility */
+/* Security Crest & VIP Gate */
 .security-crest {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin: 0 auto !important;
+    display: flex;
+    justify-content: center;
 }
+
 .crest-ring {
     width: 58px;
     height: 58px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(249, 203, 40, 0.2) 0%, rgba(249, 203, 40, 0.05) 70%);
     border: 2px solid rgba(249, 203, 40, 0.5);
+    box-shadow: 0 0 35px rgba(249, 203, 40, 0.4), inset 0 0 20px rgba(249, 203, 40, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    font-size: 1.4rem;
+    animation: crestPulse 2.5s infinite ease-in-out;
 }
+
+@keyframes crestPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(249, 203, 40, 0.35); }
+    50% { transform: scale(1.1); box-shadow: 0 0 50px rgba(249, 203, 40, 0.65); }
+}
+
+.vip-exclusive-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(255, 42, 133, 0.2), rgba(249, 203, 40, 0.15));
+    border: 1px solid rgba(249, 203, 40, 0.45);
+    color: #ffe066;
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 0 20px rgba(249, 203, 40, 0.2);
+}
+
 .auth-card {
     max-width: 480px;
     margin: 0 auto;
+}
+
+.input-glass-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.group-icon {
+    position: absolute;
+    left: 18px;
+    color: #ffd700;
+    font-size: 1.05rem;
+    transition: color 0.3s ease;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.5));
+}
+
+.glass-input {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 50px !important;
+    color: #ffffff !important;
+    padding: 14px 45px 14px 48px !important;
+    font-size: 0.95rem;
+    backdrop-filter: blur(15px);
+    transition: all 0.3s ease;
+}
+
+.glass-input::placeholder {
+    color: rgba(255, 255, 255, 0.65) !important;
+    font-size: 0.88rem;
+}
+
+.glass-input:focus {
+    border-color: #ffd700 !important;
+    box-shadow: 0 0 30px rgba(249, 203, 40, 0.45) !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.pass-eye-btn {
+    position: absolute;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    z-index: 5;
+}
+
+.pass-eye-btn:hover {
+    color: #ffd700 !important;
 }
 
 .btn-outline-gold {
@@ -1902,9 +1685,9 @@ body {
 
 /* 4. Standard Mobile Phones & Devices (max-width: 768px) */
 @media (max-width: 768px) {
-    /* Mobile Section Architecture: Fit Full Mobile Screen with Zero Overlap */
+    /* Mobile Section Architecture: Fit Full Mobile Screen with Zero Outer Gap */
     .full-screen-section {
-        padding: 46px 10px 58px 10px !important;
+        padding: 44px 8px 10px 8px !important;
         min-height: 100vh !important;
         min-height: 100dvh !important;
         height: 100dvh !important;
@@ -1983,16 +1766,16 @@ body {
         font-size: 10px;
     }
 
-    /* Pixel-Perfect Card: FITS FULL MOBILE SCREEN WITHOUT OVERLAPPING FIXED CONTROLS */
+    /* Pixel-Perfect Card: FITS FULL MOBILE SCREEN */
     .proposal-card {
         width: 100% !important;
         max-width: 440px !important;
-        height: calc(100dvh - 104px) !important;
-        min-height: calc(100dvh - 104px) !important;
-        max-height: calc(100dvh - 104px) !important;
-        padding: 12px 14px 10px 14px !important;
+        height: calc(100dvh - 54px) !important;
+        min-height: calc(100dvh - 54px) !important;
+        max-height: calc(100dvh - 54px) !important;
+        padding: 10px 12px 10px 12px !important;
         margin: 0 auto !important;
-        border-radius: 20px !important;
+        border-radius: 18px !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: space-between !important;
@@ -2001,9 +1784,8 @@ body {
         box-sizing: border-box !important;
     }
     #auth-screen .proposal-card,
-    .royal-vip-card,
     #countdown-card {
-        padding: 12px 14px 10px 14px !important;
+        padding: 10px 12px 10px 12px !important;
     }
 
     /* Clean Rows with Zero Horizontal Overflow */
@@ -2081,68 +1863,12 @@ body {
         padding: 2px 9px !important;
         margin-bottom: 6px !important;
     }
-    /* Royal VIP Card Mobile Optimization */
-    .royal-vip-card {
-        padding: 12px 14px 10px 14px !important;
-    }
-    .royal-crest-wrapper {
-        width: 100% !important;
-        display: flex !important;
-        justify-content: center !important;
+    .security-crest,
+    .security-crest .crest-ring {
+        width: 42px !important;
+        height: 42px !important;
+        font-size: 1.1rem !important;
         margin-bottom: 4px !important;
-    }
-    .royal-crest-seal,
-    .crest-ring {
-        width: 50px !important;
-        height: 50px !important;
-    }
-    .royal-crown-icon {
-        font-size: 1.15rem !important;
-    }
-    .royal-heart-icon {
-        font-size: 0.65rem !important;
-    }
-    .royal-invite-badge {
-        padding: 3px 12px !important;
-        margin-bottom: 4px !important;
-    }
-    .badge-text {
-        font-size: 0.68rem !important;
-        letter-spacing: 1.5px !important;
-    }
-    .royal-dedication-title {
-        font-size: 0.72rem !important;
-        letter-spacing: 1.8px !important;
-    }
-    .royal-name-shimmer {
-        font-size: 1.7rem !important;
-        margin-bottom: 2px !important;
-    }
-    .royal-invite-quote {
-        font-size: 10.5px !important;
-        line-height: 1.25 !important;
-        margin-bottom: 8px !important;
-    }
-    .royal-hero-cta-btn {
-        font-size: 13px !important;
-        padding: 9px 12px !important;
-        min-height: 42px !important;
-        height: auto !important;
-    }
-    .luxury-passcode-bar {
-        height: 38px !important;
-        padding: 2px 3px 2px 10px !important;
-    }
-    .glass-input-clean {
-        font-size: 11.5px !important;
-    }
-    .btn-gold-arrow {
-        width: 32px !important;
-        height: 32px !important;
-        font-size: 11px !important;
-    }
-    .royal-protection-badge {
-        font-size: 9px !important;
     }
     .glass-input {
         font-size: 12px !important;
@@ -2160,9 +1886,8 @@ body {
         height: auto !important;
     }
     #quick-sengve-btn {
-        font-size: 13px !important;
-        padding: 9px 14px !important;
-        min-height: 42px !important;
+        font-size: 11px !important;
+        padding: 5px 10px !important;
     }
 
     /* Typography: Sleek 11.5px Body Font on Mobile */
@@ -2999,7 +2724,7 @@ body {
     }
 
     .full-screen-section {
-        padding: 46px 10px 58px 10px !important;
+        padding: 44px 8px 10px 8px !important;
         min-height: 100vh !important;
         min-height: 100dvh !important;
         height: 100dvh !important;
@@ -3030,7 +2755,6 @@ body {
 
     .proposal-card,
     #auth-screen .proposal-card,
-    .royal-vip-card,
     #countdown-card,
     #cake-card,
     #teddy-card,
@@ -3042,12 +2766,12 @@ body {
     #celebration-card {
         width: 100% !important;
         max-width: 440px !important;
-        height: calc(100dvh - 104px) !important;
-        min-height: calc(100dvh - 104px) !important;
-        max-height: calc(100dvh - 104px) !important;
-        padding: 12px 14px 10px 14px !important;
+        height: calc(100dvh - 54px) !important;
+        min-height: calc(100dvh - 54px) !important;
+        max-height: calc(100dvh - 54px) !important;
+        padding: 10px 12px 10px 12px !important;
         margin: 0 auto !important;
-        border-radius: 20px !important;
+        border-radius: 18px !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: space-between !important;
@@ -3071,8 +2795,7 @@ body {
     .gift-card-bottom-nav,
     #cake-celebration-hub,
     .btn-container,
-    .proposal-card > button.btn-lg,
-    .royal-hero-cta-btn {
+    .proposal-card > button.btn-lg {
         margin-top: auto !important;
         flex-shrink: 0 !important;
         width: 100% !important;
