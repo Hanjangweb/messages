@@ -14,6 +14,16 @@
     box-sizing: border-box;
 }
 
+html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    -webkit-overflow-scrolling: touch;
+}
+
 body {
     font-family: 'Outfit', sans-serif;
     background: var(--bg-dark);
@@ -28,7 +38,7 @@ body {
     background-attachment: fixed;
     min-height: 100vh;
     min-height: 100dvh;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
     position: relative;
     user-select: none;
 }
@@ -60,8 +70,9 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
     pointer-events: none;
     z-index: 2;
 }
@@ -421,11 +432,12 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
     pointer-events: none;
     z-index: 1; /* Strictly behind cards so text is never obstructed */
-    overflow: hidden;
+    overflow: hidden !important;
     contain: strict;
 }
 
@@ -571,8 +583,9 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
     pointer-events: none;
     z-index: 15;
 }
@@ -1518,15 +1531,15 @@ body {
 
     /* Body text, Paragraphs & Small text */
     body, p, .lead, .proposal-card p, .special-distance-quote, .distance-quote-box p {
-        font-size: 1.12rem !important;
-        line-height: 1.65 !important;
+        font-size: 0.98rem !important;
+        line-height: 1.4 !important;
     }
     .proposal-card small,
     .proposal-card .small,
     .proposal-card p.small,
     .auth-card p {
-        font-size: 1.05rem !important;
-        line-height: 1.6 !important;
+        font-size: 0.88rem !important;
+        line-height: 1.35 !important;
     }
 
     .glass-input {
@@ -1672,347 +1685,483 @@ body {
 
 /* 4. Standard Mobile Phones & Devices (max-width: 768px) */
 @media (max-width: 768px) {
+    /* Mobile Section Architecture: Fit Full Mobile Screen with Zero Outer Gap */
+    .full-screen-section {
+        padding: 44px 8px 10px 8px !important;
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+        height: 100dvh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+        overflow-y: hidden !important;
+    }
+
     /* Unobstructed Top Distance Bar */
     .distance-header {
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: calc(100% - 24px);
-        max-width: 380px;
+        top: 8px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: calc(100% - 16px) !important;
+        max-width: 380px !important;
         z-index: 990;
         pointer-events: none;
+        box-sizing: border-box !important;
     }
     .distance-pill {
-        font-size: 11px;
-        padding: 4px 10px;
+        font-size: 10.5px !important;
+        padding: 3px 8px !important;
         border-radius: 30px;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
     }
     .city-badge {
-        font-size: 11px;
-        gap: 4px;
+        font-size: 10px !important;
+        gap: 3px;
     }
     .km-tag {
-        font-size: 10px;
-        padding: 1px 6px;
+        font-size: 9.5px !important;
+        padding: 1px 5px !important;
     }
     .flight-path {
-        margin: 0 5px;
+        margin: 0 4px;
     }
 
     /* Fixed Controls at Bottom Corners (Never Collide with Header or Back Buttons) */
     .admin-quick-btn {
         position: fixed;
-        bottom: 16px;
-        left: 14px;
+        bottom: 14px;
+        left: 12px;
         top: auto;
         z-index: 1000;
-        width: 34px;
-        height: 34px;
-        font-size: 12px;
+        width: 32px;
+        height: 32px;
+        font-size: 11px;
         opacity: 0.55;
         background: rgba(18, 18, 28, 0.85);
         border: 1px solid rgba(255, 255, 255, 0.15);
     }
     .audio-controller-btn.luxury-music-pill {
         position: fixed;
-        bottom: 16px;
-        right: 14px;
+        bottom: 14px;
+        right: 12px;
         top: auto;
         z-index: 1000;
-        height: 38px !important;
-        padding: 3px 12px 3px 5px !important;
+        height: 34px !important;
+        padding: 2px 10px 2px 4px !important;
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 42, 133, 0.3);
     }
     .music-disc-wrap {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
     }
     .music-disc {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
     }
     .music-text-track {
-        font-size: 11px;
+        font-size: 10px;
     }
 
-    /* Pixel-Perfect Card Spacing & Back-Button Clearance */
+    /* Pixel-Perfect Card: FITS FULL MOBILE SCREEN */
     .proposal-card {
-        width: 95%;
-        max-width: 440px;
-        padding: 30px 14px 14px 14px !important;
+        width: 100% !important;
+        max-width: 440px !important;
+        height: calc(100dvh - 54px) !important;
+        min-height: calc(100dvh - 54px) !important;
+        max-height: calc(100dvh - 54px) !important;
+        padding: 10px 12px 10px 12px !important;
         margin: 0 auto !important;
-        border-radius: 20px;
-        overflow: visible !important;
+        border-radius: 18px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        box-sizing: border-box !important;
     }
     #auth-screen .proposal-card,
     #countdown-card {
-        padding: 18px 14px 14px 14px !important; /* No back button on first card */
+        padding: 10px 12px 10px 12px !important;
     }
 
-    /* Compact margins inside cards on mobile to prevent vertical overflow */
+    /* Clean Rows with Zero Horizontal Overflow */
+    .proposal-card .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* Compact margins inside cards on mobile to eliminate vertical gaps */
     .proposal-card .mb-4 {
-        margin-bottom: 0.7rem !important;
+        margin-bottom: 0.4rem !important;
     }
     .proposal-card .mb-3 {
-        margin-bottom: 0.5rem !important;
+        margin-bottom: 0.3rem !important;
     }
     .proposal-card .my-3 {
-        margin-top: 0.4rem !important;
-        margin-bottom: 0.4rem !important;
+        margin-top: 0.25rem !important;
+        margin-bottom: 0.25rem !important;
     }
 
     /* Sleek Back Button sitting cleanly in top-left without text collision */
     .back-btn {
-        top: 10px;
-        left: 12px;
-        font-size: 11px;
-        padding: 3px 9px;
+        top: 8px;
+        left: 10px;
+        font-size: 10.5px;
+        padding: 2px 8px;
         border-radius: 12px;
     }
 
     /* Typography: Compact & Sleek Headings on Mobile */
     h1, .display-4 {
-        font-size: 15px !important;
+        font-size: 14.5px !important;
         font-weight: 700 !important;
-        line-height: 1.25 !important;
-        margin-bottom: 4px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 3px !important;
     }
     h2, .display-5, .display-6, .title-gradient, .title-gradient-shine {
-        font-size: 14px !important;
+        font-size: 13.5px !important;
         font-weight: 700 !important;
-        line-height: 1.25 !important;
-        margin-bottom: 4px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 3px !important;
     }
     h3, h4, h5, h6 {
-        font-size: 13px !important;
+        font-size: 12.5px !important;
         font-weight: 600 !important;
-        line-height: 1.25 !important;
-        margin-bottom: 4px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 3px !important;
     }
     #main-question-text {
-        font-size: 14px !important;
+        font-size: 13.5px !important;
         font-weight: 700 !important;
-        line-height: 1.3 !important;
-        margin-bottom: 10px !important;
+        line-height: 1.25 !important;
+        margin-bottom: 8px !important;
     }
 
     .cinzel.letter-spacing-2,
     .letter-spacing-2,
     h1.letter-spacing-2,
     .auth-card h1 {
-        font-size: 12px !important;
-        letter-spacing: 1.5px !important;
+        font-size: 11.5px !important;
+        letter-spacing: 1.2px !important;
     }
 
-    /* Calligraphy scaled gracefully for mobile (neat & elegant, placed after headings so it wins) */
+    /* Calligraphy scaled gracefully for mobile */
     .calligraphy-name,
     h2.calligraphy-name,
     .title-gradient-shine.calligraphy-name {
-        font-size: 1.75rem !important;
-        line-height: 1.15 !important;
-        margin-bottom: 6px !important;
+        font-size: 1.65rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 4px !important;
         display: block !important;
     }
     .vip-exclusive-badge {
-        font-size: 10px !important;
-        padding: 3px 10px !important;
-        margin-bottom: 8px !important;
+        font-size: 9.5px !important;
+        padding: 2px 9px !important;
+        margin-bottom: 6px !important;
     }
     .security-crest,
     .security-crest .crest-ring {
-        width: 46px !important;
-        height: 46px !important;
-        font-size: 1.15rem !important;
-        margin-bottom: 6px !important;
+        width: 42px !important;
+        height: 42px !important;
+        font-size: 1.1rem !important;
+        margin-bottom: 4px !important;
     }
     .glass-input {
-        font-size: 12.5px !important;
-        padding: 8px 34px !important;
-        height: 42px !important;
+        font-size: 12px !important;
+        padding: 7px 32px !important;
+        height: 38px !important;
     }
     .glass-input::placeholder {
-        font-size: 11.5px !important;
+        font-size: 11px !important;
     }
     .btn-lg,
     #unlock-btn {
-        font-size: 12.5px !important;
-        padding: 9px 14px !important;
-        min-height: 42px !important;
+        font-size: 12px !important;
+        padding: 8px 12px !important;
+        min-height: 40px !important;
         height: auto !important;
     }
     #quick-sengve-btn {
-        font-size: 11.5px !important;
-        padding: 6px 12px !important;
+        font-size: 11px !important;
+        padding: 5px 10px !important;
     }
 
-    /* Typography: Sleek 12.5px Body Font on Mobile */
+    /* Typography: Sleek 11.5px Body Font on Mobile */
     body, p, .lead, .summary-box p, .video-caption-quote p, .distance-quote-box p {
-        font-size: 12.5px !important;
-        line-height: 1.4 !important;
+        font-size: 11.5px !important;
+        line-height: 1.35 !important;
     }
     .playfair.italic {
-        font-size: 12.5px !important;
-        line-height: 1.4 !important;
+        font-size: 11.5px !important;
+        line-height: 1.35 !important;
     }
 
-    /* Subtitles & Micro Labels (Explicit overrides so nothing inflates) */
+    /* Subtitles & Micro Labels */
     .proposal-card small,
     .proposal-card .small,
     .proposal-card p.small,
     small, .opacity-75, .opacity-70, .opacity-60, .opacity-50 {
-        font-size: 11px !important;
-        line-height: 1.35 !important;
+        font-size: 10.5px !important;
+        line-height: 1.3 !important;
     }
     .stamp-badge, .bouquet-ribbon-tag {
-        font-size: 10.5px !important;
-        padding: 3px 9px !important;
-        margin-bottom: 6px !important;
+        font-size: 10px !important;
+        padding: 2px 8px !important;
+        margin-bottom: 4px !important;
     }
 
     /* 3D Cake Canvas Stage on Mobile */
     .cake-3d-stage {
-        height: 250px !important;
-        margin-bottom: 6px !important;
-        border-radius: 14px !important;
+        height: 220px !important;
+        margin-bottom: 4px !important;
+        border-radius: 12px !important;
     }
     .cake-rotate-hint {
-        font-size: 10.5px !important;
-        margin-top: 2px !important;
+        font-size: 10px !important;
+        margin-top: 1px !important;
     }
     #candle-status {
-        font-size: 11px !important;
-        padding: 4px 10px !important;
-        margin-bottom: 6px !important;
+        font-size: 10.5px !important;
+        padding: 3px 8px !important;
+        margin-bottom: 4px !important;
+        line-height: 1.2 !important;
     }
     #cake-card .btn-outline-gold,
     #cake-card .btn-outline-pink {
-        font-size: 11px !important;
+        font-size: 10.5px !important;
         padding: 3px 8px !important;
+    }
+    #cake-celebration-hub {
+        margin-top: auto !important;
+        width: 100% !important;
     }
 
     /* Countdown Grid on Mobile */
     .countdown-grid {
-        gap: 6px !important;
-        margin-bottom: 10px !important;
+        gap: 5px !important;
+        margin-bottom: 8px !important;
     }
     .time-block {
-        min-width: 46px !important;
-        padding: 5px 6px !important;
-        border-radius: 10px !important;
+        min-width: 44px !important;
+        padding: 4px 5px !important;
+        border-radius: 8px !important;
     }
     .time-number {
-        font-size: 17px !important;
+        font-size: 16px !important;
         font-weight: 700 !important;
     }
     .time-label {
-        font-size: 9px !important;
-        letter-spacing: 0.5px;
+        font-size: 8.5px !important;
+        letter-spacing: 0.3px;
     }
     .special-distance-quote {
-        padding: 8px 10px !important;
-        font-size: 11.5px !important;
-        line-height: 1.4 !important;
-        margin-bottom: 10px !important;
+        padding: 6px 8px !important;
+        font-size: 11px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 8px !important;
     }
 
     /* Map Card Internal Spacing */
     .map-illustration-box {
-        padding: 10px 8px !important;
-        margin-bottom: 10px !important;
+        padding: 8px 6px !important;
+        margin-bottom: 6px !important;
     }
     .city-circle {
-        width: 32px !important;
-        height: 32px !important;
-        font-size: 13px !important;
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 12px !important;
     }
     .city-node .fw-bold {
-        font-size: 12px !important;
+        font-size: 11.5px !important;
     }
     .city-node small {
-        font-size: 10px !important;
+        font-size: 9.5px !important;
     }
     .journey-km {
-        font-size: 10px !important;
+        font-size: 9.5px !important;
     }
     .distance-quote-box {
-        padding: 8px 10px !important;
-        margin-top: 8px !important;
+        padding: 6px 8px !important;
+        margin-top: 6px !important;
     }
     .distance-quote-box p {
-        font-size: 12px !important;
-        line-height: 1.4 !important;
+        font-size: 11px !important;
+        line-height: 1.35 !important;
     }
 
-    /* Single Teddy & Bouquet Showcases */
-    .single-teddy-showcase,
-    .single-bouquet-showcase {
-        max-width: 100% !important;
-        margin-bottom: 10px !important;
+    /* Mobile Teddy & Bouquet Full-Screen Cards */
+    #teddy-card,
+    #gift-card {
+        width: 100% !important;
+        max-width: 440px !important;
+        height: calc(100dvh - 54px) !important;
+        min-height: calc(100dvh - 54px) !important;
+        max-height: calc(100dvh - 54px) !important;
+        padding: 10px 12px 10px 12px !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
     }
-    .luxury-teddy-card,
-    .luxury-bouquet-card {
-        padding: 8px !important;
-        border-radius: 14px !important;
+
+    .gift-card-top-bar {
+        display: grid !important;
+        grid-template-columns: 55px 1fr 55px !important;
+        align-items: center !important;
+        margin-bottom: 2px !important;
+        width: 100% !important;
+        flex-shrink: 0 !important;
     }
+
+    .gift-card-inner-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        flex: 1 1 auto !important;
+        margin: 0 auto !important;
+    }
+
+    .gift-grid-col-media {
+        max-width: 140px !important;
+        margin: 0 auto 2px auto !important;
+    }
+
+    .teddy-img-wrapper,
+    .bouquet-img-wrapper {
+        margin: 0 auto 2px auto !important;
+    }
+
     .teddy-real-photo,
     .bouquet-real-photo {
-        width: 100% !important;
-        max-width: 100% !important;
-        height: auto !important;
-        object-fit: contain !important;
+        width: 120px !important;
+        height: 120px !important;
+        max-height: 120px !important;
+        aspect-ratio: 1 / 1 !important;
+        object-fit: cover !important;
         border-radius: 12px !important;
+        margin: 0 auto !important;
     }
-    .teddy-speech-bubble {
+
+    .teddy-badge-wrap,
+    .bouquet-badge-wrap {
+        margin: 2px auto 3px auto !important;
+    }
+
+    .teddy-badge-wrap .badge,
+    .bouquet-badge-wrap .badge {
+        font-size: 9px !important;
+        padding: 2px 7px !important;
+    }
+
+    .gift-grid-col-content {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+
+    .gift-grid-col-content h2 {
+        font-size: 13px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 2px !important;
+    }
+
+    .gift-grid-col-content p {
+        font-size: 10.5px !important;
+        line-height: 1.25 !important;
+        margin-bottom: 3px !important;
+    }
+
+    .teddy-speech-bubble,
+    .bouquet-ribbon-tag {
+        font-size: 9.5px !important;
+        padding: 2px 8px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 4px !important;
+        border-radius: 10px !important;
+    }
+
+    .teddy-actions-wrap,
+    .bouquet-actions-wrap {
+        width: 100% !important;
+        max-width: 240px !important;
+        margin: 0 auto !important;
+    }
+
+    #hug-teddy-btn,
+    #receive-bouquet-btn {
         font-size: 11px !important;
         padding: 4px 10px !important;
-        line-height: 1.3 !important;
+        min-height: 32px !important;
+        height: auto !important;
+        line-height: 1.15 !important;
+    }
+
+    .gift-card-bottom-nav {
+        margin-top: auto !important;
+        width: 100% !important;
+        flex-shrink: 0 !important;
+        padding-top: 4px !important;
     }
 
     /* Vouchers List on Mobile */
     .vouchers-list {
-        max-height: 270px !important;
-        margin-bottom: 8px !important;
-    }
-    .vouchers-list .voucher-card {
-        padding: 7px 10px !important;
-        font-size: 11.5px !important;
-        border-radius: 12px !important;
+        max-height: calc(100dvh - 220px) !important;
+        flex: 1 1 auto !important;
+        overflow-y: auto !important;
         margin-bottom: 6px !important;
     }
-    .voucher-card .claim-btn {
-        padding: 2px 8px !important;
+    .vouchers-list .voucher-card {
+        padding: 6px 8px !important;
         font-size: 11px !important;
+        border-radius: 10px !important;
+        margin-bottom: 4px !important;
+    }
+    .voucher-card .claim-btn {
+        padding: 2px 7px !important;
+        font-size: 10.5px !important;
     }
     .voucher-card .fw-bold {
-        font-size: 11.5px !important;
+        font-size: 11px !important;
     }
     .voucher-card small {
-        font-size: 10px !important;
+        font-size: 9.5px !important;
     }
 
     /* Letter Card on Mobile */
     .letter-box {
-        padding: 8px 6px !important;
-        font-size: 11.5px !important;
-        line-height: 1.25 !important;
-        border-radius: 12px !important;
+        padding: 6px 4px !important;
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+        border-radius: 10px !important;
     }
     .letter-box i {
-        font-size: 1.3rem !important;
-        margin-bottom: 3px !important;
+        font-size: 1.2rem !important;
+        margin-bottom: 2px !important;
     }
     .letter-box .small,
     .letter-box .fw-bold {
-        font-size: 11px !important;
-        line-height: 1.2 !important;
-    }
-    .letter-box small {
-        font-size: 9.5px !important;
+        font-size: 10.5px !important;
         line-height: 1.15 !important;
     }
+    .letter-box small {
+        font-size: 9px !important;
+        line-height: 1.1 !important;
+    }
 
-    /* Buttons on Mobile: Zero Text Wrapping, No Bottom Clipping */
+    /* Buttons on Mobile: Zero Text Wrapping, No Bottom Clipping, Anchored at Card Bottom */
     .btn-lg,
     .proposal-card .btn-lg,
+    .proposal-card > button.btn-lg,
     #unlock-btn,
     #to-cake-btn,
     #after-cake-btn,
@@ -2024,38 +2173,42 @@ body {
     #to-letters-btn,
     #to-vouchers-btn,
     #to-question-btn {
-        font-size: 12.5px !important;
-        padding: 9px 12px !important;
-        min-height: 42px !important;
-        height: auto !important; /* CRITICAL: Clears height: 44px that caused clipping */
+        font-size: 12px !important;
+        padding: 8px 10px !important;
+        min-height: 40px !important;
+        height: auto !important;
         border-radius: 25px !important;
-        line-height: 1.25 !important;
+        line-height: 1.2 !important;
         white-space: nowrap !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        margin-top: auto !important;
+        flex-shrink: 0 !important;
     }
     .btn-container {
         flex-direction: column !important;
         align-items: center !important;
-        gap: 8px !important;
+        gap: 6px !important;
+        margin-top: auto !important;
+        width: 100% !important;
     }
     #yes-btn {
         width: 100% !important;
         max-width: 260px !important;
-        font-size: 13px !important;
-        padding: 9px 16px !important;
-        min-height: 42px !important;
+        font-size: 12.5px !important;
+        padding: 8px 14px !important;
+        min-height: 40px !important;
         height: auto !important;
     }
     #no-btn {
         width: 100% !important;
         max-width: 260px !important;
-        font-size: 12px !important;
-        padding: 7px 14px !important;
+        font-size: 11.5px !important;
+        padding: 6px 12px !important;
         position: static !important;
         margin-top: 0 !important;
-        min-height: 38px !important;
+        min-height: 36px !important;
         height: auto !important;
     }
 }
@@ -2308,17 +2461,8 @@ body {
 }
 
 /* ==========================================
-   BIRTHDAY GIFTS: PLUSH TEDDY BEAR & LUXURY BOUQUET (SHOW ONLY ONE PER CARD)
+   BIRTHDAY GIFTS: PLUSH TEDDY BEAR & LUXURY BOUQUET
    ========================================== */
-#teddy-card,
-#gift-card {
-    padding: 22px 24px 26px 24px !important;
-    max-width: 480px !important;
-    width: 95% !important;
-    position: relative;
-    box-sizing: border-box !important;
-}
-
 .gift-card-top-bar {
     width: 100%;
     display: grid;
@@ -2388,7 +2532,8 @@ body {
     margin-top: 14px;
 }
 
-@media (min-width: 768px) {
+/* Desktop & Tablet Symmetrical Showcase */
+@media (min-width: 769px) {
     #teddy-card,
     #gift-card {
         max-width: 760px !important;
@@ -2422,39 +2567,6 @@ body {
     }
 }
 
-@media (max-width: 480px) {
-    .gift-card-top-bar {
-        grid-template-columns: 70px 1fr 10px;
-        margin-bottom: 8px;
-    }
-    .top-bar-spacer {
-        width: 10px;
-    }
-    .gift-grid-col-media {
-        max-width: 180px !important;
-    }
-    .teddy-real-photo {
-        max-height: 180px !important;
-    }
-    .bouquet-real-photo {
-        max-height: 180px !important;
-    }
-    .gift-grid-col-content h2 {
-        font-size: 13.5px !important;
-        margin-bottom: 4px !important;
-    }
-    .gift-grid-col-content p {
-        font-size: 12px !important;
-        line-height: 1.35 !important;
-    }
-    .gift-card-bottom-nav button {
-        font-size: 12.5px !important;
-        padding: 9px 12px !important;
-        min-height: 42px !important;
-        height: auto !important;
-    }
-}
-
 .teddy-speech-bubble,
 .bouquet-ribbon-tag {
     background: rgba(255, 42, 133, 0.2);
@@ -2463,7 +2575,7 @@ body {
     font-size: 0.8rem;
     font-weight: 600;
     padding: 6px 16px;
-    margin-bottom: 10px !important;
+    margin-bottom: 10px;
     border-radius: 16px;
     box-shadow: 0 4px 15px rgba(255, 0, 128, 0.25);
     line-height: 1.35;
@@ -2472,21 +2584,21 @@ body {
 .teddy-img-wrapper,
 .bouquet-img-wrapper {
     position: relative;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 auto 8px auto !important;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 8px auto;
     border-radius: 20px;
-    background: transparent !important;
-    padding: 0 !important;
-    display: block !important;
+    background: transparent;
+    padding: 0;
+    display: block;
 }
 
 .teddy-real-photo {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
     aspect-ratio: 1 / 1;
-    object-fit: cover !important;
+    object-fit: cover;
     border-radius: 20px;
     display: block;
     margin: 0 auto;
@@ -2497,11 +2609,11 @@ body {
 }
 
 .bouquet-real-photo {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-    max-height: 300px !important;
-    object-fit: contain !important;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
     border-radius: 20px;
     display: block;
     margin: 0 auto;
@@ -2518,17 +2630,17 @@ body {
 
 .teddy-badge-wrap,
 .bouquet-badge-wrap {
-    margin: 6px auto 8px auto !important;
-    text-align: center !important;
+    margin: 6px auto 8px auto;
+    text-align: center;
 }
 
 .teddy-badge-wrap .badge,
 .bouquet-badge-wrap .badge {
-    font-size: 0.76rem !important;
-    padding: 5px 14px !important;
-    display: inline-block !important;
-    white-space: nowrap !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+    font-size: 0.76rem;
+    padding: 5px 14px;
+    display: inline-block;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .proposal-card,
@@ -2597,6 +2709,97 @@ body {
 .hub-action-btn:hover {
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================
+   FINAL MOBILE SAFETY LOCK: PIXEL-PERFECT FIT
+   Guarantees Full Mobile Screen Fit, Zero Scroll-X,
+   Zero Clipping, and Consistent Padding
+   ========================================== */
+@media (max-width: 768px) {
+    html, body {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    .full-screen-section {
+        padding: 44px 8px 10px 8px !important;
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+        height: 100dvh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+        overflow-y: hidden !important;
+    }
+
+    .distance-header {
+        top: 8px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: calc(100% - 16px) !important;
+        max-width: 380px !important;
+        box-sizing: border-box !important;
+    }
+
+    .distance-pill {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    .proposal-card,
+    #auth-screen .proposal-card,
+    #countdown-card,
+    #cake-card,
+    #teddy-card,
+    #gift-card,
+    #memory-lane-card,
+    #letters-card,
+    #vouchers-card,
+    #question-card,
+    #celebration-card {
+        width: 100% !important;
+        max-width: 440px !important;
+        height: calc(100dvh - 54px) !important;
+        min-height: calc(100dvh - 54px) !important;
+        max-height: calc(100dvh - 54px) !important;
+        padding: 10px 12px 10px 12px !important;
+        margin: 0 auto !important;
+        border-radius: 18px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        box-sizing: border-box !important;
+    }
+
+    .teddy-real-photo,
+    .bouquet-real-photo {
+        width: 120px !important;
+        height: 120px !important;
+        max-height: 120px !important;
+        min-height: 120px !important;
+        aspect-ratio: 1 / 1 !important;
+        object-fit: cover !important;
+        border-radius: 12px !important;
+        margin: 0 auto !important;
+    }
+
+    .gift-card-bottom-nav,
+    #cake-celebration-hub,
+    .btn-container,
+    .proposal-card > button.btn-lg {
+        margin-top: auto !important;
+        flex-shrink: 0 !important;
+        width: 100% !important;
+    }
 }
 
 
