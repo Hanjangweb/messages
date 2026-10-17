@@ -1738,203 +1738,220 @@ body {
     .proposal-card {
         width: 95%;
         max-width: 440px;
-        padding: 36px 14px 16px 14px !important;
+        padding: 30px 14px 14px 14px !important;
         margin: 0 auto !important;
-        border-radius: 22px;
-        overflow: hidden !important;
+        border-radius: 20px;
+        overflow: visible !important;
     }
     #auth-screen .proposal-card,
     #countdown-card {
-        padding: 20px 14px 16px 14px !important; /* No back button on first card */
+        padding: 18px 14px 14px 14px !important; /* No back button on first card */
+    }
+
+    /* Compact margins inside cards on mobile to prevent vertical overflow */
+    .proposal-card .mb-4 {
+        margin-bottom: 0.7rem !important;
+    }
+    .proposal-card .mb-3 {
+        margin-bottom: 0.5rem !important;
+    }
+    .proposal-card .my-3 {
+        margin-top: 0.4rem !important;
+        margin-bottom: 0.4rem !important;
     }
 
     /* Sleek Back Button sitting cleanly in top-left without text collision */
     .back-btn {
-        top: 12px;
-        left: 14px;
+        top: 10px;
+        left: 12px;
         font-size: 11px;
         padding: 3px 9px;
         border-radius: 12px;
     }
 
-    /* Typography: 14-16.5px Headings on Mobile */
+    /* Typography: Compact & Sleek Headings on Mobile */
     h1, .display-4 {
-        font-size: 16.5px !important;
-        font-weight: 700 !important;
-        line-height: 1.3 !important;
-        margin-bottom: 5px !important;
-    }
-    h2, .display-5, .display-6, .title-gradient, .title-gradient-shine {
         font-size: 15px !important;
         font-weight: 700 !important;
-        line-height: 1.3 !important;
-        margin-bottom: 5px !important;
+        line-height: 1.25 !important;
+        margin-bottom: 4px !important;
+    }
+    h2, .display-5, .display-6, .title-gradient, .title-gradient-shine {
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        line-height: 1.25 !important;
+        margin-bottom: 4px !important;
     }
     h3, h4, h5, h6 {
-        font-size: 14px !important;
+        font-size: 13px !important;
         font-weight: 600 !important;
-        line-height: 1.3 !important;
-        margin-bottom: 5px !important;
+        line-height: 1.25 !important;
+        margin-bottom: 4px !important;
     }
     #main-question-text {
-        font-size: 15.5px !important;
+        font-size: 14px !important;
         font-weight: 700 !important;
-        line-height: 1.35 !important;
-        margin-bottom: 12px !important;
+        line-height: 1.3 !important;
+        margin-bottom: 10px !important;
     }
 
     .cinzel.letter-spacing-2,
     .letter-spacing-2,
     h1.letter-spacing-2,
     .auth-card h1 {
-        font-size: 13.5px !important;
-        letter-spacing: 1.8px !important;
+        font-size: 12px !important;
+        letter-spacing: 1.5px !important;
     }
 
     /* Calligraphy scaled gracefully for mobile (neat & elegant, placed after headings so it wins) */
     .calligraphy-name,
     h2.calligraphy-name,
     .title-gradient-shine.calligraphy-name {
-        font-size: 1.95rem !important;
+        font-size: 1.75rem !important;
         line-height: 1.15 !important;
-        margin-bottom: 8px !important;
+        margin-bottom: 6px !important;
         display: block !important;
     }
     .vip-exclusive-badge {
-        font-size: 10.5px !important;
-        padding: 4px 12px !important;
-        margin-bottom: 10px !important;
+        font-size: 10px !important;
+        padding: 3px 10px !important;
+        margin-bottom: 8px !important;
     }
     .security-crest,
     .security-crest .crest-ring {
-        width: 52px !important;
-        height: 52px !important;
-        font-size: 1.3rem !important;
-        margin-bottom: 8px !important;
+        width: 46px !important;
+        height: 46px !important;
+        font-size: 1.15rem !important;
+        margin-bottom: 6px !important;
     }
     .glass-input {
-        font-size: 13px !important;
-        padding: 10px 38px !important;
-        height: 44px !important;
+        font-size: 12.5px !important;
+        padding: 8px 34px !important;
+        height: 42px !important;
     }
     .glass-input::placeholder {
-        font-size: 12px !important;
+        font-size: 11.5px !important;
     }
     .btn-lg,
     #unlock-btn {
-        font-size: 13.5px !important;
-        padding: 10px 20px !important;
-        height: 44px !important;
+        font-size: 12.5px !important;
+        padding: 9px 14px !important;
+        min-height: 42px !important;
+        height: auto !important;
     }
     #quick-sengve-btn {
-        font-size: 12px !important;
-        padding: 8px 14px !important;
+        font-size: 11.5px !important;
+        padding: 6px 12px !important;
     }
 
-    /* Typography: 14px Body Font on Mobile */
+    /* Typography: Sleek 12.5px Body Font on Mobile */
     body, p, .lead, .summary-box p, .video-caption-quote p, .distance-quote-box p {
-        font-size: 14px !important;
-        line-height: 1.45 !important;
+        font-size: 12.5px !important;
+        line-height: 1.4 !important;
     }
     .playfair.italic {
-        font-size: 14px !important;
-        line-height: 1.45 !important;
+        font-size: 12.5px !important;
+        line-height: 1.4 !important;
     }
 
-    /* Subtitles & Micro Labels */
+    /* Subtitles & Micro Labels (Explicit overrides so nothing inflates) */
+    .proposal-card small,
+    .proposal-card .small,
+    .proposal-card p.small,
     small, .opacity-75, .opacity-70, .opacity-60, .opacity-50 {
-        font-size: 12px !important;
+        font-size: 11px !important;
+        line-height: 1.35 !important;
     }
     .stamp-badge, .bouquet-ribbon-tag {
-        font-size: 11px !important;
-        padding: 3px 10px !important;
-        margin-bottom: 8px !important;
+        font-size: 10.5px !important;
+        padding: 3px 9px !important;
+        margin-bottom: 6px !important;
     }
 
     /* 3D Cake Canvas Stage on Mobile */
     .cake-3d-stage {
-        height: 290px !important;
-        margin-bottom: 8px !important;
-        border-radius: 16px !important;
+        height: 250px !important;
+        margin-bottom: 6px !important;
+        border-radius: 14px !important;
     }
     .cake-rotate-hint {
-        font-size: 11px !important;
+        font-size: 10.5px !important;
         margin-top: 2px !important;
     }
     #candle-status {
-        font-size: 12px !important;
-        padding: 5px 12px !important;
-        margin-bottom: 8px !important;
+        font-size: 11px !important;
+        padding: 4px 10px !important;
+        margin-bottom: 6px !important;
     }
     #cake-card .btn-outline-gold,
     #cake-card .btn-outline-pink {
-        font-size: 11.5px !important;
-        padding: 4px 10px !important;
+        font-size: 11px !important;
+        padding: 3px 8px !important;
     }
 
     /* Countdown Grid on Mobile */
     .countdown-grid {
         gap: 6px !important;
-        margin-bottom: 12px !important;
+        margin-bottom: 10px !important;
     }
     .time-block {
-        min-width: 48px !important;
-        padding: 6px 8px !important;
+        min-width: 46px !important;
+        padding: 5px 6px !important;
         border-radius: 10px !important;
     }
     .time-number {
-        font-size: 18px !important;
+        font-size: 17px !important;
         font-weight: 700 !important;
     }
     .time-label {
-        font-size: 9.5px !important;
+        font-size: 9px !important;
         letter-spacing: 0.5px;
     }
     .special-distance-quote {
-        padding: 10px 12px !important;
-        font-size: 13px !important;
-        line-height: 1.45 !important;
-        margin-bottom: 14px !important;
+        padding: 8px 10px !important;
+        font-size: 11.5px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 10px !important;
     }
 
     /* Map Card Internal Spacing */
     .map-illustration-box {
-        padding: 12px 10px !important;
-        margin-bottom: 12px !important;
+        padding: 10px 8px !important;
+        margin-bottom: 10px !important;
     }
     .city-circle {
-        width: 36px !important;
-        height: 36px !important;
-        font-size: 14px !important;
-    }
-    .city-node .fw-bold {
+        width: 32px !important;
+        height: 32px !important;
         font-size: 13px !important;
     }
+    .city-node .fw-bold {
+        font-size: 12px !important;
+    }
     .city-node small {
-        font-size: 10.5px !important;
+        font-size: 10px !important;
     }
     .journey-km {
-        font-size: 10.5px !important;
+        font-size: 10px !important;
     }
     .distance-quote-box {
-        padding: 10px 12px !important;
-        margin-top: 10px !important;
+        padding: 8px 10px !important;
+        margin-top: 8px !important;
     }
     .distance-quote-box p {
-        font-size: 13.5px !important;
-        line-height: 1.5 !important;
+        font-size: 12px !important;
+        line-height: 1.4 !important;
     }
 
     /* Single Teddy & Bouquet Showcases */
     .single-teddy-showcase,
     .single-bouquet-showcase {
         max-width: 100% !important;
-        margin-bottom: 12px !important;
+        margin-bottom: 10px !important;
     }
     .luxury-teddy-card,
     .luxury-bouquet-card {
-        padding: 10px !important;
-        border-radius: 16px !important;
+        padding: 8px !important;
+        border-radius: 14px !important;
     }
     .teddy-real-photo,
     .bouquet-real-photo {
@@ -1942,58 +1959,104 @@ body {
         max-width: 100% !important;
         height: auto !important;
         object-fit: contain !important;
-        border-radius: 14px !important;
+        border-radius: 12px !important;
     }
     .teddy-speech-bubble {
-        font-size: 12px !important;
-        padding: 6px 12px !important;
-        line-height: 1.35 !important;
+        font-size: 11px !important;
+        padding: 4px 10px !important;
+        line-height: 1.3 !important;
     }
 
     /* Vouchers List on Mobile */
-    .vouchers-list .voucher-card {
-        padding: 9px 12px !important;
-        font-size: 13px !important;
-        border-radius: 14px !important;
+    .vouchers-list {
+        max-height: 270px !important;
         margin-bottom: 8px !important;
     }
+    .vouchers-list .voucher-card {
+        padding: 7px 10px !important;
+        font-size: 11.5px !important;
+        border-radius: 12px !important;
+        margin-bottom: 6px !important;
+    }
     .voucher-card .claim-btn {
-        padding: 3px 9px !important;
-        font-size: 12px !important;
+        padding: 2px 8px !important;
+        font-size: 11px !important;
+    }
+    .voucher-card .fw-bold {
+        font-size: 11.5px !important;
+    }
+    .voucher-card small {
+        font-size: 10px !important;
     }
 
     /* Letter Card on Mobile */
     .letter-box {
-        padding: 12px !important;
-        font-size: 13.5px !important;
-        line-height: 1.6 !important;
-        max-height: 360px !important;
+        padding: 8px 6px !important;
+        font-size: 11.5px !important;
+        line-height: 1.25 !important;
+        border-radius: 12px !important;
+    }
+    .letter-box i {
+        font-size: 1.3rem !important;
+        margin-bottom: 3px !important;
+    }
+    .letter-box .small,
+    .letter-box .fw-bold {
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+    }
+    .letter-box small {
+        font-size: 9.5px !important;
+        line-height: 1.15 !important;
     }
 
-    /* Buttons on Mobile */
-    .btn-lg {
-        font-size: 14px !important;
-        padding: 11px 18px !important;
+    /* Buttons on Mobile: Zero Text Wrapping, No Bottom Clipping */
+    .btn-lg,
+    .proposal-card .btn-lg,
+    #unlock-btn,
+    #to-cake-btn,
+    #after-cake-btn,
+    #to-teddy-btn,
+    #to-bouquet-btn,
+    #to-map-btn,
+    #to-video-btn,
+    #to-memories-btn,
+    #to-letters-btn,
+    #to-vouchers-btn,
+    #to-question-btn {
+        font-size: 12.5px !important;
+        padding: 9px 12px !important;
+        min-height: 42px !important;
+        height: auto !important; /* CRITICAL: Clears height: 44px that caused clipping */
         border-radius: 25px !important;
+        line-height: 1.25 !important;
+        white-space: nowrap !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     .btn-container {
         flex-direction: column !important;
         align-items: center !important;
-        gap: 10px !important;
+        gap: 8px !important;
     }
     #yes-btn {
         width: 100% !important;
-        max-width: 270px !important;
-        font-size: 14px !important;
-        padding: 11px 18px !important;
+        max-width: 260px !important;
+        font-size: 13px !important;
+        padding: 9px 16px !important;
+        min-height: 42px !important;
+        height: auto !important;
     }
     #no-btn {
         width: 100% !important;
-        max-width: 270px !important;
-        font-size: 13px !important;
-        padding: 9px 16px !important;
+        max-width: 260px !important;
+        font-size: 12px !important;
+        padding: 7px 14px !important;
         position: static !important;
         margin-top: 0 !important;
+        min-height: 38px !important;
+        height: auto !important;
     }
 }
 
@@ -2001,41 +2064,58 @@ body {
 @media (max-width: 380px) {
     .proposal-card {
         width: 98% !important;
-        padding: 24px 10px 16px 10px !important;
+        padding: 22px 8px 12px 8px !important;
         margin: 0 auto !important;
     }
     #auth-screen .proposal-card,
     #countdown-card {
-        padding: 18px 10px 14px 10px !important;
+        padding: 16px 8px 12px 8px !important;
     }
     .cake-3d-stage {
-        height: 260px !important;
+        height: 230px !important;
     }
     .envelope-wrapper {
-        transform: scale(0.85);
+        transform: scale(0.8);
     }
-    h2, .display-6 {
-        font-size: 15px !important;
+    h1, .display-4 {
+        font-size: 14px !important;
+    }
+    h2, .display-5, .display-6 {
+        font-size: 13px !important;
     }
     body, p, .lead {
-        font-size: 13px !important;
+        font-size: 11.5px !important;
     }
     .time-block {
-        min-width: 44px !important;
-        padding: 5px 6px !important;
+        min-width: 40px !important;
+        padding: 4px 5px !important;
     }
     .time-number {
-        font-size: 16px !important;
+        font-size: 15px !important;
     }
     .city-badge {
-        font-size: 10px !important;
-    }
-    .km-tag {
         font-size: 9.5px !important;
     }
-    .btn-lg {
-        font-size: 13px !important;
-        padding: 10px 16px !important;
+    .km-tag {
+        font-size: 9px !important;
+    }
+    .btn-lg,
+    .proposal-card .btn-lg,
+    #unlock-btn,
+    #to-cake-btn,
+    #after-cake-btn,
+    #to-teddy-btn,
+    #to-bouquet-btn,
+    #to-map-btn,
+    #to-video-btn,
+    #to-memories-btn,
+    #to-letters-btn,
+    #to-vouchers-btn,
+    #to-question-btn {
+        font-size: 11px !important;
+        padding: 7px 8px !important;
+        min-height: 38px !important;
+        height: auto !important;
     }
 }
 
@@ -2345,26 +2425,33 @@ body {
 @media (max-width: 480px) {
     .gift-card-top-bar {
         grid-template-columns: 70px 1fr 10px;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
     .top-bar-spacer {
         width: 10px;
     }
     .gift-grid-col-media {
-        max-width: 220px !important;
+        max-width: 180px !important;
     }
     .teddy-real-photo {
-        max-height: 220px !important;
+        max-height: 180px !important;
     }
     .bouquet-real-photo {
-        max-height: 220px !important;
+        max-height: 180px !important;
     }
     .gift-grid-col-content h2 {
-        font-size: 1.3rem !important;
+        font-size: 13.5px !important;
+        margin-bottom: 4px !important;
+    }
+    .gift-grid-col-content p {
+        font-size: 12px !important;
+        line-height: 1.35 !important;
     }
     .gift-card-bottom-nav button {
-        font-size: 0.95rem !important;
-        padding: 10px 16px !important;
+        font-size: 12.5px !important;
+        padding: 9px 12px !important;
+        min-height: 42px !important;
+        height: auto !important;
     }
 }
 
