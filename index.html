@@ -164,8 +164,8 @@
             <h1 class="display-5 fw-bold mb-2 title-gradient" id="cd-title">Happy Birthday, Sengve! 🎂</h1>
             <p class="lead opacity-75 mb-4" id="cd-subtitle">Counting down to the most special day for the most wonderful girl in my life.</p>
 
-            <!-- Countdown Timer Box -->
-            <div class="countdown-grid mb-4">
+            <!-- Countdown Timer Box (Active before Oct 19 12 AM) -->
+            <div class="countdown-grid mb-4" id="countdown-timer-box">
                 <div class="time-block">
                     <span class="time-number" id="cd-days">00</span>
                     <span class="time-label">Days</span>
@@ -184,7 +184,42 @@
                 </div>
             </div>
 
-            <div class="special-distance-quote p-3 rounded-4 mb-4 bg-glass-dark">
+            <!-- Grand 26th Birthday Welcoming Box (Active on Oct 19 & Beyond) -->
+            <div id="birthday-welcome-box" class="d-none w-100 mb-4 animate__animated animate__fadeIn">
+                <div class="welcome-quote-card p-3 p-sm-4 rounded-4 bg-glass-dark border border-warning-subtle shadow-xl mb-3">
+                    <div class="welcome-crown-icon mb-2">
+                        <i class="fas fa-crown text-warning fa-2x beat-animation"></i>
+                    </div>
+                    <p class="welcome-quote-text playfair italic mb-3">
+                        "At 12:00 AM on 19th October, the most wonderful person in my life officially turned 26 years young! Even though I am 2,248 km away in Chandigarh and you are in Diphu, Assam, this entire experience was handcrafted with all my heart to make you smile and feel like royalty today."
+                    </p>
+                    <div class="welcome-milestones-grid row g-2">
+                        <div class="col-4">
+                            <div class="milestone-pill p-2 rounded-3">
+                                <div class="milestone-icon"><i class="fas fa-cake-candles text-warning"></i></div>
+                                <div class="milestone-val fw-bold">19th Oct</div>
+                                <div class="milestone-sub opacity-70">Blessed Day</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="milestone-pill p-2 rounded-3 border-gold-glow">
+                                <div class="milestone-icon"><i class="fas fa-crown text-gold"></i></div>
+                                <div class="milestone-val fw-bold text-gold">Turning 26</div>
+                                <div class="milestone-sub opacity-70">More Radiant</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="milestone-pill p-2 rounded-3">
+                                <div class="milestone-icon"><i class="fas fa-heart text-danger beat-animation"></i></div>
+                                <div class="milestone-val fw-bold text-pink">Forever</div>
+                                <div class="milestone-sub opacity-70">Mine Only</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="special-distance-quote p-3 rounded-4 mb-4 bg-glass-dark" id="cd-distance-quote">
                 <i class="fas fa-quote-left text-pink opacity-50 me-2"></i>
                 <span class="playfair italic">"I'm here in Chandigarh, and you're in Diphu, Assam... but Sengve, being 2,248 km away only made me realize you're the one I want forever."</span>
                 <i class="fas fa-quote-right text-pink opacity-50 ms-2"></i>

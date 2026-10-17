@@ -663,7 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 7. Live Countdown & Birthday Mode (October 19)
+    // 7. Live Countdown & Grand Welcoming Mode (October 19)
     // ==========================================
     const daysEl = document.getElementById('cd-days');
     const hoursEl = document.getElementById('cd-hours');
@@ -672,50 +672,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const cdBadge = document.getElementById('cd-badge');
     const cdTitle = document.getElementById('cd-title');
     const cdSubtitle = document.getElementById('cd-subtitle');
+    const countdownTimerBox = document.getElementById('countdown-timer-box');
+    const birthdayWelcomeBox = document.getElementById('birthday-welcome-box');
+    const cdDistanceQuote = document.getElementById('cd-distance-quote');
+    const startCelebrationBtn = document.getElementById('start-celebration-btn');
+
+    let welcomeCelebrationTriggered = false;
 
     function updateCountdown() {
         const now = new Date();
         const currentYear = now.getFullYear();
-        const targetDate = new Date(currentYear, 9, 19, 0, 0, 0); // Month 9 = October (19th, 00:00:00)
-        const isBirthdayToday = (now.getMonth() === 9 && now.getDate() === 19);
-        const isAfterBirthday = (now.getMonth() === 9 && now.getDate() > 19) || (now.getMonth() > 9);
-        const startBtn = document.getElementById('start-celebration-btn');
+        const targetDate = new Date(currentYear, 9, 19, 0, 0, 0); // Month 9 = October (19th, 00:00:00 midnight)
+        
+        // URL query param '?preview=welcome' allows instant preview of welcoming mode anytime
+        const isPreviewWelcome = window.location.search.includes('preview=welcome');
+        const isBirthdayReached = (now >= targetDate) || isPreviewWelcome;
 
-        if (isBirthdayToday) {
-            // It is officially October 19th! (After 12:00 AM Midnight)
+        if (isBirthdayReached) {
+            // It is officially October 19th (12:00 AM Midnight & Beyond) OR Preview Mode Active
+            if (countdownTimerBox) countdownTimerBox.classList.add('d-none');
+            if (birthdayWelcomeBox) birthdayWelcomeBox.classList.remove('d-none');
+            if (cdDistanceQuote) cdDistanceQuote.classList.add('d-none');
+
             if (cdBadge) {
-                cdBadge.innerHTML = '<i class="fas fa-crown me-2 text-warning"></i> 🎉 THE WAIT IS OVER: TODAY IS YOUR BIRTHDAY! 🎂';
+                cdBadge.innerHTML = '<i class="fas fa-crown me-2 text-warning"></i> 🎉 THE WAIT IS OVER: TODAY IS YOUR 26TH BIRTHDAY! 🎂';
                 cdBadge.classList.add('border', 'border-warning');
             }
-            if (cdTitle) cdTitle.innerHTML = 'Happy 26th Birthday, Sengve! 🎂✨';
-            if (cdSubtitle) cdSubtitle.innerText = 'The most special day of the year is finally here! Today is 100% dedicated to you, my love. ❤️';
-            if (startBtn) startBtn.innerHTML = 'Enter Your Birthday Celebration! 🎂✨ <i class="fas fa-arrow-right ms-2"></i>';
+            if (cdTitle) cdTitle.innerHTML = '👑 Welcome to Your 26th Birthday World, Sengve! 🎂✨';
+            if (cdSubtitle) cdSubtitle.innerHTML = 'Handcrafted with all my heart across 2,248 km from Chandigarh to Diphu, Assam. 💖';
+            if (startCelebrationBtn) startCelebrationBtn.innerHTML = 'Step Inside Your 26th Birthday Surprises! 🎁✨ <i class="fas fa-arrow-right ms-2"></i>';
 
-            // Celebrate inside the 4 countdown blocks
-            if (daysEl) daysEl.innerText = "IT'S";
-            if (hoursEl) hoursEl.innerText = "YOUR";
-            if (minutesEl) minutesEl.innerText = "DAY";
-            if (secondsEl) secondsEl.innerText = "💖";
-
-            const labels = document.querySelectorAll('.countdown-grid .time-label');
-            if (labels.length >= 4) {
-                labels[0].innerText = "Happy";
-                labels[1].innerText = "26th";
-                labels[2].innerText = "Birthday";
-                labels[3].innerText = "Sengve";
+            if (!welcomeCelebrationTriggered) {
+                welcomeCelebrationTriggered = true;
+                setTimeout(() => {
+                    if (typeof triggerMiniConfetti === 'function') triggerMiniConfetti();
+                }, 700);
             }
             return;
         }
 
-        if (isAfterBirthday) {
-            if (cdBadge) cdBadge.innerHTML = '<i class="fas fa-heart me-2 text-pink"></i> Celebrating Sengve 26th Birthday Year ✨';
-            if (cdTitle) cdTitle.innerHTML = 'Happy 26th Birthday, Sengve! 🎂💖';
-            if (cdSubtitle) cdSubtitle.innerText = 'Every single day with you is a celebration, today, tomorrow, and forever.';
-            if (startBtn) startBtn.innerHTML = 'Relive Your Birthday Celebration! 🎂✨ <i class="fas fa-arrow-right ms-2"></i>';
-            return;
-        }
+        // Live Countdown Mode (Prior to October 19th, 12:00 AM)
+        if (countdownTimerBox) countdownTimerBox.classList.remove('d-none');
+        if (birthdayWelcomeBox) birthdayWelcomeBox.classList.add('d-none');
+        if (cdDistanceQuote) cdDistanceQuote.classList.remove('d-none');
 
-        // Countdown Mode (Prior to October 19th, 12:00 AM)
         const diff = targetDate - now;
         if (diff <= 0) return;
 
@@ -769,7 +769,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const startCelebrationBtn = document.getElementById('start-celebration-btn');
     if (startCelebrationBtn) {
         startCelebrationBtn.addEventListener('click', () => {
             switchCards('countdown-card', 'cake-card');

@@ -807,6 +807,104 @@ div.proposal-card.d-none,
 }
 
 /* ==========================================
+   GRAND 26TH BIRTHDAY WELCOMING BOX (OCTOBER 19)
+   ========================================== */
+#birthday-welcome-box {
+    margin-top: 4px;
+    margin-bottom: 16px;
+}
+
+.welcome-quote-card {
+    background: linear-gradient(135deg, rgba(26, 16, 42, 0.88), rgba(14, 10, 24, 0.94));
+    border: 1px solid rgba(255, 215, 0, 0.45);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), 0 0 25px rgba(255, 215, 0, 0.15);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.welcome-crown-icon {
+    display: inline-block;
+    filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.8));
+}
+
+.welcome-quote-text {
+    font-size: 0.98rem;
+    line-height: 1.68;
+    color: #fff6e8;
+    letter-spacing: 0.2px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+}
+
+.welcome-milestones-grid {
+    margin-top: 14px;
+}
+
+.milestone-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.milestone-pill:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.milestone-pill.border-gold-glow {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.14), rgba(255, 140, 0, 0.09));
+    border: 1.5px solid rgba(255, 215, 0, 0.6);
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.25);
+}
+
+.milestone-icon {
+    font-size: 1.25rem;
+    margin-bottom: 3px;
+}
+
+.milestone-val {
+    font-size: 0.92rem;
+    line-height: 1.2;
+    letter-spacing: 0.3px;
+}
+
+.milestone-sub {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 2px;
+}
+
+@media (max-width: 576px) {
+    .welcome-quote-card {
+        padding: 14px 12px !important;
+    }
+    .welcome-quote-text {
+        font-size: 0.86rem !important;
+        line-height: 1.52 !important;
+    }
+    .milestone-pill {
+        padding: 7px 3px !important;
+    }
+    .milestone-icon {
+        font-size: 1.05rem;
+        margin-bottom: 2px;
+    }
+    .milestone-val {
+        font-size: 0.76rem !important;
+    }
+    .milestone-sub {
+        font-size: 0.58rem !important;
+    }
+}
+
+/* ==========================================
    3D REALISTIC ROTATING BIRTHDAY CAKE (THREE.JS)
    ========================================== */
 .cake-3d-stage {
