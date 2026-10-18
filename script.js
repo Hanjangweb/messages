@@ -181,7 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. API Helper Functions (Direct MongoDB Sync)
     // ==========================================
     async function apiRequest(endpoint, method = 'GET', body = null, headers = {}) {
-        if (isStaticDev) {
+        const baseUrl = window.API_BASE_URL || '';
+        const targetUrl = baseUrl ? `${baseUrl}${endpoint}` : endpoint;
+
+        // If running statically on GitHub Pages and no external backend URL is configured,
+        // use local storage fallback safely so the UI is responsive.
+        if (isStaticDev && !baseUrl) {
             return { success: true, localMock: true, role: 'sengve' };
         }
 
@@ -196,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (body) {
                 config.body = JSON.stringify(body);
             }
-            const res = await fetch(endpoint, config);
+            const res = await fetch(targetUrl, config);
             if (!res.ok) {
                 return { success: false, status: res.status };
             }
