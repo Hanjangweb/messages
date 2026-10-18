@@ -47,18 +47,42 @@ function saveLocalBackup(type, data) {
     }
 }
 
-// MongoDB Connection
+// MongoDB Connection (Serverless-optimized with connection caching for Vercel & Node)
 let isMongoConnected = false;
+let dbPromise = null;
 
-mongoose.connect(MONGODB_URI)
-    .then(() => {
+async function connectDb() {
+    if (mongoose.connection.readyState === 1) {
         isMongoConnected = true;
-        console.log("✅ Successfully connected to MongoDB Database!");
-    })
-    .catch((err) => {
-        isMongoConnected = false;
-        console.warn("⚠️ MongoDB connection notice: Could not connect to MongoDB URI yet (" + err.message + "). Local sync mode active.");
-    });
+        return;
+    }
+    if (!dbPromise) {
+        dbPromise = mongoose.connect(MONGODB_URI, {
+            serverSelectionTimeoutMS: 8000
+        }).then(() => {
+            isMongoConnected = true;
+            console.log("✅ Successfully connected to MongoDB Database!");
+        }).catch((err) => {
+            dbPromise = null;
+            isMongoConnected = false;
+            console.warn("⚠️ MongoDB connection notice: (" + err.message + "). Local sync mode active.");
+        });
+    }
+    await dbPromise;
+}
+
+// Initial connection attempt
+connectDb();
+
+// Middleware to ensure DB is connected for every /api request (critical for Vercel serverless cold starts)
+app.use(async (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+        try {
+            await connectDb();
+        } catch (e) {}
+    }
+    next();
+});
 
 // Mongoose Schemas & Models
 const ActivitySchema = new mongoose.Schema({

@@ -43,9 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.protocol === 'file:' || 
         window.location.port === '5500' || 
         window.location.port === '5501' ||
-        window.location.hostname.includes('github.io') ||
-        window.location.hostname.includes('vercel.app') ||
-        window.location.hostname.includes('netlify.app')
+        window.location.hostname.includes('github.io')
     );
 
     // ==========================================
