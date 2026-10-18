@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-    <title>For Sengve Rongpharpi ❤️ | Birthday & Proposal</title>
+    <title>For Sengve Rongpharpi ❤️ | Birthday </title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -185,8 +185,21 @@
             </div>
 
 
-            <!-- Grand 26th Birthday Dedicated Message Box (Hidden until 12:00 AM countdown hits) -->
-            <div id="birthday-welcome-box" class="w-100 mb-4 animate__animated animate__fadeIn d-none">
+            <!-- Midnight Alarm Active / Enable Pill -->
+            <div class="midnight-alarm-pill mb-3 d-flex justify-content-center align-items-center gap-2 flex-wrap" id="alarm-notification-box">
+                <button type="button" id="enable-alarm-btn" class="btn btn-sm btn-outline-warning rounded-pill px-3 py-1">
+                    <i class="fas fa-bell me-1 animate__animated animate__swing animate__infinite"></i> Turn On Midnight Alarm (Beep & Voice at 12:00 AM) 🔔
+                </button>
+                <div id="alarm-enabled-badge" class="badge bg-gold-glass text-warning py-2 px-3 rounded-pill d-none">
+                    <i class="fas fa-bell me-1"></i> Midnight Alarm Active: Beep & Voice ready for 12:00 AM 🔔
+                </div>
+                <button type="button" id="test-beep-voice-btn" class="btn btn-sm btn-outline-info rounded-pill px-3 py-1">
+                    <i class="fas fa-volume-high me-1"></i> Test Beep & Voice 🔊
+                </button>
+            </div>
+
+            <!-- Grand 26th Birthday Dedicated Message Box -->
+            <div id="birthday-welcome-box" class="w-100 mb-4 animate__animated animate__fadeIn">
                 <div class="welcome-quote-card p-3 p-sm-4 rounded-4 shadow-xl">
                     <div class="welcome-card-header text-center mb-2">
                         <div class="gift-card-badge mb-1">
@@ -239,8 +252,8 @@
                 <i class="fas fa-quote-right text-pink opacity-50 ms-2"></i>
             </div>
 
-            <button id="start-celebration-btn" class="btn btn-primary btn-lg px-3 py-2 rounded-pill fw-bold glow-on-hover w-100 disabled" disabled="disabled">
-                Unlock Birthday Celebration at 12:00 AM 🔒
+            <button id="start-celebration-btn" class="btn btn-primary btn-lg px-3 py-2 rounded-pill fw-bold glow-on-hover w-100">
+                Step Inside Your 26th Birthday Surprises! 🎁✨ <i class="fas fa-arrow-right ms-2"></i>
             </button>
         </div>
 
@@ -729,7 +742,7 @@
             </div>
 
         </div>
-
+    </main>
     <!-- ================= 12:00 AM MIDNIGHT ALARM & POPUP ALERT MODAL ================= -->
     <div id="midnight-alarm-modal" class="midnight-modal-overlay d-none">
         <div class="midnight-modal-content p-4 rounded-4 bg-dark-glass text-center shadow-2xl border-gold-glow animate__animated animate__zoomIn">

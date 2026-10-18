@@ -795,28 +795,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
 
     // ==========================================
+    // ==========================================
     // 6. Envelope Opening Logic
     // ==========================================
     const envelopeWrapper = document.getElementById('envelope-wrapper');
-    if (envelopeWrapper) {
-        envelopeWrapper.addEventListener('click', () => {
-            envelopeWrapper.classList.add('open');
-            init3DCake();
-            
-            if (!isPlaying) {
-                startRomanticMusic();
-            }
+    const envelopeHint = document.querySelector('.envelope-hint');
+    const heartSeal = document.querySelector('.heart');
 
-            logDbEvent('ENVELOPE_OPENED_BY_SENGVE');
+    let envelopeAlreadyOpened = false;
 
-            setTimeout(() => {
+    function openEnvelopeAndProceed(e) {
+        if (e && e.type === 'touchstart') e.preventDefault();
+        if (envelopeAlreadyOpened) return;
+        envelopeAlreadyOpened = true;
+
+        if (envelopeWrapper) envelopeWrapper.classList.add('open');
+        try { playSfx('unlock'); } catch(err) {}
+        try { if (!isPlaying) startRomanticMusic(); } catch(err) {}
+        try { init3DCake(); } catch(err) {}
+        try { logDbEvent('ENVELOPE_OPENED_BY_SENGVE'); } catch(err) {}
+
+        setTimeout(() => {
+            if (envelopeScreen) {
                 envelopeScreen.classList.add('animate__animated', 'animate__fadeOut');
                 setTimeout(() => {
                     envelopeScreen.classList.add('d-none');
-                    mainContent.classList.remove('d-none');
-                    mainContent.classList.add('animate__animated', 'animate__fadeIn');
+                    if (mainContent) {
+                        mainContent.classList.remove('d-none');
+                        mainContent.classList.add('animate__animated', 'animate__fadeIn');
+                    }
                     
-                    // Guarantee only countdown-card is visible initially
+                    // Guarantee countdown-card is visible
                     document.querySelectorAll('#main-content .proposal-card').forEach(card => {
                         if (card.id === 'countdown-card') {
                             card.classList.remove('d-none');
@@ -828,10 +837,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     window.scrollTo({ top: 0, behavior: 'instant' });
-                    triggerMiniConfetti();
-                }, 500);
-            }, 1200);
-        });
+                    try { triggerMiniConfetti(); } catch(err) {}
+                }, 400);
+            }
+        }, 800);
+    }
+
+    if (envelopeWrapper) {
+        envelopeWrapper.addEventListener('click', openEnvelopeAndProceed);
+        envelopeWrapper.addEventListener('touchstart', openEnvelopeAndProceed, { passive: false });
+    }
+    if (heartSeal) {
+        heartSeal.addEventListener('click', openEnvelopeAndProceed);
+        heartSeal.addEventListener('touchstart', openEnvelopeAndProceed, { passive: false });
+    }
+    if (envelopeHint) {
+        envelopeHint.addEventListener('click', openEnvelopeAndProceed);
+        envelopeHint.addEventListener('touchstart', openEnvelopeAndProceed, { passive: false });
+    }
+    if (envelopeScreen) {
+        envelopeScreen.addEventListener('click', openEnvelopeAndProceed);
+        envelopeScreen.addEventListener('touchstart', openEnvelopeAndProceed, { passive: false });
     }
 
     // ==========================================
@@ -859,14 +885,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetDate = new Date(currentYear, 9, 19, 0, 0, 0); // Month 9 = October (19th, 00:00:00 midnight)
         
         const isPreviewWelcome = window.location.search.includes('preview=welcome');
-        const isBirthdayReached = (now >= targetDate) || isPreviewWelcome;
+        // Check if October 19 has arrived locally or in IST
+        const isTodayOct19OrBeyond = (now.getDate() >= 19 && now.getMonth() >= 9) || (now.getFullYear() > currentYear);
+        const isBirthdayReached = (now >= targetDate) || isTodayOct19OrBeyond || isPreviewWelcome;
+
+        if (birthdayWelcomeBox) birthdayWelcomeBox.classList.remove('d-none');
 
         if (isBirthdayReached) {
             // It is officially October 19th (12:00 AM Midnight & Beyond)
             if (countdownTimerBox) countdownTimerBox.classList.add('d-none');
             const alarmBox = document.getElementById('alarm-notification-box');
             if (alarmBox) alarmBox.classList.add('d-none');
-            if (birthdayWelcomeBox) birthdayWelcomeBox.classList.remove('d-none');
             if (cdDistanceQuote) cdDistanceQuote.classList.add('d-none');
 
             if (cdBadge) {
@@ -890,7 +919,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Auto-trigger midnight alert with beep alarm, voice & WhatsApp dispatch
                 triggerMidnightAlarm(false);
 
-                if (now >= targetDate && !isPreviewWelcome) {
+                if (!isPreviewWelcome) {
                     fetch('/api/countdown/notify', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' }
@@ -906,7 +935,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (countdownTimerBox) countdownTimerBox.classList.remove('d-none');
         const alarmBox = document.getElementById('alarm-notification-box');
         if (alarmBox) alarmBox.classList.remove('d-none');
-        if (birthdayWelcomeBox) birthdayWelcomeBox.classList.add('d-none');
         if (cdDistanceQuote) cdDistanceQuote.classList.remove('d-none');
 
         if (cdBadge) {
@@ -916,9 +944,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cdTitle) cdTitle.innerHTML = 'Counting Down Every Second For You, Sengve... ⏳';
         if (cdSubtitle) cdSubtitle.innerHTML = 'Handcrafted with all my love across 2,248 km from Chandigarh to Diphu, Assam. 💖';
         if (startCelebrationBtn) {
-            startCelebrationBtn.innerHTML = 'Unlock Birthday Celebration at 12:00 AM 🔒';
-            startCelebrationBtn.classList.add('disabled');
-            startCelebrationBtn.setAttribute('disabled', 'disabled');
+            startCelebrationBtn.innerHTML = 'Step Inside Your 26th Birthday Surprises! 🎁✨ <i class="fas fa-arrow-right ms-2"></i>';
+            startCelebrationBtn.classList.remove('disabled');
+            startCelebrationBtn.removeAttribute('disabled');
         }
 
         const diff = targetDate - now;
@@ -1094,7 +1122,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const dismissAlarmBtn = document.getElementById('dismiss-alarm-btn');
     const midnightModal = document.getElementById('midnight-alarm-modal');
     if (dismissAlarmBtn) {
-        dismissAlarmBtn.addEventListener('click', () => {
+        const handleDismissAlarm = (e) => {
+            if (e && e.type === 'touchstart') e.preventDefault();
             alarmDismissed = true;
             if (midnightModal) midnightModal.classList.add('d-none');
             if ('vibrate' in navigator) {
@@ -1102,9 +1131,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             switchCards('countdown-card', 'cake-card');
             if (!isPlaying) {
-                startRomanticMusic();
+                try { startRomanticMusic(); } catch (err) {}
             }
-        });
+        };
+        dismissAlarmBtn.addEventListener('click', handleDismissAlarm);
+        dismissAlarmBtn.addEventListener('touchstart', handleDismissAlarm, { passive: false });
     }
 
     // Admin Modal "Ring & Vibrate Now" Test Button
@@ -1138,9 +1169,13 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'instant' });
 
         if (targetId === 'cake-card') {
-            init3DCake();
-            resizeCake3D();
-            requestAnimationFrame(resizeCake3D);
+            try {
+                init3DCake();
+                resizeCake3D();
+                requestAnimationFrame(resizeCake3D);
+            } catch (cakeErr) {
+                console.warn("Cake 3D init error:", cakeErr);
+            }
         }
     }
 
@@ -1155,12 +1190,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (startCelebrationBtn) {
-        startCelebrationBtn.addEventListener('click', () => {
+        const handleStartCelebration = (e) => {
+            if (e && e.type === 'touchstart') e.preventDefault();
             switchCards('countdown-card', 'cake-card');
             if (!isPlaying) {
-                startRomanticMusic();
+                try { startRomanticMusic(); } catch (err) {}
             }
-        });
+        };
+        startCelebrationBtn.addEventListener('click', handleStartCelebration);
+        startCelebrationBtn.addEventListener('touchstart', handleStartCelebration, { passive: false });
     }
 
     // ==========================================
@@ -1180,24 +1218,28 @@ document.addEventListener('DOMContentLoaded', () => {
     function resizeCake3D() {
         const container = document.getElementById('cake-3d-canvas-container');
         if (!container || !cakeRenderer || !cakeCamera) return;
-        const width = container.clientWidth || 360;
-        const height = container.clientHeight || 340;
-        cakeCamera.aspect = width / height;
+        try {
+            const width = Math.max(container.clientWidth || 0, 320);
+            const height = Math.max(container.clientHeight || 0, 240);
+            cakeCamera.aspect = width / height;
 
-        // Dynamic responsive camera distance & framing across mobile, tablet, and desktop
-        if (width < 340) {
-            cakeCamera.position.set(0, 3.4, 11.6);
-        } else if (width < 420) {
-            cakeCamera.position.set(0, 3.5, 10.6);
-        } else if (width < 540) {
-            cakeCamera.position.set(0, 3.5, 9.8);
-        } else {
-            cakeCamera.position.set(0, 3.6, 9.2);
+            // Dynamic responsive camera distance & framing across mobile, tablet, and desktop
+            if (width < 340) {
+                cakeCamera.position.set(0, 3.4, 11.6);
+            } else if (width < 420) {
+                cakeCamera.position.set(0, 3.5, 10.6);
+            } else if (width < 540) {
+                cakeCamera.position.set(0, 3.5, 9.8);
+            } else {
+                cakeCamera.position.set(0, 3.6, 9.2);
+            }
+            cakeCamera.lookAt(0, 1.7, 0);
+
+            cakeCamera.updateProjectionMatrix();
+            cakeRenderer.setSize(width, height);
+        } catch (e) {
+            console.warn("resizeCake3D error:", e);
         }
-        cakeCamera.lookAt(0, 1.7, 0);
-
-        cakeCamera.updateProjectionMatrix();
-        cakeRenderer.setSize(width, height);
     }
 
     function init3DCake() {
@@ -1205,21 +1247,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!container || typeof THREE === 'undefined') return;
 
         if (cake3DInitialized) {
-            resizeCake3D();
+            try { resizeCake3D(); } catch (e) {}
             return;
         }
 
-        const width = container.clientWidth || Math.min(window.innerWidth - 32, 420);
-        const height = container.clientHeight || 260;
+        try {
+            const width = Math.max(container.clientWidth || 0, Math.min(window.innerWidth - 32, 420));
+            const height = Math.max(container.clientHeight || 0, 240);
 
-        // 1. Scene, Camera, Renderer
-        cakeScene = new THREE.Scene();
-        cakeCamera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-        cakeCamera.position.set(0, 3.6, 9.2);
-        cakeCamera.lookAt(0, 1.7, 0);
+            // 1. Scene, Camera, Renderer
+            cakeScene = new THREE.Scene();
+            cakeCamera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+            cakeCamera.position.set(0, 3.6, 9.2);
+            cakeCamera.lookAt(0, 1.7, 0);
 
-        cakeRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-        cakeRenderer.setSize(width, height);
+            cakeRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+            cakeRenderer.setSize(width, height);
         cakeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         cakeRenderer.shadowMap.enabled = true;
         cakeRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -1979,7 +2022,10 @@ document.addEventListener('DOMContentLoaded', () => {
         animate();
         cake3DInitialized = true;
         try { cakeRenderer.render(cakeScene, cakeCamera); } catch (e) {}
+    } catch (cakeErr) {
+        console.warn("init3DCake caught error:", cakeErr);
     }
+}
 
     function blowSingle3DCandle(idx) {
         const c = cake3DCandles[idx];
