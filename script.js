@@ -100,12 +100,60 @@ document.addEventListener('DOMContentLoaded', () => {
                 gain.connect(ctx.destination);
                 osc.start(now);
                 osc.stop(now + 0.11);
+            } else if (type === 'beep') {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(987.77, now);
+                gain.gain.setValueAtTime(0.28, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.13);
+            } else if (type === 'alarm-beep') {
+                [0, 0.15, 0.30].forEach((offset) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(1046.50, now + offset);
+                    gain.gain.setValueAtTime(0.22, now + offset);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + offset + 0.09);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + offset);
+                    osc.stop(now + offset + 0.1);
+                });
             }
         } catch (e) {
             console.warn("SFX error:", e);
         }
     }
     window.playSfx = playSfx;
+
+    // Birthday Speech Synthesis Voice Announcer
+    function speakBirthdayVoice(customText = null) {
+        if (!('speechSynthesis' in window)) return;
+        try {
+            window.speechSynthesis.cancel();
+            const textToSpeak = customText || "Happy 26th Birthday, Sengve! The countdown is over, today is your special day. Welcome to your birthday celebration!";
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.rate = 0.94;
+            utterance.pitch = 1.05;
+            utterance.volume = 1.0;
+
+            const voices = window.speechSynthesis.getVoices();
+            if (voices && voices.length > 0) {
+                const preferredVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Female') || v.name.includes('Zira')));
+                if (preferredVoice) utterance.voice = preferredVoice;
+            }
+
+            window.speechSynthesis.speak(utterance);
+        } catch (e) {
+            console.warn("SpeechSynthesis error:", e);
+        }
+    }
+    window.speakBirthdayVoice = speakBirthdayVoice;
 
     // ==========================================
     // 2. API Helper Functions (Direct MongoDB Sync)
@@ -802,19 +850,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const startCelebrationBtn = document.getElementById('start-celebration-btn');
 
     let welcomeCelebrationTriggered = false;
+    let lastCountdownBeepSec = -1;
+    let finalCountdownSpoken = {};
 
     function updateCountdown() {
         const now = new Date();
         const currentYear = now.getFullYear();
         const targetDate = new Date(currentYear, 9, 19, 0, 0, 0); // Month 9 = October (19th, 00:00:00 midnight)
         
-        // URL query param '?preview=welcome' allows instant preview of welcoming mode anytime
         const isPreviewWelcome = window.location.search.includes('preview=welcome');
         const isBirthdayReached = (now >= targetDate) || isPreviewWelcome;
 
         if (isBirthdayReached) {
-            // It is officially October 19th (12:00 AM Midnight & Beyond) OR Preview Mode Active
+            // It is officially October 19th (12:00 AM Midnight & Beyond)
             if (countdownTimerBox) countdownTimerBox.classList.add('d-none');
+            const alarmBox = document.getElementById('alarm-notification-box');
+            if (alarmBox) alarmBox.classList.add('d-none');
             if (birthdayWelcomeBox) birthdayWelcomeBox.classList.remove('d-none');
             if (cdDistanceQuote) cdDistanceQuote.classList.add('d-none');
 
@@ -824,7 +875,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (cdTitle) cdTitle.innerHTML = '👑 Welcome to Your 26th Birthday World, Sengve! 🎂✨';
             if (cdSubtitle) cdSubtitle.innerHTML = 'Handcrafted with all my heart across 2,248 km from Chandigarh to Diphu, Assam. 💖';
-            if (startCelebrationBtn) startCelebrationBtn.innerHTML = 'Step Inside Your 26th Birthday Surprises! 🎁✨ <i class="fas fa-arrow-right ms-2"></i>';
+            if (startCelebrationBtn) {
+                startCelebrationBtn.innerHTML = 'Step Inside Your 26th Birthday Surprises! 🎁✨ <i class="fas fa-arrow-right ms-2"></i>';
+                startCelebrationBtn.classList.remove('disabled');
+                startCelebrationBtn.removeAttribute('disabled');
+            }
 
             if (!welcomeCelebrationTriggered) {
                 welcomeCelebrationTriggered = true;
@@ -832,11 +887,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (typeof triggerMiniConfetti === 'function') triggerMiniConfetti();
                 }, 700);
 
-                // Trigger 100% Free Midnight Phone Alarm, Vibrate & Push Notification
+                // Auto-trigger midnight alert with beep alarm, voice & WhatsApp dispatch
                 triggerMidnightAlarm(false);
 
-                // Trigger Automated WhatsApp Dispatch on Server (100% Free)
-                if (!isPreviewWelcome) {
+                if (now >= targetDate && !isPreviewWelcome) {
                     fetch('/api/countdown/notify', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' }
@@ -850,8 +904,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Live Countdown Mode (Prior to October 19th, 12:00 AM)
         if (countdownTimerBox) countdownTimerBox.classList.remove('d-none');
+        const alarmBox = document.getElementById('alarm-notification-box');
+        if (alarmBox) alarmBox.classList.remove('d-none');
         if (birthdayWelcomeBox) birthdayWelcomeBox.classList.add('d-none');
         if (cdDistanceQuote) cdDistanceQuote.classList.remove('d-none');
+
+        if (cdBadge) {
+            cdBadge.innerHTML = '<i class="fas fa-hourglass-half me-2 text-warning"></i> ⏳ COUNTDOWN TO SENGVE\'S 26TH BIRTHDAY 🎂';
+            cdBadge.classList.remove('border', 'border-warning');
+        }
+        if (cdTitle) cdTitle.innerHTML = 'Counting Down Every Second For You, Sengve... ⏳';
+        if (cdSubtitle) cdSubtitle.innerHTML = 'Handcrafted with all my love across 2,248 km from Chandigarh to Diphu, Assam. 💖';
+        if (startCelebrationBtn) {
+            startCelebrationBtn.innerHTML = 'Unlock Birthday Celebration at 12:00 AM 🔒';
+            startCelebrationBtn.classList.add('disabled');
+            startCelebrationBtn.setAttribute('disabled', 'disabled');
+        }
 
         const diff = targetDate - now;
         if (diff <= 0) return;
@@ -865,6 +933,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (hoursEl) hoursEl.innerText = String(h).padStart(2, '0');
         if (minutesEl) minutesEl.innerText = String(m).padStart(2, '0');
         if (secondsEl) secondsEl.innerText = String(s).padStart(2, '0');
+
+        // Audio Beep & Voice in final 10 seconds before midnight
+        const totalSecRemaining = Math.ceil(diff / 1000);
+        if (totalSecRemaining <= 10 && totalSecRemaining >= 1 && totalSecRemaining !== lastCountdownBeepSec) {
+            lastCountdownBeepSec = totalSecRemaining;
+            playSfx('beep');
+            if (totalSecRemaining <= 5 && !finalCountdownSpoken[totalSecRemaining]) {
+                finalCountdownSpoken[totalSecRemaining] = true;
+                speakBirthdayVoice(String(totalSecRemaining));
+            }
+        }
     }
 
     setInterval(updateCountdown, 1000);
@@ -880,22 +959,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isTest && alarmDismissed) return;
         console.log("⏰ MIDNIGHT ALARM FIRED! Mode:", isTest ? "Admin Test" : "12:00 AM Countdown Reached");
 
-        // 1. Audio Alarm Fanfare & Bell Chimes
+        // 1. Audio Alarm Digital Beeps, Bell Chimes & Fanfare
         try {
+            playSfx('alarm-beep');
             let chimeCount = 0;
             const chimeInterval = setInterval(() => {
+                playSfx('alarm-beep');
                 playSfx('bell');
                 chimeCount++;
-                if (chimeCount >= 6) {
+                if (chimeCount >= 5) {
                     clearInterval(chimeInterval);
                     playSfx('fanfare');
                 }
-            }, 380);
+            }, 550);
         } catch (e) {
             console.warn("Audio alarm sfx error:", e);
         }
 
-        // 2. Play vocal Happy Birthday song
+        // 2. Birthday Voice Announcement
+        try {
+            speakBirthdayVoice("Happy 26th Birthday, Sengve! The countdown is over, today is your special day. Welcome to your birthday celebration, handcrafted with all my love across 2,248 kilometers for you!");
+        } catch (e) {
+            console.warn("Voice error:", e);
+        }
+
+        // 3. Play vocal Happy Birthday song
         try {
             if (!isPlaying) {
                 startRomanticMusic();
@@ -904,7 +992,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn("Vocal music start error:", e);
         }
 
-        // 3. Phone Haptic Vibration (Noticeable alert pattern)
+        // 4. Phone Haptic Vibration (Noticeable alert pattern)
         if ('vibrate' in navigator) {
             try {
                 navigator.vibrate([800, 250, 800, 250, 800, 250, 1200, 300, 800]);
@@ -913,7 +1001,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 4. In-Browser / OS Push Notification
+        // 5. In-Browser / OS Push Notification
         if ('Notification' in window && Notification.permission === 'granted') {
             try {
                 const notif = new Notification('🎂 Happy 26th Birthday, Sengve! 🎉', {
@@ -934,14 +1022,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 5. Open On-Screen Midnight Celebration Alert Modal
+        // 6. Open On-Screen Midnight Celebration Alert Modal
         const midnightModal = document.getElementById('midnight-alarm-modal');
         if (midnightModal) {
             midnightModal.classList.remove('d-none');
             midnightModal.classList.add('animate__animated', 'animate__fadeIn');
         }
 
-        // 6. Confetti
+        // 7. Confetti
         if (typeof triggerMiniConfetti === 'function') {
             triggerMiniConfetti();
         }
@@ -983,6 +1071,21 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 setAlarmStatusActive();
                 showToast("🔔 Midnight Alarm Active!");
+            }
+        });
+    }
+
+    // Test Beep & Voice Button in Countdown Card
+    const testBeepVoiceBtn = document.getElementById('test-beep-voice-btn');
+    if (testBeepVoiceBtn) {
+        testBeepVoiceBtn.addEventListener('click', () => {
+            playSfx('alarm-beep');
+            setTimeout(() => {
+                speakBirthdayVoice("Beep and voice test successful! Happy 26th Birthday, Sengve!");
+            }, 450);
+            showToast("🔊 Playing Test Beep & Voice Announcement!");
+            if ('vibrate' in navigator) {
+                try { navigator.vibrate([200, 100, 200]); } catch (e) {}
             }
         });
     }

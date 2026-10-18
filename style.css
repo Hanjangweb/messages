@@ -816,35 +816,85 @@ div.proposal-card.d-none,
 }
 
 .welcome-quote-card {
-    background: linear-gradient(135deg, rgba(26, 16, 42, 0.88), rgba(14, 10, 24, 0.94));
-    border: 1px solid rgba(255, 215, 0, 0.45);
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), 0 0 25px rgba(255, 215, 0, 0.15);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    position: relative;
+    background: url('assets/images/birthday_frame.png') center center / 100% 100% no-repeat;
+    border-radius: 26px !important;
+    border: 2px solid rgba(255, 182, 193, 0.75) !important;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65), 0 0 40px rgba(255, 105, 180, 0.35);
+    padding: 24px 20px 20px 20px !important;
+    color: #2b0c20;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
 }
 
-.welcome-crown-icon {
+.welcome-quote-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.72), 0 0 48px rgba(255, 105, 180, 0.45);
+}
+
+.welcome-quote-card .gift-card-tag {
+    background: transparent !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #831843 !important;
+    border: 1.5px solid rgba(219, 39, 119, 0.45) !important;
+    font-weight: 700;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.95), 0 1px 2px #fff !important;
+}
+
+/* 100% Transparent Content Container - No White Box */
+.birthday-card-parchment {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 4px 0 !important;
+    margin-bottom: 10px;
+}
+
+.welcome-quote-card .welcome-crown-icon {
     display: inline-block;
-    filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.8));
+    filter: drop-shadow(0 2px 8px rgba(217, 119, 6, 0.5));
+    color: #d97706 !important;
 }
 
-.welcome-quote-text {
-    font-size: 0.98rem;
-    line-height: 1.68;
-    color: #fff6e8;
+.welcome-quote-card .card-letter-title {
+    color: #700c36 !important;
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.95), 0 0 4px #ffffff, 0 1px 2px #ffffff !important;
+}
+
+.welcome-quote-card .welcome-quote-text {
+    font-size: 1.05rem;
+    line-height: 1.76;
+    color: #1a0414 !important;
+    font-weight: 700 !important;
     letter-spacing: 0.2px;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 12px rgba(255, 255, 255, 1), 
+                 0 0 6px rgba(255, 255, 255, 0.98), 
+                 0 0 2px #ffffff,
+                 0 1px 3px rgba(255, 255, 255, 1) !important;
     margin: 0 auto;
+    max-width: 98%;
 }
 
-.welcome-milestones-grid {
-    margin-top: 14px;
+.welcome-quote-card .welcome-milestones-grid {
+    margin-top: 10px;
 }
 
-.milestone-pill {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+.welcome-quote-card .milestone-pill {
+    background: transparent !important;
+    border: 1.5px solid rgba(219, 39, 119, 0.45) !important;
+    box-shadow: 0 4px 14px rgba(131, 24, 67, 0.08);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 16px !important;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     display: flex;
     flex-direction: column;
@@ -853,55 +903,100 @@ div.proposal-card.d-none,
     text-align: center;
 }
 
-.milestone-pill:hover {
+.welcome-quote-card .milestone-pill:hover {
     transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: #db2777 !important;
+    box-shadow: 0 6px 18px rgba(219, 39, 119, 0.2);
 }
 
-.milestone-pill.border-gold-glow {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.14), rgba(255, 140, 0, 0.09));
-    border: 1.5px solid rgba(255, 215, 0, 0.6);
-    box-shadow: 0 0 18px rgba(255, 215, 0, 0.25);
+.welcome-quote-card .milestone-pill.border-gold-glow {
+    background: transparent !important;
+    border: 1.5px solid rgba(217, 119, 6, 0.6) !important;
+    box-shadow: 0 4px 14px rgba(217, 119, 6, 0.15);
 }
 
-.milestone-icon {
-    font-size: 1.25rem;
+.welcome-quote-card .milestone-icon {
+    font-size: 1.35rem;
     margin-bottom: 3px;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
 }
 
-.milestone-val {
-    font-size: 0.92rem;
-    line-height: 1.2;
+.welcome-quote-card .milestone-val {
+    font-size: 0.98rem;
+    font-weight: 800;
+    line-height: 1.25;
     letter-spacing: 0.3px;
+    color: #831843 !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.95), 0 1px 2px #fff !important;
 }
 
-.milestone-sub {
-    font-size: 0.68rem;
+.welcome-quote-card .milestone-pill.border-gold-glow .milestone-val {
+    color: #92400e !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.95), 0 1px 2px #fff !important;
+}
+
+.welcome-quote-card .milestone-sub {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #6b2149 !important;
     text-transform: uppercase;
     letter-spacing: 0.8px;
     margin-top: 2px;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.95), 0 1px 2px #fff !important;
+}
+
+.welcome-quote-card .welcome-signature {
+    margin-top: 12px !important;
+}
+
+.welcome-quote-card .welcome-signature .signature-pill {
+    background: transparent !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1.5px solid rgba(219, 39, 119, 0.45);
+    color: #831843 !important;
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 6px 16px;
+    border-radius: 20px;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.95), 0 1px 2px #fff !important;
 }
 
 @media (max-width: 576px) {
     .welcome-quote-card {
-        padding: 14px 12px !important;
+        padding: 18px 12px 14px 12px !important;
+        border-radius: 20px !important;
     }
-    .welcome-quote-text {
-        font-size: 0.86rem !important;
-        line-height: 1.52 !important;
+    .birthday-card-parchment {
+        padding: 4px 0 !important;
     }
-    .milestone-pill {
-        padding: 7px 3px !important;
+    .welcome-quote-card .card-letter-title {
+        font-size: 1.38rem !important;
     }
-    .milestone-icon {
-        font-size: 1.05rem;
+    .welcome-quote-card .welcome-quote-text {
+        font-size: 0.94rem !important;
+        line-height: 1.64 !important;
+        font-weight: 700 !important;
+    }
+    .welcome-quote-card .milestone-pill {
+        padding: 8px 6px !important;
+    }
+    .welcome-quote-card .milestone-icon {
+        font-size: 1.2rem;
         margin-bottom: 2px;
     }
-    .milestone-val {
-        font-size: 0.76rem !important;
+    .welcome-quote-card .milestone-val {
+        font-size: 0.88rem !important;
     }
-    .milestone-sub {
-        font-size: 0.58rem !important;
+    .welcome-quote-card .milestone-sub {
+        font-size: 0.65rem !important;
+    }
+    .welcome-quote-card .welcome-signature .signature-pill {
+        font-size: 0.78rem !important;
+        padding: 5px 12px !important;
     }
 }
 
@@ -2305,8 +2400,8 @@ div.proposal-card.d-none,
     }
 
     .gift-card-top-bar {
-        display: grid !important;
-        grid-template-columns: 55px 1fr 55px !important;
+        display: flex !important;
+        justify-content: center !important;
         align-items: center !important;
         margin-bottom: 2px !important;
         width: 100% !important;
@@ -2722,8 +2817,8 @@ div.proposal-card.d-none,
    ========================================== */
 .gift-card-top-bar {
     width: 100%;
-    display: grid;
-    grid-template-columns: 80px 1fr 80px;
+    display: flex;
+    justify-content: center;
     align-items: center;
     margin-bottom: 14px;
     z-index: 5;

@@ -158,13 +158,13 @@
         <!-- CARD 1: Birthday Countdown & Welcome Gate -->
         <div class="proposal-card text-center shadow-lg" id="countdown-card">
             <div class="stamp-badge mb-3" id="cd-badge">
-                <i class="fas fa-calendar-check me-2 text-warning"></i> Special Day: 19th October
+                <i class="fas fa-hourglass-half me-2 text-warning"></i> ⏳ COUNTDOWN TO SENGVE'S 26TH BIRTHDAY 🎂
             </div>
             
-            <h1 class="display-5 fw-bold mb-2 title-gradient" id="cd-title">Happy Birthday, Sengve! 🎂</h1>
-            <p class="lead opacity-75 mb-4" id="cd-subtitle">Counting down to the most special day for the most wonderful girl in my life.</p>
+            <h1 class="display-5 fw-bold mb-2 title-gradient" id="cd-title">Counting Down Every Second For You, Sengve... ⏳</h1>
+            <p class="lead opacity-75 mb-4" id="cd-subtitle">Handcrafted with all my love across 2,248 km from Chandigarh to Diphu, Assam. 💖</p>
 
-            <!-- Countdown Timer Box (Active before Oct 19 12 AM) -->
+            <!-- Countdown Timer Box -->
             <div class="countdown-grid mb-4" id="countdown-timer-box">
                 <div class="time-block">
                     <span class="time-number" id="cd-days">00</span>
@@ -184,54 +184,52 @@
                 </div>
             </div>
 
-            <!-- Midnight Alarm Active / Enable Pill -->
-            <div class="midnight-alarm-pill mb-3" id="alarm-notification-box">
-                <button type="button" id="enable-alarm-btn" class="btn btn-sm btn-outline-warning rounded-pill px-3 py-1">
-                    <i class="fas fa-bell me-1 animate__animated animate__swing animate__infinite"></i> Turn On Midnight Alarm (Ring & Vibrate at 12:00 AM) 🔔
-                </button>
-                <div id="alarm-enabled-badge" class="badge bg-gold-glass text-warning py-2 px-3 rounded-pill d-none">
-                    <i class="fas fa-bell me-1"></i> Midnight Alarm Active: Phone will ring & vibrate at 12:00 AM 🔔
-                </div>
-            </div>
 
-            <!-- Grand 26th Birthday Welcoming Box (Active on Oct 19 & Beyond) -->
-            <div id="birthday-welcome-box" class="d-none w-100 mb-4 animate__animated animate__fadeIn">
-                <div class="welcome-quote-card p-3 p-sm-4 rounded-4 bg-glass-dark border border-warning-subtle shadow-xl mb-3">
-                    <div class="welcome-crown-icon mb-2">
-                        <i class="fas fa-crown text-warning fa-2x beat-animation"></i>
+            <!-- Grand 26th Birthday Dedicated Message Box (Hidden until 12:00 AM countdown hits) -->
+            <div id="birthday-welcome-box" class="w-100 mb-4 animate__animated animate__fadeIn d-none">
+                <div class="welcome-quote-card p-3 p-sm-4 rounded-4 shadow-xl">
+                    <div class="welcome-card-header text-center mb-2">
+                        <div class="gift-card-badge mb-1">
+                            <span class="badge gift-card-tag px-3 py-1 rounded-pill">
+                                <i class="fas fa-gift text-pink me-1"></i> Special Birthday Gift Card 🎁
+                            </span>
+                        </div>
                     </div>
-                    <p class="welcome-quote-text playfair italic mb-3">
-                        "At 12:00 AM on 19th October, the most wonderful person in my life officially turned 26 years young! Even though I am 2,248 km away in Chandigarh and you are in Diphu, Assam, this entire experience was handcrafted with all my heart to make you smile and feel like royalty today."
-                    </p>
+
+                    <!-- Crystal-Clear Frosted Parchment Plate for 100% Readability -->
+                    <div class="birthday-card-parchment text-center">
+                        <div class="welcome-crown-icon mb-1">
+                            <i class="fas fa-crown text-warning fa-2x beat-animation"></i>
+                        </div>
+                        <h3 class="playfair italic fw-bold mb-2 card-letter-title">Dearest Sengve,</h3>
+
+                        <p class="welcome-quote-text playfair italic mb-0 text-center">
+                            "Across 2,248 kilometers from Chandigarh to Diphu, every beat of my heart celebrates you today. Turning 26 marks another year of your gentle grace, your radiant smile, and the warmth you bring into my life even from afar. No distance can ever dim how truly precious you are to me — wishing you endless happiness, laughter, and all the magic your heart desires."
+                        </p>
+                    </div>
+
                     <div class="welcome-milestones-grid row g-2">
-                        <div class="col-4">
-                            <div class="milestone-pill p-2 rounded-3">
-                                <div class="milestone-icon"><i class="fas fa-cake-candles text-warning"></i></div>
-                                <div class="milestone-val fw-bold">19th Oct</div>
-                                <div class="milestone-sub opacity-70">Blessed Day</div>
+                        <div class="col-6">
+                            <div class="milestone-pill p-2 p-sm-3 rounded-3">
+                                <div class="milestone-icon"><i class="fas fa-cake-candles text-pink"></i></div>
+                                <div class="milestone-val fw-bold">19th October</div>
+                                <div class="milestone-sub">Her Special Day</div>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="milestone-pill p-2 rounded-3 border-gold-glow">
+                        <div class="col-6">
+                            <div class="milestone-pill p-2 p-sm-3 rounded-3 border-gold-glow">
                                 <div class="milestone-icon"><i class="fas fa-crown text-gold"></i></div>
-                                <div class="milestone-val fw-bold text-gold">Turning 26</div>
-                                <div class="milestone-sub opacity-70">More Radiant</div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="milestone-pill p-2 rounded-3">
-                                <div class="milestone-icon"><i class="fas fa-heart text-danger beat-animation"></i></div>
-                                <div class="milestone-val fw-bold text-pink">Forever</div>
-                                <div class="milestone-sub opacity-70">Mine Only</div>
+                                <div class="milestone-val fw-bold">Turning 26</div>
+                                <div class="milestone-sub">Grace & Radiance</div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="mb-3">
-                    <a id="welcome-whatsapp-btn" href="#" target="_blank" class="btn btn-success btn-lg w-100 py-3 rounded-pill fw-bold shadow-lg animate__animated animate__pulse animate__infinite">
-                        <i class="fab fa-whatsapp me-2 fa-lg"></i> Send Birthday Link on WhatsApp 💬
-                    </a>
+                    <div class="welcome-signature mt-3 text-center">
+                        <span class="signature-pill">
+                            <i class="fas fa-heart text-danger me-1"></i> Handcrafted with all my love across 2,248 km for you ❤️
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -241,8 +239,8 @@
                 <i class="fas fa-quote-right text-pink opacity-50 ms-2"></i>
             </div>
 
-            <button id="start-celebration-btn" class="btn btn-primary btn-lg px-3 py-2 rounded-pill fw-bold glow-on-hover w-100">
-                Begin Birthday Celebration! ✨ <i class="fas fa-arrow-right ms-2"></i>
+            <button id="start-celebration-btn" class="btn btn-primary btn-lg px-3 py-2 rounded-pill fw-bold glow-on-hover w-100 disabled" disabled="disabled">
+                Unlock Birthday Celebration at 12:00 AM 🔒
             </button>
         </div>
 
@@ -288,11 +286,9 @@
         <div class="proposal-card text-center shadow-lg d-none gift-showcase-card" id="teddy-card">
             <!-- Top Navigation & Header Bar -->
             <div class="gift-card-top-bar mb-3">
-                <button class="back-btn back-btn-inline" data-target="cake-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
                 <div class="stamp-badge">
                     <i class="fas fa-gift text-warning me-1"></i> Special Delivery for Sengve
                 </div>
-                <div class="top-bar-spacer"></div>
             </div>
 
             <!-- Balanced Symmetrical Grid Body -->
@@ -338,11 +334,9 @@
         <div class="proposal-card text-center shadow-lg d-none gift-showcase-card" id="gift-card">
             <!-- Top Navigation & Header Bar -->
             <div class="gift-card-top-bar mb-3">
-                <button class="back-btn back-btn-inline" data-target="teddy-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
                 <div class="stamp-badge">
                     <i class="fas fa-gift text-warning me-1"></i> Special Delivery for Sengve
                 </div>
-                <div class="top-bar-spacer"></div>
             </div>
 
             <!-- Balanced Symmetrical Grid Body -->
@@ -395,8 +389,6 @@
 
         <!-- CARD 3: Chandigarh to Diphu Distance & Realization -->
         <div class="proposal-card text-center shadow-lg d-none" id="map-card">
-            <button class="back-btn" data-target="gift-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
-            
             <h2 class="display-6 fw-bold mb-2 title-gradient">Across 2,248 Kilometers 🗺️</h2>
             <p class="opacity-75 mb-4">Chandigarh to Diphu, Assam</p>
 
@@ -441,8 +433,6 @@
 
         <!-- CARD 4: PHOTO GALLERY / PHONE MEMORIES -->
         <div class="proposal-card text-center shadow-lg d-none" id="memories-card">
-            <button class="back-btn" data-target="map-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
-            
             <div class="stamp-badge mb-2">
                 <i class="fas fa-mobile-screen-button me-1 text-info"></i> Sengve's Phone Gallery
             </div>
@@ -533,8 +523,6 @@
 
         <!-- CARD 6: "Open When..." Secret Letters -->
         <div class="proposal-card text-center shadow-lg d-none" id="letters-card">
-            <button class="back-btn" data-target="memories-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
-            
             <h2 class="display-6 fw-bold mb-2 title-gradient">Letters Just For Sengve 💌</h2>
             <p class="opacity-75 mb-3">Tap any envelope to read what I've been waiting to tell you</p>
 
@@ -588,8 +576,6 @@
 
         <!-- CARD 7: Girlfriend Privileges & Vouchers (Direct DB Insert) -->
         <div class="proposal-card text-center shadow-lg d-none" id="vouchers-card">
-            <button class="back-btn" data-target="letters-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
-            
             <h2 class="display-6 fw-bold mb-2 title-gradient">Sengve's Privileges 🎟️</h2>
             <p class="opacity-75 mb-4">Tap to claim any voucher — each one is recorded directly into our database!</p>
 
@@ -601,6 +587,15 @@
                         <small class="opacity-60">Any food, snack, or dessert you crave, ordered straight to your door!</small>
                     </div>
                     <button class="btn btn-sm btn-outline-pink claim-btn" data-voucher="Midnight Food Delivery in Diphu">Claim</button>
+                </div>
+
+                <!-- Voucher: Online Shopping Spree -->
+                <div class="voucher-card p-2 rounded-3 mb-2 d-flex justify-content-between align-items-center">
+                    <div class="text-start">
+                        <div class="fw-bold"><i class="fas fa-bag-shopping text-warning me-2"></i> Online Shopping Spree</div>
+                        <small class="opacity-60">Dresses, cosmetics, shoes, or wishlist items — fill your cart, 100% paid by me!</small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-pink claim-btn" data-voucher="Online Shopping Spree">Claim</button>
                 </div>
 
                 <!-- Voucher 2: Unlimited Video Calls -->
@@ -674,8 +669,6 @@
 
         <!-- CARD 8: THE OFFICIAL PROPOSAL (Will you be my girlfriend, Sengve?) -->
         <div class="proposal-card text-center shadow-lg d-none" id="question-card">
-            <button class="back-btn" data-target="vouchers-card"><i class="fas fa-chevron-left me-1"></i> Back</button>
-            
             <div class="icon-container mb-3">
                 <i class="fas fa-heart floating-heart text-danger" id="main-icon"></i>
             </div>
