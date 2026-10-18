@@ -1055,8 +1055,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 notif.onclick = function() {
                     window.focus();
-                    const modal = document.getElementById('midnight-alarm-modal');
-                    if (modal) modal.classList.remove('d-none');
                     this.close();
                 };
             } catch (e) {
@@ -1064,14 +1062,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 6. Open On-Screen Midnight Celebration Alert Modal
-        const midnightModal = document.getElementById('midnight-alarm-modal');
-        if (midnightModal) {
-            midnightModal.classList.remove('d-none');
-            midnightModal.classList.add('animate__animated', 'animate__fadeIn');
-        }
-
-        // 7. Confetti
+        // 6. Confetti
         if (typeof triggerMiniConfetti === 'function') {
             triggerMiniConfetti();
         }
@@ -1136,25 +1127,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Dismiss / Open Celebration Modal Button
-    const dismissAlarmBtn = document.getElementById('dismiss-alarm-btn');
-    const midnightModal = document.getElementById('midnight-alarm-modal');
-    if (dismissAlarmBtn) {
-        const handleDismissAlarm = (e) => {
-            if (e && e.type === 'touchstart') e.preventDefault();
-            alarmDismissed = true;
-            if (midnightModal) midnightModal.classList.add('d-none');
-            if ('vibrate' in navigator) {
-                try { navigator.vibrate(0); } catch (e) {}
-            }
-            switchCards('countdown-card', 'cake-card');
-            if (!isPlaying) {
-                try { startRomanticMusic(); } catch (err) {}
-            }
-        };
-        dismissAlarmBtn.addEventListener('click', handleDismissAlarm);
-        dismissAlarmBtn.addEventListener('touchstart', handleDismissAlarm, { passive: false });
-    }
 
     // Admin Modal "Ring & Vibrate Now" Test Button
     const adminTestAlarmBtn = document.getElementById('admin-test-alarm-btn');

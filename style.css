@@ -1628,41 +1628,6 @@ div.proposal-card.d-none,
     overflow-y: auto;
 }
 
-/* Midnight Alert Alarm Modal */
-.midnight-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 6000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-}
-
-.midnight-modal-content {
-    background: rgba(18, 14, 28, 0.96);
-    border: 2px solid rgba(255, 215, 0, 0.6);
-    box-shadow: 0 0 50px rgba(255, 215, 0, 0.35), 0 20px 60px rgba(0, 0, 0, 0.9);
-    width: 100%;
-    max-width: 480px;
-    border-radius: 28px;
-}
-
-.alarm-bell-icon {
-    display: inline-block;
-    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
-}
-
-.alert-phone-msg-box {
-    background: rgba(255, 42, 133, 0.12);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-}
 
 .admin-log-box {
     max-height: 140px;
