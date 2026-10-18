@@ -79,6 +79,7 @@ div.proposal-card.d-none,
 #letters-card.d-none,
 #vouchers-card.d-none,
 #question-card.d-none,
+#final-card.d-none,
 #celebration-card.d-none {
     display: none !important;
 }
@@ -2162,7 +2163,7 @@ div.proposal-card.d-none,
     .proposal-card .small,
     .proposal-card p.small,
     small, .opacity-75, .opacity-70, .opacity-60, .opacity-50 {
-        font-size: 11px !important;
+        font-size: 12px !important;
         line-height: 1.45 !important;
     }
     .stamp-badge, .bouquet-ribbon-tag {
@@ -3047,8 +3048,25 @@ div.proposal-card.d-none,
 #letters-card.d-none,
 #vouchers-card.d-none,
 #question-card.d-none,
+#final-card.d-none,
 #celebration-card.d-none {
     display: none !important;
+}
+
+/* Explicit celebration display guarantee */
+#final-card:not(.d-none) {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#final-card h1 {
+    font-size: 1.85rem !important;
+    font-weight: 800 !important;
+    line-height: 1.25 !important;
 }
 
 

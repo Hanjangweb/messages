@@ -1995,9 +1995,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     if (yesBtn) {
         yesBtn.addEventListener('click', async () => {
-            questionCard.classList.add('d-none');
-            finalCard.classList.remove('d-none');
-            finalCard.classList.add('animate__animated', 'animate__zoomIn');
+            if (noBtn) {
+                noBtn.style.display = 'none';
+            }
+
+            // Cleanly transition to the final celebration card
+            switchCards('question-card', 'final-card');
+
+            if (finalCard) {
+                finalCard.classList.remove('d-none');
+                finalCard.style.display = 'flex';
+                finalCard.style.visibility = 'visible';
+                finalCard.style.opacity = '1';
+                finalCard.classList.add('animate__animated', 'animate__zoomIn');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'instant' });
 
             playSfx('fanfare');
             triggerGrandConfetti();
