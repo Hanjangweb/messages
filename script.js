@@ -25,6 +25,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentRole = null;
     let adminPassStored = 'admin777';
+    let alarmDismissed = false;
+    let welcomeCelebrationTriggered = false;
+    let lastCountdownBeepSec = -1;
+    let finalCountdownSpoken = {};
+    let envelopeAlreadyOpened = false;
+    let cake3DInitialized = false;
+    let cakeScene, cakeCamera, cakeRenderer, cakeGroup;
+    let cake3DCandles = [];
+    let autoRotateCake = true;
+    let isDraggingCake = false;
+    let dragPreviousX = 0;
+    let autoRotateResumeTimeout = null;
+
+    // Safe check for static environments (e.g. GitHub Pages, Live Server, file:// protocol)
+    const isStaticDev = (
+        window.location.protocol === 'file:' || 
+        window.location.port === '5500' || 
+        window.location.port === '5501' ||
+        window.location.hostname.includes('github.io') ||
+        window.location.hostname.includes('vercel.app') ||
+        window.location.hostname.includes('netlify.app')
+    );
 
     // ==========================================
     // 1. Synthesized Audio Engine & SFX (Global)
@@ -159,8 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. API Helper Functions (Direct MongoDB Sync)
     // ==========================================
     async function apiRequest(endpoint, method = 'GET', body = null, headers = {}) {
-        // Safe check for static dev environments (e.g. Live Server port 5500, file:// protocol)
-        const isStaticDev = (window.location.protocol === 'file:' || window.location.port === '5500' || window.location.port === '5501');
         if (isStaticDev) {
             return { success: true, localMock: true, role: 'sengve' };
         }
@@ -795,14 +815,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
 
     // ==========================================
-    // ==========================================
     // 6. Envelope Opening Logic
     // ==========================================
     const envelopeWrapper = document.getElementById('envelope-wrapper');
     const envelopeHint = document.querySelector('.envelope-hint');
     const heartSeal = document.querySelector('.heart');
 
-    let envelopeAlreadyOpened = false;
+    envelopeAlreadyOpened = false;
 
     function openEnvelopeAndProceed(e) {
         if (e && e.type === 'touchstart') e.preventDefault();
@@ -875,9 +894,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const cdDistanceQuote = document.getElementById('cd-distance-quote');
     const startCelebrationBtn = document.getElementById('start-celebration-btn');
 
-    let welcomeCelebrationTriggered = false;
-    let lastCountdownBeepSec = -1;
-    let finalCountdownSpoken = {};
+    welcomeCelebrationTriggered = false;
+    lastCountdownBeepSec = -1;
+    finalCountdownSpoken = {};
 
     function updateCountdown() {
         const now = new Date();
@@ -919,7 +938,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Auto-trigger midnight alert with beep alarm, voice & WhatsApp dispatch
                 triggerMidnightAlarm(false);
 
-                if (!isPreviewWelcome) {
+                if (!isPreviewWelcome && !isStaticDev) {
                     fetch('/api/countdown/notify', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' }
@@ -974,15 +993,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
     // ==========================================
     // 7.5 Midnight Phone Alarm, Vibrate & Push Notification (100% Free)
     // Rings phone, vibrates, sends notification, and triggers celebration popup
     // ==========================================
-    let alarmDismissed = false;
-
     function triggerMidnightAlarm(isTest = false) {
         if (!isTest && alarmDismissed) return;
         console.log("⏰ MIDNIGHT ALARM FIRED! Mode:", isTest ? "Admin Test" : "12:00 AM Countdown Reached");
@@ -1063,6 +1077,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     window.triggerMidnightAlarm = triggerMidnightAlarm;
+
+    // Start Live Countdown update loop now that triggerMidnightAlarm is initialized
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
 
     // Enable Alarm Button & Badge in Countdown Card
     const enableAlarmBtn = document.getElementById('enable-alarm-btn');
@@ -1207,13 +1225,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Natural cream frosting, scalloped pearl piping, fresh strawberries,
     // pastel cream-yellow roses, fern foliage, and "Sengve Rongpharpi • 26th Birthday"
     // ==========================================
-    let cake3DInitialized = false;
-    let cakeScene, cakeCamera, cakeRenderer, cakeGroup;
-    let cake3DCandles = [];
-    let autoRotateCake = true;
-    let isDraggingCake = false;
-    let dragPreviousX = 0;
-    let autoRotateResumeTimeout = null;
+    cake3DInitialized = false;
+    cake3DCandles = [];
+    autoRotateCake = true;
+    isDraggingCake = false;
+    dragPreviousX = 0;
+    autoRotateResumeTimeout = null;
 
     function resizeCake3D() {
         const container = document.getElementById('cake-3d-canvas-container');
