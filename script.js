@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupFreeWhatsAppLink() {
         const phone = "917357969038";
         const currentUrl = window.location.href.split('?')[0];
-        const messageText = `happy birthday Amitson , chandigarh please open the link ${currentUrl}`;
+        const messageText = `Wishing you a very Happy 26th Birthday, Sengve! 🎂✨ Handcrafted with love from Amitson in Chandigarh — please open your special link: ${currentUrl}`;
         const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(messageText)}`;
 
         const welcomeWaBtn = document.getElementById('welcome-whatsapp-btn');
@@ -843,8 +843,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // 4. In-Browser / OS Push Notification
         if ('Notification' in window && Notification.permission === 'granted') {
             try {
-                const notif = new Notification('🎂 Happy Birthday Sengve! 🎉', {
-                    body: 'happy birthday Amitson , chandigarh please open the link',
+                const notif = new Notification('🎂 Happy 26th Birthday, Sengve! 🎉', {
+                    body: 'Wishing you a very Happy 26th Birthday, Sengve! 🎂✨ From Amitson in Chandigarh — please open your special link 💖',
                     icon: 'assets/photos/pic2.jpg',
                     badge: 'assets/photos/pic2.jpg',
                     tag: 'midnight-alarm-' + Date.now(),
@@ -2037,9 +2037,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     const lettersData = {
         birthday: {
-            tag: "Birthday Letter for Sengve 🎂✨",
-            title: "Happy Birthday to You, Sengve! 🎉❤️",
-            body: `Hey, birthday girl! ❤️🎂🥳<br><br>First of all, <strong>Happy Birthday to you, Sengve!</strong> 🎉✨<br><br>You know, it's been more than a year since we became friends, and even though work, life, and 2,248 km have kept us from catching up in person yet, I’m truly so glad and grateful that we connected. ❤️ Sometimes, people come into our lives without any special reason, but somehow, they become a part of our daily lives and make everything a little more special.<br><br>On your birthday, I just want to wish you lots of happiness, success, good health, and all the beautiful things you deserve. May you always have reasons to smile, people who genuinely care about you, and the courage to achieve everything you dream of. ✨<br><br>And yes, whenever the timing is right and I get the chance to come back to my hometown, it'll be so great to finally hang out, share good food, and laugh about how we managed to stay such wonderful friends for so long before meeting in person! 😂❤️<br><br>Until then, please keep smiling, keep being yourself, and keep that beautiful energy alive. Enjoy your special day to the fullest, Sengve! Sending you lots of happiness and warm wishes from Chandigarh. May this new chapter of your life be even more beautiful than the last one. 🌸🎂✨`
+            tag: "26th Birthday Letter for Sengve 🎂✨",
+            title: "Happy 26th Birthday to You, Sengve! 🎉❤️",
+            body: `Hey, my 26th birthday queen! ❤️🎂🥳<br><br>First and foremost, <strong>wishing you the happiest 26th birthday in the whole world, Sengve!</strong> 🎉✨<br><br>You know, it's been more than a year since we connected, and even though work, life, and 2,248 km between Chandigarh and Diphu have kept us from catching up in person yet, my heart is overflowing with gratitude that you are in my life. ❤️ Sometimes people come into our lives without warning, but you became my favorite part of every day and made everything around me so much brighter.<br><br>Turning 26 is such a beautiful milestone. On this special day, I wish you endless laughter, glowing health, immense peace, and all the grand success you so richly deserve. May every dream in your heart find its way into reality, and may you always feel cherished, protected, and celebrated like royalty. ✨<br><br>And yes — whenever the timing is right and I return to my hometown, I cannot wait to finally see your radiant smile in person, share the most delicious food, and laugh about how our bond grew so strong across thousands of kilometers! 😂❤️<br><br>Until that moment comes, please keep shining with that enchanting grace, keep that gentle kindness in your eyes, and enjoy every single second of your 26th birthday to the absolute fullest. Sending all my love, warmest hugs, and deepest prayers straight from Chandigarh to Diphu, Assam.<br><br>Happy 26th Birthday, my beautiful Sengve! 🌸🎂💖`
         },
         confession: {
             tag: "From the Deepest Corner of My Heart 💖",

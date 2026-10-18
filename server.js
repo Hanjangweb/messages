@@ -257,7 +257,7 @@ let countdownAlertSent = false;
 async function sendPhoneAlert(customPhone = null, customMessage = null) {
     const phone = (customPhone || process.env.ALERT_PHONE_NUMBER || '').trim();
     const appUrl = (process.env.APP_PUBLIC_URL || `http://localhost:${PORT}`).trim();
-    const baseMessage = customMessage || process.env.ALERT_MESSAGE || 'happy birthday Amitson , chandigarh please open the link';
+    const baseMessage = customMessage || process.env.ALERT_MESSAGE || 'Wishing you a very Happy 26th Birthday, Sengve! 🎂✨ Handcrafted with love from Amitson in Chandigarh — please open your special link:';
     const message = baseMessage.includes('http') ? baseMessage : `${baseMessage} ${appUrl}`;
     const provider = (process.env.SMS_PROVIDER || 'twilio').toLowerCase().trim();
 
