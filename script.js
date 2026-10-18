@@ -300,6 +300,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
+            // Automated WhatsApp Bot Status & QR Display
+            const adminWaStatus = document.getElementById('admin-wa-status');
+            const adminWaQrContainer = document.getElementById('admin-wa-qr-container');
+            const adminWaQrImg = document.getElementById('admin-wa-qr-img');
+
+            if (adminWaStatus && res.whatsappStatus) {
+                if (res.whatsappStatus.connected) {
+                    adminWaStatus.innerHTML = `<span class="text-success"><i class="fas fa-circle-check"></i> Linked as ${res.whatsappStatus.user || 'Active Account'} (Ready to dispatch!)</span>`;
+                    if (adminWaQrContainer) adminWaQrContainer.classList.add('d-none');
+                } else if (res.whatsappStatus.qr) {
+                    adminWaStatus.innerHTML = '<span class="text-warning"><i class="fas fa-qrcode"></i> Scan QR below with your phone to link WhatsApp</span>';
+                    if (adminWaQrContainer && adminWaQrImg) {
+                        adminWaQrImg.src = res.whatsappStatus.qr;
+                        adminWaQrContainer.classList.remove('d-none');
+                    }
+                } else {
+                    adminWaStatus.innerHTML = '<span class="text-info"><i class="fas fa-spinner fa-spin"></i> Initializing WhatsApp QR...</span>';
+                    if (adminWaQrContainer) adminWaQrContainer.classList.add('d-none');
+                }
+            }
+
             // Render Vouchers
             if (res.vouchers && res.vouchers.length > 0) {
                 adminVouchersList.innerHTML = res.vouchers.map(v => `
@@ -376,6 +397,48 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 alert(`Notice: ${res.message || res.error || 'Check .env SMS configuration'}`);
             }
+        });
+    }
+
+    // Automated WhatsApp Direct Test Button
+    const adminTestWaSendBtn = document.getElementById('admin-test-wa-send-btn');
+    if (adminTestWaSendBtn) {
+        adminTestWaSendBtn.addEventListener('click', async () => {
+            adminTestWaSendBtn.disabled = true;
+            adminTestWaSendBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Sending...';
+
+            const res = await apiRequest('/api/admin/send-test-alert', 'POST', {
+                pass: adminPassStored
+            }, {
+                'x-admin-pass': adminPassStored
+            });
+
+            adminTestWaSendBtn.disabled = false;
+            adminTestWaSendBtn.innerHTML = '<i class="fab fa-whatsapp me-1"></i> Send Test WhatsApp';
+
+            if (res.success) {
+                showToast(`✅ WhatsApp message sent automatically to ${res.phone || '7357969038'}! 📱✨`);
+                loadAdminData();
+            } else if (res.needScan) {
+                showToast("⚠️ Scan the WhatsApp QR code below to connect your WhatsApp first!");
+                loadAdminData();
+            } else {
+                alert(`Notice: ${res.message || res.error || 'Check WhatsApp connection'}`);
+            }
+        });
+    }
+
+    // Reconnect / Generate Fresh WhatsApp QR Code
+    const adminWaReconnectBtn = document.getElementById('admin-wa-reconnect-btn');
+    if (adminWaReconnectBtn) {
+        adminWaReconnectBtn.addEventListener('click', async () => {
+            adminWaReconnectBtn.disabled = true;
+            showToast("Generating fresh WhatsApp QR code...");
+            await apiRequest('/api/admin/whatsapp/reconnect', 'POST', { pass: adminPassStored }, { 'x-admin-pass': adminPassStored });
+            setTimeout(() => {
+                adminWaReconnectBtn.disabled = false;
+                loadAdminData();
+            }, 3000);
         });
     }
 
@@ -771,6 +834,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Trigger 100% Free Midnight Phone Alarm, Vibrate & Push Notification
                 triggerMidnightAlarm(false);
+
+                // Trigger Automated WhatsApp Dispatch on Server (100% Free)
+                if (!isPreviewWelcome) {
+                    fetch('/api/countdown/notify', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' }
+                    }).then(r => r.json()).then(res => {
+                        console.log("Automated WhatsApp dispatch result:", res);
+                    }).catch(err => console.warn("Countdown notify error:", err));
+                }
             }
             return;
         }

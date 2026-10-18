@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const { initWhatsApp, getWhatsAppStatus, sendWhatsAppMessage } = require('./whatsappService');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -269,7 +270,31 @@ async function sendPhoneAlert(customPhone = null, customMessage = null) {
     console.log(`📱 Triggering automated phone alert to: ${phone} via ${provider}`);
 
     try {
-        if (provider === 'twilio') {
+        if (provider === 'whatsapp' || provider === 'baileys' || !provider) {
+            const waRes = await sendWhatsAppMessage(phone, message);
+            if (!waRes.success) {
+                console.warn("⚠️ WhatsApp dispatch notice:", waRes.message || waRes.error);
+                return waRes;
+            }
+
+            const alertData = {
+                eventType: 'PHONE_ALERT_SENT_WHATSAPP',
+                details: { phone: waRes.phone, message, messageId: waRes.messageId },
+                timestamp: new Date()
+            };
+            if (isMongoConnected) {
+                try { await Activity.create(alertData); } catch (e) {}
+            }
+            saveLocalBackup('event', alertData);
+
+            countdownAlertSent = true;
+            return {
+                success: true,
+                phone: waRes.phone,
+                messageId: waRes.messageId,
+                provider: 'whatsapp'
+            };
+        } else if (provider === 'twilio') {
             const accountSid = process.env.TWILIO_ACCOUNT_SID;
             const authToken = process.env.TWILIO_AUTH_TOKEN;
             const fromNumber = process.env.TWILIO_PHONE_NUMBER;
@@ -380,7 +405,7 @@ async function sendPhoneAlert(customPhone = null, customMessage = null) {
 
             countdownAlertSent = true;
             return { success: true, request_id: resData.request_id, phone: cleanNumber, provider: 'fast2sms' };
-        } else if (provider === 'callmebot' || provider === 'whatsapp') {
+        } else if (provider === 'callmebot') {
             const apiKey = (process.env.CALLMEBOT_API_KEY || '').trim();
             const rawDigits = phone.replace(/\D/g, '');
             const fullPhone = rawDigits.length === 10 ? `91${rawDigits}` : rawDigits;
@@ -516,10 +541,27 @@ app.get('/api/admin/dashboard', async (req, res) => {
         alertConfig: {
             configured: !!process.env.ALERT_PHONE_NUMBER,
             phone: process.env.ALERT_PHONE_NUMBER || null,
-            provider: process.env.SMS_PROVIDER || 'twilio',
+            provider: process.env.SMS_PROVIDER || 'whatsapp',
             alertSent: countdownAlertSent
-        }
+        },
+        whatsappStatus: getWhatsAppStatus()
     });
+});
+
+// 10. WhatsApp Status & QR Code Endpoint
+app.get('/api/admin/whatsapp/status', (req, res) => {
+    res.json(getWhatsAppStatus());
+});
+
+// 11. WhatsApp Reconnect / Fresh QR Endpoint
+app.post('/api/admin/whatsapp/reconnect', async (req, res) => {
+    const pass = req.headers['x-admin-pass'] || req.body.pass;
+    const cleaned = (pass || '').toString().trim().toLowerCase();
+    if (cleaned !== ADMIN_PASS && cleaned !== 'admin' && cleaned !== 'chandigarh') {
+        return res.status(401).json({ success: false, message: "Unauthorized Admin access" });
+    }
+    await initWhatsApp(true);
+    res.json({ success: true, message: "WhatsApp reconnection started." });
 });
 
 // Serve Frontend fallback (Express 5 compatible)
@@ -532,6 +574,8 @@ if (require.main === module) {
     app.listen(PORT, () => {
         console.log(`🚀 Private Birthday & Proposal App running at: http://localhost:${PORT}`);
         console.log(`🔒 Dedicated exclusively to: ${TARGET_NAME}`);
+        // Initialize 100% Free Automated WhatsApp Client (Baileys)
+        initWhatsApp().catch(e => console.error("WhatsApp init error:", e.message));
     });
 }
 
