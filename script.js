@@ -216,6 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 envelopeScreen.classList.remove('d-none');
                 envelopeScreen.classList.add('animate__animated', 'animate__fadeIn');
                 window.scrollTo({ top: 0, behavior: 'instant' });
+                // Pre-build 3D cake in background immediately so it's ready ahead of time
+                setTimeout(init3DCake, 100);
             }, 500);
 
             logDbEvent('VIP_GATE_OPENED_BY_SENGVE', { passkeyUsed: passkey });
@@ -286,6 +288,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             adminVoucherCount.innerText = res.totalClaimedVouchers || 0;
 
+            // Phone Alert Status
+            const adminAlertStatus = document.getElementById('admin-alert-status');
+            if (adminAlertStatus && res.alertConfig) {
+                if (res.alertConfig.alertSent) {
+                    adminAlertStatus.innerHTML = '<span class="text-success"><i class="fas fa-circle-check"></i> Alert Dispatched!</span>';
+                } else if (res.alertConfig.configured) {
+                    adminAlertStatus.innerHTML = `<span class="text-gold"><i class="fas fa-bell"></i> Ready (${res.alertConfig.phone})</span>`;
+                } else {
+                    adminAlertStatus.innerHTML = '<span class="text-secondary small">Set ALERT_PHONE_NUMBER in .env</span>';
+                }
+            }
+
             // Render Vouchers
             if (res.vouchers && res.vouchers.length > 0) {
                 adminVouchersList.innerHTML = res.vouchers.map(v => `
@@ -339,6 +353,52 @@ document.addEventListener('DOMContentLoaded', () => {
     if (refreshAdminBtn) {
         refreshAdminBtn.addEventListener('click', loadAdminData);
     }
+
+    // Admin Send Test Alert Button
+    const testPhoneAlertBtn = document.getElementById('test-phone-alert-btn');
+    if (testPhoneAlertBtn) {
+        testPhoneAlertBtn.addEventListener('click', async () => {
+            testPhoneAlertBtn.disabled = true;
+            testPhoneAlertBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Sending...';
+
+            const res = await apiRequest('/api/admin/send-test-alert', 'POST', {
+                pass: adminPassStored
+            }, {
+                'x-admin-pass': adminPassStored
+            });
+
+            testPhoneAlertBtn.disabled = false;
+            testPhoneAlertBtn.innerHTML = '<i class="fas fa-paper-plane me-1"></i> Send Test SMS';
+
+            if (res.success) {
+                showToast(`SMS Alert sent to ${res.phone || 'configured number'}! 📱✨`);
+                loadAdminData();
+            } else {
+                alert(`Notice: ${res.message || res.error || 'Check .env SMS configuration'}`);
+            }
+        });
+    }
+
+    // ==========================================
+    // 3.5 Free WhatsApp 1-Click Direct Link Setup (100% Free)
+    // ==========================================
+    function setupFreeWhatsAppLink() {
+        const phone = "917357969038";
+        const currentUrl = window.location.href.split('?')[0];
+        const messageText = `happy birthday Amitson , chandigarh please open the link ${currentUrl}`;
+        const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(messageText)}`;
+
+        const welcomeWaBtn = document.getElementById('welcome-whatsapp-btn');
+        if (welcomeWaBtn) {
+            welcomeWaBtn.href = waUrl;
+        }
+
+        const adminWaBtn = document.getElementById('admin-whatsapp-btn');
+        if (adminWaBtn) {
+            adminWaBtn.href = waUrl;
+        }
+    }
+    setupFreeWhatsAppLink();
 
     // ==========================================
     // 4. Audio Controller ("Happy Birthday to Sengve" Real Vocal Song Player)
@@ -630,6 +690,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (envelopeWrapper) {
         envelopeWrapper.addEventListener('click', () => {
             envelopeWrapper.classList.add('open');
+            init3DCake();
             
             if (!isPlaying) {
                 startRomanticMusic();
@@ -707,6 +768,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     if (typeof triggerMiniConfetti === 'function') triggerMiniConfetti();
                 }, 700);
+
+                // Trigger 100% Free Midnight Phone Alarm, Vibrate & Push Notification
+                triggerMidnightAlarm(false);
             }
             return;
         }
@@ -734,6 +798,149 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCountdown();
 
     // ==========================================
+    // 7.5 Midnight Phone Alarm, Vibrate & Push Notification (100% Free)
+    // Rings phone, vibrates, sends notification, and triggers celebration popup
+    // ==========================================
+    let alarmDismissed = false;
+
+    function triggerMidnightAlarm(isTest = false) {
+        if (!isTest && alarmDismissed) return;
+        console.log("⏰ MIDNIGHT ALARM FIRED! Mode:", isTest ? "Admin Test" : "12:00 AM Countdown Reached");
+
+        // 1. Audio Alarm Fanfare & Bell Chimes
+        try {
+            let chimeCount = 0;
+            const chimeInterval = setInterval(() => {
+                playSfx('bell');
+                chimeCount++;
+                if (chimeCount >= 6) {
+                    clearInterval(chimeInterval);
+                    playSfx('fanfare');
+                }
+            }, 380);
+        } catch (e) {
+            console.warn("Audio alarm sfx error:", e);
+        }
+
+        // 2. Play vocal Happy Birthday song
+        try {
+            if (!isPlaying) {
+                startRomanticMusic();
+            }
+        } catch (e) {
+            console.warn("Vocal music start error:", e);
+        }
+
+        // 3. Phone Haptic Vibration (Noticeable alert pattern)
+        if ('vibrate' in navigator) {
+            try {
+                navigator.vibrate([800, 250, 800, 250, 800, 250, 1200, 300, 800]);
+            } catch (e) {
+                console.warn("Haptic vibration error:", e);
+            }
+        }
+
+        // 4. In-Browser / OS Push Notification
+        if ('Notification' in window && Notification.permission === 'granted') {
+            try {
+                const notif = new Notification('🎂 Happy Birthday Sengve! 🎉', {
+                    body: 'happy birthday Amitson , chandigarh please open the link',
+                    icon: 'assets/photos/pic2.jpg',
+                    badge: 'assets/photos/pic2.jpg',
+                    tag: 'midnight-alarm-' + Date.now(),
+                    requireInteraction: true
+                });
+                notif.onclick = function() {
+                    window.focus();
+                    const modal = document.getElementById('midnight-alarm-modal');
+                    if (modal) modal.classList.remove('d-none');
+                    this.close();
+                };
+            } catch (e) {
+                console.warn("Notification error:", e);
+            }
+        }
+
+        // 5. Open On-Screen Midnight Celebration Alert Modal
+        const midnightModal = document.getElementById('midnight-alarm-modal');
+        if (midnightModal) {
+            midnightModal.classList.remove('d-none');
+            midnightModal.classList.add('animate__animated', 'animate__fadeIn');
+        }
+
+        // 6. Confetti
+        if (typeof triggerMiniConfetti === 'function') {
+            triggerMiniConfetti();
+        }
+    }
+    window.triggerMidnightAlarm = triggerMidnightAlarm;
+
+    // Enable Alarm Button & Badge in Countdown Card
+    const enableAlarmBtn = document.getElementById('enable-alarm-btn');
+    const alarmEnabledBadge = document.getElementById('alarm-enabled-badge');
+
+    function setAlarmStatusActive() {
+        if (enableAlarmBtn) enableAlarmBtn.classList.add('d-none');
+        if (alarmEnabledBadge) alarmEnabledBadge.classList.remove('d-none');
+        localStorage.setItem('sengve_midnight_alarm_enabled', 'true');
+    }
+
+    if (localStorage.getItem('sengve_midnight_alarm_enabled') === 'true' || 
+        ('Notification' in window && Notification.permission === 'granted')) {
+        setAlarmStatusActive();
+    }
+
+    if (enableAlarmBtn) {
+        enableAlarmBtn.addEventListener('click', () => {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(permission => {
+                    setAlarmStatusActive();
+                    if (permission === 'granted') {
+                        showToast("🔔 Midnight Alarm Active! Phone will ring & notify you at 12:00 AM.");
+                        if ('vibrate' in navigator) {
+                            try { navigator.vibrate(200); } catch (e) {}
+                        }
+                    } else {
+                        showToast("🔔 Midnight Alarm Active! Visual & audio alert enabled on this screen.");
+                    }
+                }).catch(() => {
+                    setAlarmStatusActive();
+                    showToast("🔔 Midnight Alarm Active!");
+                });
+            } else {
+                setAlarmStatusActive();
+                showToast("🔔 Midnight Alarm Active!");
+            }
+        });
+    }
+
+    // Dismiss / Open Celebration Modal Button
+    const dismissAlarmBtn = document.getElementById('dismiss-alarm-btn');
+    const midnightModal = document.getElementById('midnight-alarm-modal');
+    if (dismissAlarmBtn) {
+        dismissAlarmBtn.addEventListener('click', () => {
+            alarmDismissed = true;
+            if (midnightModal) midnightModal.classList.add('d-none');
+            if ('vibrate' in navigator) {
+                try { navigator.vibrate(0); } catch (e) {}
+            }
+            switchCards('countdown-card', 'cake-card');
+            if (!isPlaying) {
+                startRomanticMusic();
+            }
+        });
+    }
+
+    // Admin Modal "Ring & Vibrate Now" Test Button
+    const adminTestAlarmBtn = document.getElementById('admin-test-alarm-btn');
+    if (adminTestAlarmBtn) {
+        adminTestAlarmBtn.addEventListener('click', () => {
+            triggerMidnightAlarm(true);
+            showToast("🔔 Testing Midnight Alarm: Ringing, vibrating & popup alert triggered!");
+        });
+    }
+
+    // ==========================================
     // 8. Card Navigation Flow
     // ==========================================
     function switchCards(currentId, targetId) {
@@ -755,7 +962,9 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'instant' });
 
         if (targetId === 'cake-card') {
-            setTimeout(init3DCake, 60);
+            init3DCake();
+            resizeCake3D();
+            requestAnimationFrame(resizeCake3D);
         }
     }
 
@@ -824,8 +1033,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const width = container.clientWidth || 420;
-        const height = container.clientHeight || 380;
+        const width = container.clientWidth || Math.min(window.innerWidth - 32, 420);
+        const height = container.clientHeight || 260;
 
         // 1. Scene, Camera, Renderer
         cakeScene = new THREE.Scene();
@@ -833,7 +1042,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cakeCamera.position.set(0, 3.6, 9.2);
         cakeCamera.lookAt(0, 1.7, 0);
 
-        cakeRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        cakeRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
         cakeRenderer.setSize(width, height);
         cakeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         cakeRenderer.shadowMap.enabled = true;
@@ -948,21 +1157,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Piped Shell / Bead Border helper
+        const sharedPearlMat = new THREE.MeshStandardMaterial({
+            color: 0xfffcf5,
+            roughness: 0.5,
+            metalness: 0.02
+        });
+
         function addPipedCreamBorder(radius, yPos, count, pearlScale = 1) {
-            const pearlGeo = new THREE.SphereGeometry(0.065 * pearlScale, 14, 14);
+            const pearlGeo = new THREE.SphereGeometry(0.065 * pearlScale, 10, 10);
             pearlGeo.scale(1, 0.85, 1.25);
-            const pearlMat = new THREE.MeshStandardMaterial({
-                color: 0xfffcf5,
-                roughness: 0.5,
-                metalness: 0.02
-            });
 
             for (let i = 0; i < count; i++) {
                 const angle = (i / count) * Math.PI * 2;
-                const pearl = new THREE.Mesh(pearlGeo, pearlMat);
+                const pearl = new THREE.Mesh(pearlGeo, sharedPearlMat);
                 pearl.position.set(Math.cos(angle) * radius, yPos, Math.sin(angle) * radius);
                 pearl.rotation.y = -angle;
-                pearl.castShadow = true;
                 pearl.receiveShadow = true;
                 cakeGroup.add(pearl);
             }
@@ -1593,6 +1802,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         animate();
         cake3DInitialized = true;
+        try { cakeRenderer.render(cakeScene, cakeCamera); } catch (e) {}
     }
 
     function blowSingle3DCandle(idx) {
@@ -2246,5 +2456,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         renderAtmosphere();
+    }
+
+    // Pre-initialize and warm up 3D birthday cake in background so it appears instantly with 0 latency
+    if (window.requestIdleCallback) {
+        window.requestIdleCallback(() => init3DCake(), { timeout: 800 });
+    } else {
+        setTimeout(init3DCake, 200);
     }
 });

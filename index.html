@@ -184,6 +184,16 @@
                 </div>
             </div>
 
+            <!-- Midnight Alarm Active / Enable Pill -->
+            <div class="midnight-alarm-pill mb-3" id="alarm-notification-box">
+                <button type="button" id="enable-alarm-btn" class="btn btn-sm btn-outline-warning rounded-pill px-3 py-1">
+                    <i class="fas fa-bell me-1 animate__animated animate__swing animate__infinite"></i> Turn On Midnight Alarm (Ring & Vibrate at 12:00 AM) 🔔
+                </button>
+                <div id="alarm-enabled-badge" class="badge bg-gold-glass text-warning py-2 px-3 rounded-pill d-none">
+                    <i class="fas fa-bell me-1"></i> Midnight Alarm Active: Phone will ring & vibrate at 12:00 AM 🔔
+                </div>
+            </div>
+
             <!-- Grand 26th Birthday Welcoming Box (Active on Oct 19 & Beyond) -->
             <div id="birthday-welcome-box" class="d-none w-100 mb-4 animate__animated animate__fadeIn">
                 <div class="welcome-quote-card p-3 p-sm-4 rounded-4 bg-glass-dark border border-warning-subtle shadow-xl mb-3">
@@ -216,6 +226,12 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="mb-3">
+                    <a id="welcome-whatsapp-btn" href="#" target="_blank" class="btn btn-success btn-lg w-100 py-3 rounded-pill fw-bold shadow-lg animate__animated animate__pulse animate__infinite">
+                        <i class="fab fa-whatsapp me-2 fa-lg"></i> Send Birthday Link on WhatsApp 💬
+                    </a>
                 </div>
             </div>
 
@@ -721,7 +737,26 @@
 
         </div>
 
-    </main>
+    <!-- ================= 12:00 AM MIDNIGHT ALARM & POPUP ALERT MODAL ================= -->
+    <div id="midnight-alarm-modal" class="midnight-modal-overlay d-none">
+        <div class="midnight-modal-content p-4 rounded-4 bg-dark-glass text-center shadow-2xl border-gold-glow animate__animated animate__zoomIn">
+            <div class="alarm-bell-icon mb-3">
+                <i class="fas fa-bell text-warning fa-3x animate__animated animate__swing animate__infinite"></i>
+            </div>
+            <h2 class="display-6 fw-bold mb-2 title-gradient">IT'S 12:00 AM MIDNIGHT! 🎂🎉</h2>
+            <div class="alert-phone-msg-box p-3 rounded-3 mb-4">
+                <p class="lead fw-bold text-pink mb-1">
+                    "happy birthday Amitson , chandigarh please open the link"
+                </p>
+                <small class="opacity-70 text-gold">
+                    <i class="fas fa-crown me-1"></i> Today is Sengve's 26th Birthday!
+                </small>
+            </div>
+            <button type="button" id="dismiss-alarm-btn" class="btn btn-primary btn-lg w-100 rounded-pill fw-bold glow-on-hover shadow-lg">
+                Open Birthday Celebration! ✨ <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+        </div>
+    </div>
 
     <!-- ================= PHOTO ENLARGE LIGHTBOX MODAL ================= -->
     <div id="photo-modal" class="photo-lightbox-overlay d-none">
@@ -767,6 +802,28 @@
                     <div class="stat-box p-3 rounded-3 bg-glass-dark">
                         <small class="opacity-50">Claimed Vouchers</small>
                         <div class="fw-bold text-warning" id="admin-voucher-count">0</div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="stat-box p-3 rounded-3 bg-glass-dark d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="opacity-50">12:00 AM Birthday WhatsApp Alert</small>
+                            <div class="fw-bold text-success small"><i class="fab fa-whatsapp me-1"></i> 100% Free WhatsApp Ready</div>
+                        </div>
+                        <a id="admin-whatsapp-btn" href="#" target="_blank" class="btn btn-sm btn-success rounded-pill px-3 fw-bold">
+                            <i class="fab fa-whatsapp me-1"></i> Send on WhatsApp (Free)
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="stat-box p-3 rounded-3 bg-glass-dark d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="opacity-50">Midnight Audio Alarm & Vibrate</small>
+                            <div class="fw-bold text-warning small"><i class="fas fa-bell me-1"></i> Phone Alarm & Vibrate Ready</div>
+                        </div>
+                        <button type="button" id="admin-test-alarm-btn" class="btn btn-sm btn-outline-warning rounded-pill px-3 fw-bold">
+                            <i class="fas fa-bell me-1"></i> Ring & Vibrate Now
+                        </button>
                     </div>
                 </div>
             </div>

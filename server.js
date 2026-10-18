@@ -249,7 +249,229 @@ app.post('/api/proposal/respond', async (req, res) => {
     });
 });
 
-// 5. Admin Live Dashboard Data
+// ==========================================
+// 5. Automated Phone Alert Service (Twilio / Fast2SMS)
+// ==========================================
+let countdownAlertSent = false;
+
+async function sendPhoneAlert(customPhone = null, customMessage = null) {
+    const phone = (customPhone || process.env.ALERT_PHONE_NUMBER || '').trim();
+    const appUrl = (process.env.APP_PUBLIC_URL || `http://localhost:${PORT}`).trim();
+    const baseMessage = customMessage || process.env.ALERT_MESSAGE || 'happy birthday Amitson , chandigarh please open the link';
+    const message = baseMessage.includes('http') ? baseMessage : `${baseMessage} ${appUrl}`;
+    const provider = (process.env.SMS_PROVIDER || 'twilio').toLowerCase().trim();
+
+    if (!phone) {
+        console.warn("⚠️ Phone alert notice: ALERT_PHONE_NUMBER is not set in .env");
+        return { success: false, message: "ALERT_PHONE_NUMBER is not configured in .env" };
+    }
+
+    console.log(`📱 Triggering automated phone alert to: ${phone} via ${provider}`);
+
+    try {
+        if (provider === 'twilio') {
+            const accountSid = process.env.TWILIO_ACCOUNT_SID;
+            const authToken = process.env.TWILIO_AUTH_TOKEN;
+            const fromNumber = process.env.TWILIO_PHONE_NUMBER;
+            const isWhatsApp = (process.env.TWILIO_WHATSAPP || 'false').toLowerCase() === 'true';
+
+            if (!accountSid || !authToken || !fromNumber) {
+                console.warn("⚠️ Twilio credentials missing in .env. Mocking SMS dispatch.");
+                const mockResult = {
+                    success: true,
+                    mock: true,
+                    phone,
+                    message,
+                    provider: 'twilio (simulated - add TWILIO_* keys in .env to send real SMS)'
+                };
+                saveLocalBackup('event', {
+                    eventType: 'PHONE_ALERT_SIMULATED',
+                    details: mockResult,
+                    timestamp: new Date()
+                });
+                return mockResult;
+            }
+
+            const formattedTo = isWhatsApp && !phone.startsWith('whatsapp:') ? `whatsapp:${phone}` : phone;
+            const formattedFrom = isWhatsApp && !fromNumber.startsWith('whatsapp:') ? `whatsapp:${fromNumber}` : fromNumber;
+
+            const authHeader = 'Basic ' + Buffer.from(`${accountSid}:${authToken}`).toString('base64');
+            const params = new URLSearchParams();
+            params.append('To', formattedTo);
+            params.append('From', formattedFrom);
+            params.append('Body', message);
+
+            const twilioUrl = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
+            const response = await fetch(twilioUrl, {
+                method: 'POST',
+                headers: {
+                    'Authorization': authHeader,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params.toString()
+            });
+
+            const resData = await response.json();
+            if (!response.ok) {
+                throw new Error(resData.message || `Twilio error status ${response.status}`);
+            }
+
+            const alertData = {
+                eventType: 'PHONE_ALERT_SENT_TWILIO',
+                details: { sid: resData.sid, phone, isWhatsApp, message },
+                timestamp: new Date()
+            };
+            if (isMongoConnected) {
+                try { await Activity.create(alertData); } catch (e) {}
+            }
+            saveLocalBackup('event', alertData);
+
+            countdownAlertSent = true;
+            return { success: true, sid: resData.sid, phone, provider: 'twilio' };
+        } else if (provider === 'fast2sms') {
+            const apiKey = process.env.FAST2SMS_API_KEY;
+            if (!apiKey) {
+                console.warn("⚠️ Fast2SMS API key missing in .env. Mocking SMS dispatch.");
+                const mockResult = {
+                    success: true,
+                    mock: true,
+                    phone,
+                    message,
+                    provider: 'fast2sms (simulated - add FAST2SMS_API_KEY in .env)'
+                };
+                saveLocalBackup('event', {
+                    eventType: 'PHONE_ALERT_SIMULATED',
+                    details: mockResult,
+                    timestamp: new Date()
+                });
+                return mockResult;
+            }
+
+            const cleanNumber = phone.replace(/\D/g, '').slice(-10);
+            const response = await fetch('https://www.fast2sms.com/dev/bulkV2', {
+                method: 'POST',
+                headers: {
+                    'authorization': apiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    route: 'q',
+                    message,
+                    flash: 0,
+                    numbers: cleanNumber
+                })
+            });
+
+            const resData = await response.json();
+            if (!response.ok || resData.return === false || (resData.status_code && resData.status_code !== 200)) {
+                const errMsg = resData.message || (Array.isArray(resData.message) ? resData.message.join(', ') : 'Fast2SMS dispatch failed');
+                throw new Error(errMsg);
+            }
+
+            const alertData = {
+                eventType: 'PHONE_ALERT_SENT_FAST2SMS',
+                details: { phone: cleanNumber, messageId: resData.request_id, message },
+                timestamp: new Date()
+            };
+            if (isMongoConnected) {
+                try { await Activity.create(alertData); } catch (e) {}
+            }
+            saveLocalBackup('event', alertData);
+
+            countdownAlertSent = true;
+            return { success: true, request_id: resData.request_id, phone: cleanNumber, provider: 'fast2sms' };
+        } else if (provider === 'callmebot' || provider === 'whatsapp') {
+            const apiKey = (process.env.CALLMEBOT_API_KEY || '').trim();
+            const rawDigits = phone.replace(/\D/g, '');
+            const fullPhone = rawDigits.length === 10 ? `91${rawDigits}` : rawDigits;
+
+            if (!apiKey) {
+                console.warn("⚠️ CallMeBot API key missing in .env. Mocking automated WhatsApp dispatch.");
+                const mockResult = {
+                    success: true,
+                    mock: true,
+                    phone: fullPhone,
+                    message,
+                    provider: 'callmebot (simulated - add CALLMEBOT_API_KEY in .env to send real WhatsApp message)'
+                };
+                saveLocalBackup('event', {
+                    eventType: 'PHONE_ALERT_SIMULATED',
+                    details: mockResult,
+                    timestamp: new Date()
+                });
+                return mockResult;
+            }
+
+            const cmbUrl = `https://api.callmebot.com/whatsapp.php?phone=${fullPhone}&text=${encodeURIComponent(message)}&apikey=${apiKey}`;
+            const response = await fetch(cmbUrl);
+            const resText = await response.text();
+
+            if (!response.ok || resText.toLowerCase().includes('error')) {
+                throw new Error(resText || 'CallMeBot automated WhatsApp dispatch failed');
+            }
+
+            const alertData = {
+                eventType: 'PHONE_ALERT_SENT_CALLMEBOT',
+                details: { phone: fullPhone, message, status: resText.trim() },
+                timestamp: new Date()
+            };
+            if (isMongoConnected) {
+                try { await Activity.create(alertData); } catch (e) {}
+            }
+            saveLocalBackup('event', alertData);
+
+            countdownAlertSent = true;
+            return { success: true, phone: fullPhone, provider: 'callmebot', status: resText.trim() };
+        }
+    } catch (err) {
+        console.error("❌ Phone alert dispatch error:", err.message);
+        return { success: false, error: err.message };
+    }
+}
+
+// 6. Countdown Finished Phone Alert Endpoint (Client or Auto-Triggered)
+app.post('/api/countdown/notify', async (req, res) => {
+    if (countdownAlertSent) {
+        return res.json({ success: true, message: "Alert already sent previously for countdown completion.", alertSent: true });
+    }
+
+    const result = await sendPhoneAlert();
+    res.json(result);
+});
+
+// 7. Admin Test Alert Endpoint (One-click SMS test)
+app.post('/api/admin/send-test-alert', async (req, res) => {
+    const pass = req.headers['x-admin-pass'] || req.body.pass;
+    const cleaned = (pass || '').toString().trim().toLowerCase();
+
+    if (cleaned !== ADMIN_PASS && cleaned !== 'admin' && cleaned !== 'chandigarh') {
+        return res.status(401).json({ success: false, message: "Unauthorized Admin access" });
+    }
+
+    const { customPhone, customMessage } = req.body;
+    const result = await sendPhoneAlert(customPhone, customMessage);
+    res.json(result);
+});
+
+// 8. Server-Side Automated Midnight Schedule (October 19, 12:00 AM)
+function checkMidnightCountdownAlert() {
+    if (countdownAlertSent) return;
+
+    const now = new Date();
+    // October 19th 00:00:00 midnight
+    const targetDate = new Date(now.getFullYear(), 9, 19, 0, 0, 0);
+
+    if (now >= targetDate && !countdownAlertSent) {
+        console.log("⏰ 12:00 AM OCT 19 MIDNIGHT REACHED! Triggering automated phone alert...");
+        sendPhoneAlert().then(r => {
+            console.log("Midnight alert result:", r);
+        });
+    }
+}
+setInterval(checkMidnightCountdownAlert, 30000);
+setTimeout(checkMidnightCountdownAlert, 5000);
+
+// 9. Admin Live Dashboard Data
 app.get('/api/admin/dashboard', async (req, res) => {
     const pass = req.headers['x-admin-pass'] || req.query.pass;
     const cleaned = (pass || '').toString().trim().toLowerCase();
@@ -290,7 +512,13 @@ app.get('/api/admin/dashboard', async (req, res) => {
         proposalTime: proposal ? proposal.timestamp : null,
         totalClaimedVouchers: vouchers.length,
         vouchers,
-        recentEvents: events
+        recentEvents: events,
+        alertConfig: {
+            configured: !!process.env.ALERT_PHONE_NUMBER,
+            phone: process.env.ALERT_PHONE_NUMBER || null,
+            provider: process.env.SMS_PROVIDER || 'twilio',
+            alertSent: countdownAlertSent
+        }
     });
 });
 
